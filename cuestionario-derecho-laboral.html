@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuestionario — Derecho Laboral</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1E3A5F;
+  --teal: #0D9E75;
+  --teal-light: #E6F7F2;
+  --amber: #D97706;
+  --amber-light: #FEF3C7;
+  --coral: #D85A30;
+  --coral-light: #FDF0EB;
+  --purple: #6D28D9;
+  --purple-light: #EDE9FE;
+  --blue-light: #EFF6FF;
+  --blue-border: #2563EB;
+  --bg: #F4F2EE;
+  --card: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #6B7280;
+  --border: #E2DDD6;
+  --sidebar-w: 260px;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); display: flex; min-height: 100vh; font-size: 15px; line-height: 1.7; }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w); min-height: 100vh; background: var(--navy);
+  position: fixed; top: 0; left: 0; overflow-y: auto;
+  display: flex; flex-direction: column; z-index: 100;
+}
+.sidebar-brand { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.sidebar-brand h1 { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.4; }
+.sidebar-brand p { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+.sidebar nav { padding: 0.75rem 0; flex: 1; }
+.nav-group { margin-bottom: 0.25rem; }
+.nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 0.75rem 1.25rem 0.25rem; }
+.nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 1.25rem; font-size: 13px; color: rgba(255,255,255,0.6);
+  text-decoration: none; transition: all 0.15s; cursor: pointer; border: none; background: none; width: 100%; text-align: left;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-item.active { color: #fff; background: rgba(13,158,117,0.25); border-right: 3px solid var(--teal); }
+.nav-item .num { font-size: 11px; font-weight: 600; color: var(--teal); min-width: 18px; }
+.sidebar-footer { padding: 1rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; color: rgba(255,255,255,0.3); }
+
+/* MAIN */
+.main { margin-left: var(--sidebar-w); flex: 1; max-width: calc(100% - var(--sidebar-w)); }
+.top-bar {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 0.75rem 2.5rem; display: flex; align-items: center; gap: 12px;
+  position: sticky; top: 0; z-index: 50;
+}
+.top-bar .pill { background: var(--teal-light); color: var(--teal); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.03em; }
+.top-bar .crumb { font-size: 13px; color: var(--text-muted); }
+.top-bar .score-pill { margin-left: auto; background: var(--navy); color: #fff; font-size: 12px; font-weight: 600; padding: 4px 14px; border-radius: 20px; }
+
+/* SECTION */
+.section { padding: 3rem 2.5rem; border-bottom: 1px solid var(--border); max-width: 860px; }
+.section-header { margin-bottom: 1.75rem; }
+.section-num { font-size: 11px; font-weight: 600; color: var(--teal); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.section-title { font-size: 26px; font-weight: 600; color: var(--navy); line-height: 1.25; }
+.section-sub { font-size: 14px; color: var(--text-muted); margin-top: 6px; line-height: 1.6; }
+
+/* TYPOGRAPHY */
+h3 { font-size: 17px; font-weight: 600; color: var(--navy); margin: 1.75rem 0 0.6rem; }
+p { margin-bottom: 0.85rem; }
+strong { font-weight: 600; }
+
+/* CALLOUT BOXES */
+.box { border-radius: 10px; padding: 0.9rem 1.1rem; margin: 1.1rem 0; }
+.box .box-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.box p { margin-bottom: 0.3rem; font-size: 14px; }
+.why { background: var(--teal-light); border-left: 4px solid var(--teal); }
+.why .box-label { color: var(--teal); }
+.why p { color: #065F46; }
+.example { background: var(--blue-light); border-left: 4px solid var(--blue-border); }
+.example .box-label { color: var(--blue-border); }
+.example p { color: #1E3A8A; }
+.warning { background: var(--amber-light); border-left: 4px solid var(--amber); }
+.warning .box-label { color: var(--amber); }
+.warning p { color: #92400E; }
+.important { background: var(--purple-light); border-left: 4px solid var(--purple); }
+.important .box-label { color: var(--purple); }
+.important p { color: #4C1D95; }
+
+/* SCROLL TOP */
+.scroll-top {
+  position: fixed; bottom: 1.5rem; right: 1.5rem; width: 40px; height: 40px;
+  background: var(--navy); color: #fff; border: none; border-radius: 50%;
+  font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s; z-index: 200;
+}
+.scroll-top.visible { opacity: 1; }
+
+/* MENU BTN MOBILE */
+.menu-btn { display: none; }
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { transform: translateX(-260px); transition: transform 0.3s; width: 260px; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; max-width: 100%; }
+  .menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 8px; background: none; cursor: pointer; font-size: 18px; }
+  .section { padding: 2rem 1.25rem; }
+  .top-bar { padding: 0.75rem 1.25rem; }
+}
+
+/* ===================== QUIZ STYLES ===================== */
+.quiz-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 14px;
+  padding: 1.4rem 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: box-shadow 0.2s;
+}
+.quiz-card:hover { box-shadow: 0 2px 12px rgba(30,58,95,0.07); }
+
+.quiz-tag {
+  display: inline-block;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 3px 9px; border-radius: 20px; margin-bottom: 10px;
+}
+.tag-caso { background: var(--blue-light); color: var(--blue-border); }
+.tag-pregunta { background: var(--teal-light); color: var(--teal); }
+.tag-justifica { background: var(--purple-light); color: var(--purple); }
+
+.quiz-caso {
+  font-size: 13.5px; color: #374151;
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-left: 3px solid var(--blue-border);
+  line-height: 1.65;
+}
+.quiz-caso strong { color: var(--navy); }
+
+.quiz-pregunta {
+  font-size: 15px; font-weight: 600; color: var(--navy);
+  margin-bottom: 1rem;
+}
+
+.quiz-options { display: flex; flex-direction: column; gap: 8px; margin-bottom: 0.75rem; }
+
+.quiz-option {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text);
+  transition: all 0.15s;
+  text-align: left;
+  width: 100%;
+}
+.quiz-option:hover:not(:disabled) {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  color: #065F46;
+}
+.quiz-option .opt-letter {
+  min-width: 24px; height: 24px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  font-size: 11px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  flex-shrink: 0;
+  margin-top: 1px;
+  transition: all 0.15s;
+}
+.quiz-option:hover:not(:disabled) .opt-letter {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+
+/* States */
+.quiz-option.selected {
+  border-color: var(--navy);
+  background: var(--blue-light);
+}
+.quiz-option.selected .opt-letter {
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+.quiz-option.correct {
+  border-color: var(--teal);
+  background: var(--teal-light);
+  color: #065F46;
+}
+.quiz-option.correct .opt-letter {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: #fff;
+}
+.quiz-option.wrong {
+  border-color: var(--coral);
+  background: var(--coral-light);
+  color: #7C2D12;
+}
+.quiz-option.wrong .opt-letter {
+  background: var(--coral);
+  border-color: var(--coral);
+  color: #fff;
+}
+.quiz-option:disabled { cursor: default; }
+
+/* Feedback */
+.quiz-feedback {
+  display: none;
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  font-size: 13.5px;
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+.quiz-feedback.show { display: block; animation: fadeIn 0.2s ease; }
+.quiz-feedback.fb-correct { background: var(--teal-light); border-left: 4px solid var(--teal); color: #065F46; }
+.quiz-feedback.fb-wrong { background: var(--coral-light); border-left: 4px solid var(--coral); color: #7C2D12; }
+.quiz-feedback .fb-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; }
+
+/* Phase 2: justification */
+.quiz-justif-block {
+  display: none;
+  margin-top: 1rem;
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+}
+.quiz-justif-block.show { display: block; animation: fadeIn 0.2s ease; }
+.quiz-justif-pregunta {
+  font-size: 14px; font-weight: 600; color: var(--purple);
+  margin-bottom: 0.75rem;
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+/* Progress bar */
+.progress-wrap { margin-bottom: 2rem; }
+.progress-label { font-size: 12px; color: var(--text-muted); margin-bottom: 6px; display: flex; justify-content: space-between; }
+.progress-bar-bg { height: 6px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-bar-fill { height: 100%; background: var(--teal); border-radius: 4px; transition: width 0.4s ease; }
+
+/* Results panel */
+.results-panel {
+  background: var(--navy);
+  border-radius: 14px;
+  padding: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  display: none;
+}
+.results-panel.show { display: block; animation: fadeIn 0.3s ease; }
+.results-big { font-size: 52px; font-weight: 700; color: #fff; line-height: 1; }
+.results-label { font-size: 14px; color: rgba(255,255,255,0.6); margin-top: 6px; }
+.results-sub { font-size: 13px; color: rgba(255,255,255,0.45); margin-top: 4px; }
+.results-btn {
+  margin-top: 1.5rem;
+  background: var(--teal); color: #fff;
+  border: none; border-radius: 10px;
+  padding: 0.7rem 2rem; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: opacity 0.15s;
+}
+.results-btn:hover { opacity: 0.87; }
+
+/* Reshuffle button */
+.reshuffle-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-bottom: 1.5rem;
+  background: none; border: 1.5px solid var(--border);
+  border-radius: 10px; padding: 0.5rem 1rem;
+  font-size: 13px; color: var(--text-muted);
+  cursor: pointer; transition: all 0.15s;
+}
+.reshuffle-btn:hover { border-color: var(--navy); color: var(--navy); }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>Cuestionario Derecho Laboral</h1>
+    <p>Práctica · ET Nº17 Cornelio Saavedra</p>
+  </div>
+  <nav>
+    <div class="nav-group">
+      <div class="nav-label">Fundamentos</div>
+      <a class="nav-item active" onclick="scrollToSection('s1')"><span class="num">01</span> Principios</a>
+      <a class="nav-item" onclick="scrollToSection('s2')"><span class="num">02</span> Marco Normativo</a>
+      <a class="nav-item" onclick="scrollToSection('s3')"><span class="num">03</span> Sujetos</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Colectivo</div>
+      <a class="nav-item" onclick="scrollToSection('s4')"><span class="num">04</span> Organizaciones</a>
+      <a class="nav-item" onclick="scrollToSection('s5')"><span class="num">05</span> Delegados</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Contrato y Relación</div>
+      <a class="nav-item" onclick="scrollToSection('s6')"><span class="num">06</span> Modalidades</a>
+      <a class="nav-item" onclick="scrollToSection('s7')"><span class="num">07</span> Derechos Trab.</a>
+      <a class="nav-item" onclick="scrollToSection('s8')"><span class="num">08</span> Deberes Trab.</a>
+      <a class="nav-item" onclick="scrollToSection('s9')"><span class="num">09</span> Derechos Empl.</a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">Apuntes de clase</div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="top-bar">
+    <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+    <span class="pill">Derecho Laboral</span>
+    <span class="crumb">Cuestionario interactivo</span>
+    <span class="score-pill" id="globalScore">✓ 0 / 0</span>
+  </div>
+
+  <!-- S1 -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">01 — Fundamentos</div>
+      <h2 class="section-title">Principios del Derecho del Trabajo</h2>
+      <p class="section-sub">Casos prácticos sobre los principios que orientan la interpretación laboral.</p>
+    </div>
+
+    <div class="box why">
+      <div class="box-label">Recordá</div>
+      <p><strong>Hiposuficiencia:</strong> el empleador siempre parte desde una posición de mayor poder. Los principios compensan esa desigualdad. El principio <strong>Protectorio</strong> tiene tres dimensiones: <em>in dubio pro operario</em> (duda a favor del trabajador), <em>norma más favorable</em>, y <em>condición más favorable</em>. El principio de <strong>Irrenunciabilidad</strong> impide que el trabajador ceda sus derechos aunque quiera hacerlo. El de <strong>Primacía de la realidad</strong> prioriza los hechos sobre el papel.</p>
+    </div>
+
+    <div id="section-1-quiz"></div>
+  </section>
+
+  <!-- S2 -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">02 — Fundamentos</div>
+      <h2 class="section-title">Marco Normativo</h2>
+      <p class="section-sub">Jerarquía de normas y la LCT 20.744.</p>
+    </div>
+
+    <div class="box warning">
+      <div class="box-label">LCT 20.744 — Exclusiones</div>
+      <p>La LCT <strong>no</strong> se aplica a trabajadores <strong>estatales</strong>, <strong>agrarios</strong> ni al <strong>servicio doméstico</strong>. En la pirámide normativa siempre gana la norma de mayor jerarquía. Si una cláusula contractual contradice un convenio colectivo, prevalece el convenio.</p>
+    </div>
+
+    <div id="section-2-quiz"></div>
+  </section>
+
+  <!-- S3 -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">03 — Fundamentos</div>
+      <h2 class="section-title">Sujetos de la Relación Laboral</h2>
+      <p class="section-sub">Trabajador (Art. 25), Empleador (Art. 26) y Socio Empleado (Art. 27).</p>
+    </div>
+
+    <div id="section-3-quiz"></div>
+  </section>
+
+  <!-- S4 -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">04 — Derecho Colectivo</div>
+      <h2 class="section-title">Organizaciones y Niveles</h2>
+      <p class="section-sub">Sindicatos, cámaras, federaciones, CGT y UIA.</p>
+    </div>
+
+    <div class="box important">
+      <div class="box-label">Recordá</div>
+      <p>1° nivel: Sindicato / Cámara Empresarial. 2° nivel: Federación Sindical / Empresarial. 3° nivel: CGT / UIA. La CGT y la UIA negocian el <strong>SMVM</strong>. Los sindicatos obtienen <strong>Personería Gremial</strong> del Ministerio de Trabajo; las cámaras obtienen <strong>Personería Jurídica</strong> de la IGJ.</p>
+    </div>
+
+    <div id="section-4-quiz"></div>
+  </section>
+
+  <!-- S5 -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">05 — Derecho Colectivo</div>
+      <h2 class="section-title">Delegados Sindicales</h2>
+      <p class="section-sub">Amparo sindical, tutela gremial y licencia gremial.</p>
+    </div>
+
+    <div id="section-5-quiz"></div>
+  </section>
+
+  <!-- S6 -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">06 — Contrato</div>
+      <h2 class="section-title">Modalidades del Contrato de Trabajo</h2>
+      <p class="section-sub">Tiempo indeterminado, determinado y eventual.</p>
+    </div>
+
+    <div id="section-6-quiz"></div>
+  </section>
+
+  <!-- S7 -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">07 — Relación Laboral</div>
+      <h2 class="section-title">Derechos del Trabajador</h2>
+      <p class="section-sub">Salario, ocupación efectiva, aportes e igualdad de trato.</p>
+    </div>
+
+    <div id="section-7-quiz"></div>
+  </section>
+
+  <!-- S8 -->
+  <section class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">08 — Relación Laboral</div>
+      <h2 class="section-title">Deberes del Trabajador</h2>
+      <p class="section-sub">Diligencia, fidelidad, cumplimiento y responsabilidad por daños.</p>
+    </div>
+
+    <div id="section-8-quiz"></div>
+  </section>
+
+  <!-- S9 -->
+  <section class="section" id="s9">
+    <div class="section-header">
+      <div class="section-num">09 — Relación Laboral</div>
+      <h2 class="section-title">Derechos del Empleador</h2>
+      <p class="section-sub">Dirección, modificación, disciplina y controles.</p>
+    </div>
+
+    <div id="section-9-quiz"></div>
+  </section>
+
+  <div style="padding: 2rem 2.5rem; text-align: center; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border);">
+    Cuestionario de Derecho Laboral · ET Nº17 D.E. 13 Cornelio Saavedra
+  </div>
+</main>
+
+<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ─── BANCO DE PREGUNTAS ──────────────────────────────────────────────────────
+// Cada pregunta tiene:
+//   caso: texto del caso ficticio
+//   pregunta: la pregunta sobre el caso
+//   opciones: array de {texto, correcto: bool}
+//   feedback_correcto: explicación si acierta
+//   feedback_wrong: explicación si falla
+//   justificacion_pregunta: pregunta de por qué
+//   justificaciones: array de {texto, correcto: bool}
+//   justificacion_correcto: explicación final
+
+const BANK = {
+  1: [ // Principios
+    {
+      caso: `Ana firmó un contrato donde renunciaba voluntariamente a sus vacaciones pagas. Su jefa le dijo que era "un acuerdo entre adultos" y que Ana lo había firmado de buena fe.`,
+      pregunta: `¿Qué principio protege a Ana frente a esa cláusula del contrato?`,
+      opciones: [
+        { texto: "Principio de Irrenunciabilidad", correcto: true },
+        { texto: "Principio de Gratuidad", correcto: false },
+        { texto: "Principio de Estabilidad", correcto: false },
+        { texto: "Principio de Equidad", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El principio de Irrenunciabilidad establece que ningún trabajador puede renunciar a sus derechos laborales, aunque lo haga voluntariamente y de buena fe. Esa cláusula es nula.",
+      feedback_wrong: "No es correcto. La clave está en que Ana firmó cediendo un derecho que la ley le garantiza. Eso está regulado por el principio de Irrenunciabilidad.",
+      justificacion_pregunta: `¿Por qué el hecho de que Ana haya firmado de buena fe NO cambia la situación?`,
+      justificaciones: [
+        { texto: "Porque la firma siempre es válida cuando es voluntaria.", correcto: false },
+        { texto: "Porque los derechos laborales no pueden cederse ni siquiera con consentimiento: son indisponibles por el trabajador.", correcto: true },
+        { texto: "Porque la jefa engañó a Ana, lo cual anula el contrato.", correcto: false },
+        { texto: "Porque la firma no tiene valor legal en contratos laborales.", correcto: false }
+      ],
+      justificacion_correcto: "El principio de Irrenunciabilidad existe precisamente para proteger al trabajador de situaciones donde su posición de desventaja (hiposuficiencia) lo llevaría a aceptar condiciones perjudiciales. La voluntad no basta para ceder un derecho laboral."
+    },
+    {
+      caso: `Facundo trabaja como repositor en un supermercado. Su contrato dice "prestación de servicios independiente", pero cumple horario fijo, usa uniforme de la empresa y recibe órdenes del encargado todos los días.`,
+      pregunta: `¿Qué principio aplica el juez para determinar que Facundo es un empleado en relación de dependencia?`,
+      opciones: [
+        { texto: "Principio de Primacía de la Realidad", correcto: true },
+        { texto: "Principio Protectorio — norma más favorable", correcto: false },
+        { texto: "Principio de Estabilidad", correcto: false },
+        { texto: "Principio de Gratuidad", correcto: false }
+      ],
+      feedback_correcto: "Exacto. El principio de Primacía de la Realidad establece que lo que importa es lo que ocurre en los hechos, no lo que dice el papel. Facundo cumple todos los indicios de dependencia laboral.",
+      feedback_wrong: "No es ese. El principio clave aquí es el de Primacía de la Realidad: los hechos (horario, uniforme, órdenes) pesan más que lo que dice el contrato.",
+      justificacion_pregunta: `¿Por qué el contrato que dice "independiente" no es suficiente para que Facundo sea considerado autónomo?`,
+      justificaciones: [
+        { texto: "Porque todo contrato escrito tiene errores.", correcto: false },
+        { texto: "Porque la ley prohíbe los contratos de servicios independientes.", correcto: false },
+        { texto: "Porque los indicios de subordinación (horario, órdenes, uniforme) demuestran dependencia real, y eso pesa más que el texto del contrato.", correcto: true },
+        { texto: "Porque Facundo no firmó el contrato correctamente.", correcto: false }
+      ],
+      justificacion_correcto: "La Primacía de la Realidad existe para evitar que los empleadores encubran relaciones laborales bajo la apariencia de contratos civiles o comerciales. Los hechos siempre prevalecen sobre la forma."
+    },
+    {
+      caso: `Romina y Carlos hacen exactamente el mismo trabajo en la misma categoría de operaria textil. Carlos cobra $50.000 más por mes sin ninguna razón documentada.`,
+      pregunta: `¿Qué principio está siendo vulnerado en perjuicio de Romina?`,
+      opciones: [
+        { texto: "Principio de Equidad / Igualdad", correcto: true },
+        { texto: "Principio Protectorio — in dubio pro operario", correcto: false },
+        { texto: "Principio de Irrenunciabilidad", correcto: false },
+        { texto: "Principio de Gratuidad", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El principio de Equidad e Igualdad establece que los trabajadores de la misma categoría deben recibir el mismo trato. La diferencia salarial sin justificación es una violación directa.",
+      feedback_wrong: "No es ese principio. En este caso la clave es que dos personas de la misma categoría reciben trato diferente sin motivo: eso vulnera el principio de Equidad / Igualdad.",
+      justificacion_pregunta: `¿Bajo qué condición SÍ sería válido que Carlos cobre más que Romina?`,
+      justificaciones: [
+        { texto: "Si Carlos tiene más antigüedad o una categoría laboral superior debidamente reconocida.", correcto: true },
+        { texto: "Si el empleador prefiere trabajar con hombres.", correcto: false },
+        { texto: "Si Carlos lo negoció personalmente con el dueño.", correcto: false },
+        { texto: "Nunca: dos personas en el mismo empleo siempre cobran igual.", correcto: false }
+      ],
+      justificacion_correcto: "El principio de igualdad no impide diferencias salariales: las permite cuando existe una causa objetiva y legítima, como distinta categoría laboral o antigüedad. Lo que prohíbe es la discriminación arbitraria o por género."
+    },
+    {
+      caso: `Sebastián está siendo demandado por su empleador en un juicio laboral. El abogado de Sebastián le dice que el proceso judicial puede llevar años y costará mucho dinero.`,
+      pregunta: `¿Qué principio garantiza que Sebastián no tenga que pagar los costos del proceso judicial?`,
+      opciones: [
+        { texto: "Principio de Gratuidad", correcto: true },
+        { texto: "Principio de Estabilidad", correcto: false },
+        { texto: "Principio Protectorio", correcto: false },
+        { texto: "Principio de Irrenunciabilidad", correcto: false }
+      ],
+      feedback_correcto: "Muy bien. El principio de Gratuidad asegura que todos los costos judiciales del trabajador sean gratuitos, garantizando el acceso a la justicia sin importar su situación económica.",
+      feedback_wrong: "No es ese. El principio que garantiza que los trabajadores puedan litigar sin pagar los costos judiciales es el de Gratuidad.",
+      justificacion_pregunta: `¿Por qué es necesario que el acceso a la justicia laboral sea gratuito para el trabajador?`,
+      justificaciones: [
+        { texto: "Porque los trabajadores nunca tienen dinero.", correcto: false },
+        { texto: "Porque si los trámites judiciales costaran dinero, la hiposuficiencia económica del trabajador le impediría reclamar sus derechos en la práctica.", correcto: true },
+        { texto: "Porque el Estado quiere que haya más juicios.", correcto: false },
+        { texto: "Porque el empleador siempre paga los costos de ambas partes.", correcto: false }
+      ],
+      justificacion_correcto: "La gratuidad es una consecuencia directa de la hiposuficiencia. Si el trabajador tuviera que pagar para reclamar, el empleador podría violar sus derechos impunemente sabiendo que la víctima no puede costearse un juicio."
+    },
+    {
+      caso: `Un convenio colectivo establece 15 días de vacaciones para los empleados de comercio. El contrato individual de Lucía dice 10 días de vacaciones.`,
+      pregunta: `¿Cuántos días de vacaciones le corresponden a Lucía y qué dimensión del principio Protectorio se aplica?`,
+      opciones: [
+        { texto: "15 días — Norma más favorable", correcto: true },
+        { texto: "10 días — Condición más favorable", correcto: false },
+        { texto: "15 días — In dubio pro operario", correcto: false },
+        { texto: "10 días — Irrenunciabilidad", correcto: false }
+      ],
+      feedback_correcto: "Perfecto. Cuando dos normas coexisten, se aplica la más favorable al trabajador. El convenio colectivo da más vacaciones, así que prevalece sobre el contrato individual.",
+      feedback_wrong: "No es correcto. Aquí hay dos normas que regulan lo mismo. La dimensión del principio Protectorio que resuelve eso es la Norma más favorable, y le corresponden 15 días.",
+      justificacion_pregunta: `¿Podría el empleador argumentar que el contrato individual es posterior al convenio y por eso prevalece?`,
+      justificaciones: [
+        { texto: "Sí, porque lo más reciente siempre prevalece.", correcto: false },
+        { texto: "Sí, porque el contrato individual es un acuerdo entre las partes.", correcto: false },
+        { texto: "No, porque en derecho laboral no rige la regla de posterioridad: siempre prevalece la norma más favorable al trabajador, sin importar cuál sea más reciente.", correcto: true },
+        { texto: "Depende de lo que diga el juez en cada caso.", correcto: false }
+      ],
+      justificacion_correcto: "En derecho laboral el criterio de solución de conflictos entre normas no es la posterioridad (como en derecho civil) sino la favorabilidad. Siempre gana la norma que beneficia más al trabajador."
+    }
+  ],
+
+  2: [ // Marco Normativo
+    {
+      caso: `Un contrato individual de trabajo incluye una cláusula que prohíbe al empleado afiliarse a un sindicato. El empleado quiere saber si esa cláusula es válida.`,
+      pregunta: `Según la pirámide normativa, ¿esa cláusula es válida?`,
+      opciones: [
+        { texto: "No, porque la Constitución Nacional (Art. 14 bis) garantiza el derecho de agremiación y está por encima del contrato individual.", correcto: true },
+        { texto: "Sí, porque el contrato individual es un acuerdo entre partes y la autonomía de la voluntad lo permite.", correcto: false },
+        { texto: "Sí, pero solo si el trabajador lo firmó voluntariamente.", correcto: false },
+        { texto: "No, porque los contratos individuales no pueden incluir cláusulas sobre sindicatos.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. En la pirámide normativa el contrato individual está en la base y la CN en la cúspide. Ninguna cláusula contractual puede contradecir un derecho constitucional.",
+      feedback_wrong: "No. La pirámide normativa establece que la CN está en el tope. El contrato individual, en la base, no puede contradecir una norma superior.",
+      justificacion_pregunta: `¿Qué pasaría si un convenio colectivo limitara ese mismo derecho? ¿Tendría la misma suerte?`,
+      justificaciones: [
+        { texto: "No, el convenio colectivo tiene más jerarquía que la CN.", correcto: false },
+        { texto: "Sí, también sería inválido: ninguna norma inferior puede contradecir a la CN.", correcto: true },
+        { texto: "Depende: si lo firmaron todos los sindicatos, podría ser válido.", correcto: false },
+        { texto: "El convenio colectivo puede limitar derechos constitucionales si lo aprueba el Ministerio.", correcto: false }
+      ],
+      justificacion_correcto: "La Constitución Nacional es el techo del sistema normativo. Cualquier norma por debajo, sea un convenio colectivo, una ley, o un contrato, que la contradiga es inválida. La pirámide no tiene excepciones."
+    },
+    {
+      caso: `Martina trabaja limpiando casas de familia de lunes a viernes. Su empleadora le dice que le aplica la LCT 20.744 para calcular sus vacaciones.`,
+      pregunta: `¿Es correcto aplicar la LCT 20.744 al caso de Martina?`,
+      opciones: [
+        { texto: "No, el servicio doméstico está excluido de la LCT y tiene su propio régimen.", correcto: true },
+        { texto: "Sí, la LCT se aplica a todos los trabajadores en Argentina.", correcto: false },
+        { texto: "Sí, siempre que trabaje más de 4 horas diarias.", correcto: false },
+        { texto: "No, porque Martina trabaja en varias casas y eso la excluye.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El servicio doméstico es uno de los tres regímenes excluidos de la LCT 20.744. Tiene un estatuto especial propio.",
+      feedback_wrong: "No es correcto. La LCT tiene exclusiones expresas: trabajadores estatales, agrarios y servicio doméstico. Martina pertenece a este último.",
+      justificacion_pregunta: `¿Por qué el servicio doméstico tiene su propio régimen y no entra en la LCT?`,
+      justificaciones: [
+        { texto: "Porque el trabajo doméstico no es trabajo real.", correcto: false },
+        { texto: "Porque las particularidades de la relación (desarrollada en el ámbito privado del hogar) ameritan una regulación específica diferente a la del trabajo en empresas.", correcto: true },
+        { texto: "Porque la LCT fue escrita antes de que existieran empleadas domésticas.", correcto: false },
+        { texto: "Porque el trabajo doméstico está regulado por el Código Civil.", correcto: false }
+      ],
+      justificacion_correcto: "Las exclusiones de la LCT existen porque ciertos tipos de trabajo tienen características tan particulares que un estatuto propio los regula mejor. En el caso del servicio doméstico, el ámbito privado del hogar genera una relación laboral con dinámicas distintas."
+    },
+    {
+      caso: `Una ley nacional establece que los metalúrgicos tienen 20 días de vacaciones. Un convenio colectivo del sector les da 25 días. ¿Cuál aplica?`,
+      pregunta: `¿Qué norma prevalece en este conflicto entre una ley nacional y un convenio colectivo?`,
+      opciones: [
+        { texto: "El convenio colectivo, porque es la norma más favorable al trabajador.", correcto: true },
+        { texto: "La ley nacional, porque siempre prevalece sobre los convenios.", correcto: false },
+        { texto: "La ley nacional, porque está más arriba en la pirámide normativa.", correcto: false },
+        { texto: "Depende de cuál fue sancionada primero.", correcto: false }
+      ],
+      feedback_correcto: "Muy bien. En derecho laboral, cuando existe conflicto entre normas, se aplica la más favorable al trabajador. El convenio da más vacaciones, entonces prevalece.",
+      feedback_wrong: "No es así. Aunque la ley nacional está por encima del convenio en la pirámide, en derecho laboral se aplica la norma más favorable. 25 días > 20 días.",
+      justificacion_pregunta: `Si el convenio colectivo diera 15 días de vacaciones (menos que la ley), ¿cuál aplicaría?`,
+      justificaciones: [
+        { texto: "El convenio, porque siempre prevalece sobre la ley en derecho laboral.", correcto: false },
+        { texto: "La ley, porque en ese caso es la más favorable al trabajador.", correcto: true },
+        { texto: "El contrato individual, porque cada caso es distinto.", correcto: false },
+        { texto: "Ninguna, habría que ir a juicio.", correcto: false }
+      ],
+      justificacion_correcto: "El criterio en derecho laboral no es la jerarquía formal sino la favorabilidad. La ley prevalece sobre el convenio cuando es más favorable, y el convenio prevalece sobre la ley cuando es más favorable. Siempre gana quien más beneficia al trabajador."
+    }
+  ],
+
+  3: [ // Sujetos
+    {
+      caso: `Diego es socio de una cooperativa de transporte. Además de participar como socio, es el que maneja los camiones todos los días en forma personal y habitual.`,
+      pregunta: `¿Bajo qué figura legal encuadra Diego según la LCT?`,
+      opciones: [
+        { texto: "Socio Empleado (Art. 27 LCT)", correcto: true },
+        { texto: "Trabajador (Art. 25 LCT)", correcto: false },
+        { texto: "Empleador (Art. 26 LCT)", correcto: false },
+        { texto: "Trabajador autónomo, fuera del alcance de la LCT", correcto: false }
+      ],
+      feedback_correcto: "Correcto. Diego es un Socio Empleado: integra la sociedad pero también presta su actividad personal y habitual para ella. Eso lo encuadra en el Art. 27 de la LCT.",
+      feedback_wrong: "No es esa figura. Diego tiene doble carácter: es socio y a la vez presta trabajo personal. Eso lo define como Socio Empleado según el Art. 27 LCT.",
+      justificacion_pregunta: `¿En qué se diferencia el Socio Empleado del trabajador común?`,
+      justificaciones: [
+        { texto: "En nada: ambos son empleados normales.", correcto: false },
+        { texto: "El Socio Empleado también es parte de la sociedad para la que trabaja, lo que genera una doble relación: jurídica (societaria) y laboral.", correcto: true },
+        { texto: "El Socio Empleado cobra más porque tiene acciones.", correcto: false },
+        { texto: "El Socio Empleado no puede ser despedido.", correcto: false }
+      ],
+      justificacion_correcto: "El Socio Empleado tiene una situación particular: tiene derechos como socio (participación, ganancias) pero también derechos laborales como cualquier empleado. La LCT lo reconoce expresamente para que no quede sin protección laboral por ser socio."
+    },
+    {
+      caso: `"Industrias del Norte S.A." contrata a Valentina como administrativa. La sociedad es la que firma el contrato, no una persona física concreta.`,
+      pregunta: `¿Quién es el empleador en esta relación laboral según la LCT?`,
+      opciones: [
+        { texto: "La sociedad anónima Industrias del Norte S.A., ya que la LCT admite personas jurídicas como empleadores.", correcto: true },
+        { texto: "El presidente de la sociedad, porque alguien físico debe responder.", correcto: false },
+        { texto: "El gerente que firmó el contrato, porque él tomó la decisión.", correcto: false },
+        { texto: "No puede haber empleador en este caso porque el Art. 26 solo contempla personas físicas.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El Art. 26 de la LCT define al empleador como persona física o conjunto de ellas / personas jurídicas. Una S.A. es una persona jurídica y puede ser empleadora.",
+      feedback_wrong: "No es correcto. El Art. 26 LCT expresamente incluye a las personas jurídicas como empleadoras. Industrias del Norte S.A. es el empleador.",
+      justificacion_pregunta: `¿Por qué es importante que la LCT incluya a las personas jurídicas como empleadores?`,
+      justificaciones: [
+        { texto: "Para que el Estado pueda cobrarles más impuestos.", correcto: false },
+        { texto: "Porque la mayoría de los trabajos son con empresas (personas jurídicas), no con individuos; excluirlas dejaría sin protección a millones de trabajadores.", correcto: true },
+        { texto: "Porque las personas físicas no pueden contratar empleados.", correcto: false },
+        { texto: "Para simplificar los trámites administrativos.", correcto: false }
+      ],
+      justificacion_correcto: "Si la LCT solo reconociera empleadores individuales (personas físicas), quedarían fuera de la regulación laboral casi todas las relaciones de trabajo modernas, donde el empleador es una empresa, sociedad o ente colectivo."
+    }
+  ],
+
+  4: [ // Organizaciones y Niveles
+    {
+      caso: `Los trabajadores panaderos de la ciudad de Rosario se organizan para defender sus derechos y negociar con los empleadores del rubro en esa misma jurisdicción.`,
+      pregunta: `¿Qué tipo de organización conforman estos trabajadores?`,
+      opciones: [
+        { texto: "Un Sindicato (1° nivel)", correcto: true },
+        { texto: "Una Federación Sindical (2° nivel)", correcto: false },
+        { texto: "La CGT (3° nivel)", correcto: false },
+        { texto: "Una Cámara Empresarial", correcto: false }
+      ],
+      feedback_correcto: "Correcto. Un sindicato es la organización de 1° nivel: agrupa trabajadores de la misma especialidad y jurisdicción.",
+      feedback_wrong: "No es esa. Los panaderos de Rosario (misma especialidad, misma jurisdicción) conforman un Sindicato, que es el 1° nivel de organización.",
+      justificacion_pregunta: `Si los sindicatos de panaderos de todo el país se unen en una sola organización, ¿qué nivel conforman?`,
+      justificaciones: [
+        { texto: "Siguen siendo sindicatos, solo más grandes.", correcto: false },
+        { texto: "Una Federación Sindical (2° nivel): misma especialidad, todo el país.", correcto: true },
+        { texto: "La CGT directamente.", correcto: false },
+        { texto: "Una Cámara Empresarial a nivel nacional.", correcto: false }
+      ],
+      justificacion_correcto: "La diferencia entre niveles está en el alcance geográfico. Misma especialidad + misma jurisdicción = Sindicato (1°). Misma especialidad + todo el país = Federación (2°). Todas las federaciones juntas = CGT (3°)."
+    },
+    {
+      caso: `El sindicato de metalúrgicos de Buenos Aires quiere obtener reconocimiento oficial para poder negociar convenios colectivos con fuerza de ley.`,
+      pregunta: `¿Qué debe tramitar ese sindicato y ante quién?`,
+      opciones: [
+        { texto: "Personería Gremial ante el Ministerio de Trabajo.", correcto: true },
+        { texto: "Personería Jurídica ante la IGJ.", correcto: false },
+        { texto: "Un convenio colectivo ante la CGT.", correcto: false },
+        { texto: "Inscripción ante la AFIP para tributar como asociación.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. Los sindicatos obtienen su reconocimiento oficial mediante la Personería Gremial, otorgada por el Ministerio de Trabajo.",
+      feedback_wrong: "No es correcto. La Personería Jurídica es para las cámaras empresariales (ante la IGJ). Los sindicatos tramitan Personería Gremial ante el Ministerio de Trabajo.",
+      justificacion_pregunta: `¿Qué requisito clave distingue la Personería Gremial de la Personería Jurídica?`,
+      justificaciones: [
+        { texto: "La Personería Jurídica requiere tener más dinero.", correcto: false },
+        { texto: "La Personería Gremial exige ser el sindicato con más afiliados y tener al menos el 40% de los trabajadores afiliados; la Personería Jurídica solo requiere cumplir los requisitos legales sin demostrar representatividad.", correcto: true },
+        { texto: "Son iguales, solo cambia el nombre.", correcto: false },
+        { texto: "La Personería Jurídica requiere más años de funcionamiento.", correcto: false }
+      ],
+      justificacion_correcto: "La Personería Gremial exige representatividad real (ser el más numeroso, 40% mínimo) porque el sindicato que la obtiene tiene el poder de negociar por todos los trabajadores del sector, incluso los no afiliados. Es un requisito democrático."
+    },
+    {
+      caso: `La CGT y la UIA se reúnen para discutir el valor del salario básico que debe cobrar cualquier trabajador que cumpla 48 horas semanales.`,
+      pregunta: `¿Qué están negociando la CGT y la UIA?`,
+      opciones: [
+        { texto: "El Salario Mínimo Vital y Móvil (SMVM)", correcto: true },
+        { texto: "Un Convenio Colectivo de Trabajo sectorial", correcto: false },
+        { texto: "El Presupuesto Nacional del año siguiente", correcto: false },
+        { texto: "El régimen de jornada laboral máxima", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El SMVM es el salario mínimo que debe cobrar un trabajador que realiza al menos 48 horas semanales, y lo negocian la CGT (trabajadores) y la UIA (empleadores) en representación de todos los sectores.",
+      feedback_wrong: "No es correcto. La negociación entre CGT (3° nivel trabajadores) y UIA (3° nivel empleadores) tiene como objeto el Salario Mínimo Vital y Móvil (SMVM).",
+      justificacion_pregunta: `¿Por qué son la CGT y la UIA quienes negocian el SMVM y no los sindicatos y cámaras de cada sector?`,
+      justificaciones: [
+        { texto: "Porque son las más antiguas.", correcto: false },
+        { texto: "Porque el SMVM aplica a todos los trabajadores del país sin importar el sector, por lo que deben negociarlo las organizaciones de máximo nivel, que representan a todos.", correcto: true },
+        { texto: "Porque el Estado lo impone sin negociación.", correcto: false },
+        { texto: "Porque los sindicatos no tienen poder de negociación salarial.", correcto: false }
+      ],
+      justificacion_correcto: "El nivel de representación debe coincidir con el alcance de la norma. El SMVM es universal (aplica a todos los sectores y jurisdicciones), por eso lo negocian las organizaciones de 3° nivel, que tienen representación en todo el país y todos los sectores."
+    }
+  ],
+
+  5: [ // Delegados Sindicales
+    {
+      caso: `Graciela se postuló como delegada sindical en la fábrica donde trabaja. Tres días después el empleador la despidió "por razones de reestructuración".`,
+      pregunta: `¿Qué protección cubre a Graciela desde el momento en que se postuló?`,
+      opciones: [
+        { texto: "Tutela Gremial: no puede ser despedida mientras esté en el cargo ni por 1 año desde que se postuló.", correcto: true },
+        { texto: "Amparo Sindical: puede pedir al juez que revoque el despido.", correcto: false },
+        { texto: "Licencia Gremial: el empleador debe conservarle el puesto.", correcto: false },
+        { texto: "Ninguna: aún no asumió el cargo de delegada.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. La Tutela Gremial protege al delegado desde el momento mismo en que se postula, no desde que asume. Y esa protección dura 1 año.",
+      feedback_wrong: "No es correcto. La Tutela Gremial es la que protege al delegado de ser despedido, y comienza desde la postulación, no desde que asume.",
+      justificacion_pregunta: `¿Por qué la protección empieza desde la postulación y no desde que asume el cargo?`,
+      justificaciones: [
+        { texto: "Porque la ley lo dice así sin más explicación.", correcto: false },
+        { texto: "Porque si la protección empezara al asumir, el empleador podría despedir al candidato antes de que asuma para evitar tener un delegado.", correcto: true },
+        { texto: "Porque el candidato ya cumple funciones de delegado desde que se postula.", correcto: false },
+        { texto: "Porque el sindicato lo pide así.", correcto: false }
+      ],
+      justificacion_correcto: "La protección anticipada desde la postulación es un mecanismo antifraudelento: sin ella, el empleador podría eliminar candidatos antes de que asuman, vaciando de contenido la protección. La ley cierra esa brecha."
+    },
+    {
+      caso: `Tomás es delegado sindical y fue elegido para representar al sindicato en una negociación nacional que durará 6 meses. Deberá ausentarse de su puesto de trabajo en la empresa.`,
+      pregunta: `¿Qué figura protege a Tomás para que pueda volver a su puesto cuando termine la negociación?`,
+      opciones: [
+        { texto: "Licencia Gremial: el empleador debe conservarle el puesto y la categoría.", correcto: true },
+        { texto: "Tutela Gremial: no puede ser despedido.", correcto: false },
+        { texto: "Amparo Sindical: el juez obliga al empleador a mantener el puesto.", correcto: false },
+        { texto: "Ninguna: si deja de trabajar, pierde el puesto.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. La Licencia Gremial es la figura que aplica cuando el delegado deja de trabajar para pasar al sindicato. El empleador debe conservarle el puesto y la categoría laboral.",
+      feedback_wrong: "No es esa figura. Cuando el delegado se ausenta para trabajar para el sindicato, la protección se llama Licencia Gremial, que reserva su puesto y categoría.",
+      justificacion_pregunta: `¿Qué obligación concreta tiene el empleador durante la Licencia Gremial?`,
+      justificaciones: [
+        { texto: "Seguir pagándole el sueldo completo.", correcto: false },
+        { texto: "Conservarle el puesto de trabajo y la categoría laboral para cuando el delegado regrese.", correcto: true },
+        { texto: "Contratar a alguien con el mismo sueldo para reemplazarlo.", correcto: false },
+        { texto: "Esperar que el sindicato le avise cuándo vuelve.", correcto: false }
+      ],
+      justificacion_correcto: "Durante la Licencia Gremial el empleador está obligado a reservar el puesto y la categoría del delegado. Eso no implica necesariamente seguir pagando el sueldo (lo paga el sindicato), pero sí garantizar la reinserción laboral cuando termine la licencia."
+    }
+  ],
+
+  6: [ // Modalidades del Contrato
+    {
+      caso: `Un hotel de Mar del Plata contrata a Joaquín todos los años entre diciembre y marzo para la temporada de verano. Cada año firma un nuevo contrato para ese período.`,
+      pregunta: `¿Qué tipo de contrato de tiempo determinado describe este caso?`,
+      opciones: [
+        { texto: "Determinado Típico — Temporada: la causa es estacional y se repite cada año.", correcto: true },
+        { texto: "Determinado Atípico — Eventual: la causa es excepcional.", correcto: false },
+        { texto: "Por tiempo indeterminado con período de prueba.", correcto: false },
+        { texto: "Eventual: porque dura poco tiempo.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El trabajo de temporada turística es el ejemplo clásico del contrato determinado típico: la causa es estacional (se repite todos los años en la misma época).",
+      feedback_wrong: "No es correcto. El criterio no es cuánto dura sino si la causa se repite. La temporada turística es predecible y anual: eso es contrato determinado típico.",
+      justificacion_pregunta: `¿En qué se diferencia este caso del contrato eventual?`,
+      justificaciones: [
+        { texto: "No hay diferencia: ambos tienen fecha de fin.", correcto: false },
+        { texto: "El eventual surge de una causa excepcional e imprevisible; la temporada turística es previsible y se repite, por eso es típica.", correcto: true },
+        { texto: "El eventual requiere forma oral; la temporada requiere forma escrita.", correcto: false },
+        { texto: "El eventual es más largo que la temporada.", correcto: false }
+      ],
+      justificacion_correcto: "La distinción entre típico y atípico dentro del contrato determinado es la naturaleza de la causa: estacional y predecible (típica) vs. excepcional e irrepetible (atípica o eventual). Ambas requieren forma escrita cuando son atípicas."
+    },
+    {
+      caso: `Fernanda firmó un contrato de trabajo por plazo fijo de 3 años. Al año y medio, la empresa decide rescindirlo anticipadamente.`,
+      pregunta: `¿Qué le corresponde a Fernanda por la rescisión anticipada?`,
+      opciones: [
+        { texto: "Indemnización por daños y perjuicios, porque en el contrato por tiempo determinado la empresa no puede rescindir sin causa antes del plazo.", correcto: true },
+        { texto: "Nada, porque el empleador puede rescindir cuando quiera.", correcto: false },
+        { texto: "La indemnización por antigüedad de la LCT, como si fuera un despido sin causa.", correcto: false },
+        { texto: "Fernanda debe esperar a que venza el plazo para cobrar algo.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. En el contrato por tiempo determinado, si el empleador rescinde antes del plazo, corresponde indemnización por daños y perjuicios, no la indemnización standard.",
+      feedback_wrong: "No es correcto. El contrato por tiempo determinado tiene una consecuencia especial para la rescisión anticipada: indemnización por daños y perjuicios.",
+      justificacion_pregunta: `¿Por qué en el contrato determinado la indemnización es "por daños y perjuicios" y no la indemnización habitual?`,
+      justificaciones: [
+        { texto: "Porque el contrato determinado no genera derechos laborales normales.", correcto: false },
+        { texto: "Porque al romper un plazo pactado el empleador incumple un compromiso contractual concreto, y la indemnización debe compensar los salarios que Fernanda no va a cobrar hasta el fin del plazo.", correcto: true },
+        { texto: "Porque la LCT no aplica a contratos con plazo.", correcto: false },
+        { texto: "Porque Fernanda eligió ese tipo de contrato y asumió el riesgo.", correcto: false }
+      ],
+      justificacion_correcto: "En el contrato determinado ambas partes saben de antemano cuándo termina. Romperlo antes es un incumplimiento del acuerdo, no simplemente un despido. Por eso la reparación no es la indemnización estándar de la LCT sino la compensación por el daño concreto causado."
+    },
+    {
+      caso: `Lucas empezó a trabajar en una empresa hace dos meses bajo un contrato por tiempo indeterminado. El empleador quiere desvincularlo sin invocar causa.`,
+      pregunta: `¿En qué situación procesal se encuentra Lucas y qué aplica?`,
+      opciones: [
+        { texto: "Está en período de prueba: el empleador puede desvincularlo sin causa ni indemnización.", correcto: true },
+        { texto: "Ya tiene estabilidad laboral: el empleador debe indemnizarlo por despido sin causa.", correcto: false },
+        { texto: "El empleador necesita 3 amonestaciones previas para despedirlo.", correcto: false },
+        { texto: "Lucas puede recurrir al principio de estabilidad para impedir el despido.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. Con solo dos meses, Lucas se encuentra dentro del período de prueba del contrato por tiempo indeterminado (que puede ser de 3, 6 o 12 meses según el caso). Durante ese período el empleador puede desvincular sin causa ni indemnización.",
+      feedback_wrong: "No es correcto. Con dos meses, Lucas muy probablemente aún está en el período de prueba del contrato por tiempo indeterminado, donde la desvinculación sin causa es válida.",
+      justificacion_pregunta: `¿Qué sucede una vez que termina el período de prueba?`,
+      justificaciones: [
+        { texto: "Nada especial: el contrato sigue igual.", correcto: false },
+        { texto: "El trabajador adquiere estabilidad: ya no puede ser despedido sin causa, y si lo es, corresponde indemnización.", correcto: true },
+        { texto: "El empleador puede renovar el período de prueba indefinidamente.", correcto: false },
+        { texto: "El trabajador pasa automáticamente a un contrato por tiempo determinado.", correcto: false }
+      ],
+      justificacion_correcto: "El período de prueba es la excepción dentro del contrato por tiempo indeterminado. Una vez superado, el trabajador adquiere la estabilidad propia de este tipo de contrato y cualquier despido sin causa genera obligación de indemnizar."
+    }
+  ],
+
+  7: [ // Derechos del Trabajador
+    {
+      caso: `Pedro trabaja en una empresa de logística. Su empleador le paga el sueldo en efectivo el día 10 de cada mes. Pedro quiere saber si esto está bien.`,
+      pregunta: `¿El pago del salario es correcto según la LCT?`,
+      opciones: [
+        { texto: "No: debe pagarse en cuenta bancaria, en pesos, y antes del día 5 del mes siguiente.", correcto: true },
+        { texto: "Sí: el efectivo está permitido siempre que sea puntual.", correcto: false },
+        { texto: "Sí: el día 10 es válido si así lo acordaron.", correcto: false },
+        { texto: "No: el sueldo debe pagarse el último día hábil de cada mes.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. La LCT exige que el salario se pague en cuenta bancaria, en pesos argentinos, y antes del día 5 del mes siguiente. El efectivo y el día 10 son ambos incorrectos.",
+      feedback_wrong: "No es correcto. El pago en efectivo y el día 10 violan dos requisitos de la LCT: la forma (debe ser en cuenta bancaria) y el plazo (antes del día 5).",
+      justificacion_pregunta: `¿Por qué la LCT exige que el pago sea en cuenta bancaria y no en efectivo?`,
+      justificaciones: [
+        { texto: "Para que los bancos tengan más clientes.", correcto: false },
+        { texto: "Porque el pago en cuenta bancaria genera un registro formal que protege al trabajador y dificulta el pago en negro o la negación del pago.", correcto: true },
+        { texto: "Porque el efectivo puede ser robado.", correcto: false },
+        { texto: "Para que la AFIP pueda cobrar impuestos más fácilmente.", correcto: false }
+      ],
+      justificacion_correcto: "El pago en cuenta bancaria es una garantía para el trabajador: queda registrado, es trazable, y sirve de prueba en caso de conflicto. El pago en efectivo facilita el trabajo no registrado y la posterior negación del empleador de haber pagado."
+    },
+    {
+      caso: `Claudia fue contratada como diseñadora gráfica. Su jefe quiere que también atienda el teléfono, limpie la oficina y haga las compras de insumos del negocio.`,
+      pregunta: `¿Puede el empleador obligar a Claudia a realizar esas tareas?`,
+      opciones: [
+        { texto: "No: el derecho a la ocupación efectiva establece que Claudia solo puede ser asignada a tareas de su categoría laboral.", correcto: true },
+        { texto: "Sí: el empleador puede asignar cualquier tarea mientras sea dentro del horario de trabajo.", correcto: false },
+        { texto: "Sí: si Claudia acepta hacerlo una vez, crea un precedente.", correcto: false },
+        { texto: "Depende de lo que diga el contrato individual.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El derecho a la ocupación efectiva protege a Claudia: solo puede ser asignada a las tareas propias de su categoría laboral (diseño gráfico).",
+      feedback_wrong: "No es correcto. El derecho a la ocupación efectiva limita al empleador: no puede asignar tareas ajenas a la categoría para la que el trabajador fue contratado.",
+      justificacion_pregunta: `¿Qué podría hacer Claudia si su empleador insiste en asignarle esas tareas?`,
+      justificaciones: [
+        { texto: "Nada: debe obedecer o renunciar.", correcto: false },
+        { texto: "Negarse, ya que esas tareas no corresponden a su categoría; si el empleador insiste puede considerarse un incumplimiento grave del contrato.", correcto: true },
+        { texto: "Pedir un aumento por las tareas extra.", correcto: false },
+        { texto: "Aceptar y luego reclamar horas extra.", correcto: false }
+      ],
+      justificacion_correcto: "La asignación sistemática de tareas fuera de la categoría puede configurar un cambio unilateral de condiciones laborales (ius variandi abusivo) o incluso un despido indirecto si el trabajador considera que las condiciones son intolerables."
+    },
+    {
+      caso: `Ernesto descubrió un nuevo proceso de empaquetado durante su horario de trabajo, usando maquinaria de la empresa. Su jefe dice que el invento le pertenece a la empresa.`,
+      pregunta: `¿A quién pertenece el invento de Ernesto según la LCT?`,
+      opciones: [
+        { texto: "A Ernesto: todo invento o descubrimiento del trabajador es suyo, aunque haya usado elementos de la empresa.", correcto: true },
+        { texto: "A la empresa: porque fue durante el horario de trabajo y con sus herramientas.", correcto: false },
+        { texto: "A ambos en partes iguales.", correcto: false },
+        { texto: "Depende de si estaba contratado específicamente para investigar.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. La LCT establece que el invento o descubrimiento hecho por el trabajador es de su propiedad, incluso si usó elementos de la empresa para desarrollarlo.",
+      feedback_wrong: "No es correcto. La LCT protege la propiedad intelectual del trabajador: el invento le pertenece a Ernesto aunque lo haya desarrollado con recursos de la empresa.",
+      justificacion_pregunta: `¿En qué caso el invento SÍ le pertenecería a la empresa?`,
+      justificaciones: [
+        { texto: "Nunca: siempre es del trabajador.", correcto: false },
+        { texto: "Cuando el trabajador fue contratado específicamente para investigar o inventar en ese campo; en ese caso el invento está dentro del objeto del contrato.", correcto: true },
+        { texto: "Cuando el invento vale más de cierta suma de dinero.", correcto: false },
+        { texto: "Cuando se usaron máquinas caras de la empresa.", correcto: false }
+      ],
+      justificacion_correcto: "La excepción es el trabajador cuya tarea específica es investigar o inventar: en ese caso el resultado es parte de lo que se le paga por hacer. Si el trabajador es, por ejemplo, un ingeniero de producto contratado para desarrollar nuevas soluciones, sus inventos en ese marco son de la empresa."
+    }
+  ],
+
+  8: [ // Deberes del Trabajador
+    {
+      caso: `Gabriel trabaja en una empresa de seguridad. Durante una guardia, por aburrimiento y descuido, dejó una puerta sin cerrar y entraron a robar.`,
+      pregunta: `¿Bajo qué tipo de responsabilidad por daños encuadra la conducta de Gabriel?`,
+      opciones: [
+        { texto: "Culpa grave: actuó sin intención pero con negligencia evidente.", correcto: true },
+        { texto: "Dolo: actuó con intención de causar daño.", correcto: false },
+        { texto: "Culpa simple: actuó sin intención y sin negligencia especial.", correcto: false },
+        { texto: "No hay responsabilidad: fue un accidente.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. Gabriel no quiso que entraran a robar (no hay dolo), pero su descuido fue grave para alguien en su función específica de seguridad. Eso es culpa grave.",
+      feedback_wrong: "No es correcto. La clave es que Gabriel no tuvo intención (no es dolo) pero sí una negligencia severa incompatible con su tarea. Eso es culpa grave.",
+      justificacion_pregunta: `¿Cuál es la diferencia práctica entre culpa simple y culpa grave en este contexto?`,
+      justificaciones: [
+        { texto: "Ninguna: ambas generan la misma responsabilidad.", correcto: false },
+        { texto: "La culpa grave implica una negligencia tan importante que se aproxima al dolo; en la práctica genera mayor responsabilidad y puede justificar el despido con causa.", correcto: true },
+        { texto: "La culpa grave es la que ocurre muchas veces; la simple, una sola vez.", correcto: false },
+        { texto: "La culpa simple se resuelve con una advertencia; la grave directamente con juicio.", correcto: false }
+      ],
+      justificacion_correcto: "La culpa grave es la negligencia que resulta inexcusable dado el contexto. Un guardia de seguridad que deja puertas sin cerrar comete una falta grave precisamente porque su función específica es evitar eso. Esa gravedad puede fundamentar un despido con causa."
+    },
+    {
+      caso: `Lorena trabaja en la empresa de su competidor mientras sigue siendo empleada de la empresa actual, pasándole información sobre los clientes.`,
+      pregunta: `¿Qué deber del trabajador está violando Lorena?`,
+      opciones: [
+        { texto: "Deber de Fidelidad: está siendo desleal con su empleador al pasarle información a la competencia.", correcto: true },
+        { texto: "Deber de Diligencia y Colaboración: no está haciendo bien su trabajo.", correcto: false },
+        { texto: "Deber de No Concurrencia: se excedió de las indicaciones del empleador.", correcto: false },
+        { texto: "Deber de Cumplimiento de Órdenes: desobedeció una instrucción directa.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El deber de Fidelidad exige lealtad al empleador. Pasarle información confidencial a la competencia es una violación directa y grave de ese deber.",
+      feedback_wrong: "No es correcto. Lorena no está siendo desleal — pasarle información a la competencia es exactamente lo contrario a la fidelidad exigida al trabajador.",
+      justificacion_pregunta: `¿Esta conducta podría justificar un despido con causa?`,
+      justificaciones: [
+        { texto: "No, el empleador debe seguir el proceso disciplinario completo primero.", correcto: false },
+        { texto: "Sí: la violación grave del deber de fidelidad (especialmente pasando información confidencial a la competencia) es justa causa de despido directo.", correcto: true },
+        { texto: "Depende de si Lorena firmó un acuerdo de confidencialidad.", correcto: false },
+        { texto: "Solo si el empleador puede probar el daño económico concreto.", correcto: false }
+      ],
+      justificacion_correcto: "La violación grave del deber de fidelidad — especialmente cuando implica traicionar secretos comerciales o pasar clientes a la competencia — es una de las causales más claras de despido con causa. La gravedad de la falta es tan evidente que no requiere el proceso de amonestaciones previo."
+    }
+  ],
+
+  9: [ // Derechos del Empleador
+    {
+      caso: `La empresa "Muebles del Sur" decide cambiar su sistema de producción de madera maciza a MDF. Los empleados argumentan que el empleador no puede cambiar los procesos sin su acuerdo.`,
+      pregunta: `¿Qué facultad del empleador le permite tomar esa decisión unilateralmente?`,
+      opciones: [
+        { texto: "Facultad de Dirección: el empleador elige el objeto social y los modos de producción.", correcto: true },
+        { texto: "Facultad Disciplinaria: puede imponer cambios como sanción.", correcto: false },
+        { texto: "Controles Personales: puede revisar cómo trabajan sus empleados.", correcto: false },
+        { texto: "Ninguna: los cambios de producción requieren acuerdo con el sindicato.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. La Facultad de Dirección le permite al empleador elegir el objeto social y los modos de producción de su empresa. Los empleados no pueden vetar decisiones sobre cómo se organiza el negocio.",
+      feedback_wrong: "No es correcto. La decisión sobre los procesos de producción es parte de la Facultad de Dirección del empleador: él elige cómo produce.",
+      justificacion_pregunta: `¿Existen límites a la Facultad de Dirección del empleador?`,
+      justificaciones: [
+        { texto: "No, el empleador puede hacer lo que quiera en su empresa.", correcto: false },
+        { texto: "Sí: los cambios en los modos de producción no pueden alterar de forma perjudicial las condiciones laborales de los empleados ni violar sus derechos adquiridos.", correcto: true },
+        { texto: "Solo si el sindicato lo cuestiona.", correcto: false },
+        { texto: "Los límites solo aplican en empresas con más de 50 empleados.", correcto: false }
+      ],
+      justificacion_correcto: "La Facultad de Dirección reconoce la autonomía empresarial, pero no es absoluta. Si el cambio de proceso productivo implica, por ejemplo, reducir la categoría de un empleado o empeorar sus condiciones, eso es un ejercicio abusivo del ius variandi y el trabajador puede resistirlo."
+    },
+    {
+      caso: `Un empleado lleva tres amonestaciones escritas por llegar tarde. El empleador quiere suspenderlo. El empleado dice que primero tiene que haber otra amonestación.`,
+      pregunta: `¿Quién tiene razón según el proceso disciplinario de la LCT?`,
+      opciones: [
+        { texto: "El empleador: 3 amonestaciones ya habilitan la suspensión.", correcto: true },
+        { texto: "El empleado: hay que amonestarlo una vez más antes de suspender.", correcto: false },
+        { texto: "El empleador puede suspenderlo directamente en cualquier momento.", correcto: false },
+        { texto: "El empleado: la suspensión requiere habilitación del sindicato.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El proceso establece que con 3 amonestaciones se habilita la suspensión. Ya cumplido ese umbral, el empleador puede pasar a la siguiente instancia.",
+      feedback_wrong: "No es correcto. El proceso es: 3 amonestaciones → suspensión (puede ocurrir hasta 3 veces) → despido con causa. Con 3 amonestaciones ya corresponde suspensión.",
+      justificacion_pregunta: `¿Qué requisito formal debe cumplir la suspensión?`,
+      justificaciones: [
+        { texto: "Puede ser oral si el empleador lo prefiere.", correcto: false },
+        { texto: "Debe hacerse siempre por escrito mediante Carta Documento, y el empleado tiene 30 días para rechazarla.", correcto: true },
+        { texto: "Debe hacerse con testigos pero no necesita ser escrita.", correcto: false },
+        { texto: "Debe ser aprobada por el Ministerio de Trabajo.", correcto: false }
+      ],
+      justificacion_correcto: "La suspensión siempre debe instrumentarse por Carta Documento. Esto genera un registro formal y le da al empleado la posibilidad de rechazarla dentro de los 30 días. Si no la rechaza en ese plazo, pierde el derecho a impugnarla judicialmente."
+    },
+    {
+      caso: `Una fábrica de electrónica quiere revisar los bolsos de sus empleados a la salida. Solo controlan a los hombres y nunca a las mujeres.`,
+      pregunta: `¿Puede el empleador hacer esos controles personales? ¿Hay algo incorrecto en la forma?`,
+      opciones: [
+        { texto: "Puede hacer controles, pero debe hacerlos con todos por igual: la exclusión de las mujeres viola el principio de igualdad obligatoria.", correcto: true },
+        { texto: "No puede hacer controles personales bajo ningún concepto.", correcto: false },
+        { texto: "Puede hacer controles y elegir a quién controlar según su criterio.", correcto: false },
+        { texto: "Los controles son válidos porque solo revisan bolsos, no personas.", correcto: false }
+      ],
+      feedback_correcto: "Correcto. El empleador tiene Facultad de Controles Personales, pero la LCT exige que se aplique a todos los trabajadores por igual. Controlar solo a los hombres es una discriminación que invalida el procedimiento.",
+      feedback_wrong: "No es correcto. La LCT permite controles personales pero con una condición clave: deben hacerse con todos los trabajadores por igual. La selectividad los hace ilegítimos.",
+      justificacion_pregunta: `¿Por qué la ley exige que los controles sean para todos por igual?`,
+      justificaciones: [
+        { texto: "Para que los controles sean más eficientes.", correcto: false },
+        { texto: "Para evitar que se conviertan en una herramienta de discriminación o acoso hacia ciertos trabajadores.", correcto: true },
+        { texto: "Porque controlar solo a algunos es más costoso administrativamente.", correcto: false },
+        { texto: "Para que el sindicato pueda supervisarlos.", correcto: false }
+      ],
+      justificacion_correcto: "Si el empleador pudiera elegir a quién controlar, los controles personales podrían usarse para hostigar, discriminar o presionar a trabajadores específicos. La obligación de universalidad los convierte en un mecanismo neutro de seguridad y no en un instrumento de poder arbitrario."
+    }
+  ]
+};
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let totalCorrect = 0;
+let totalAnswered = 0;
+
+function updateGlobalScore() {
+  document.getElementById('globalScore').textContent = `✓ ${totalCorrect} / ${totalAnswered}`;
+}
+
+// ─── SHUFFLE ─────────────────────────────────────────────────────────────────
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ─── BUILD QUIZ ──────────────────────────────────────────────────────────────
+function buildSection(sectionId, containerId) {
+  const container = document.getElementById(containerId);
+  const questions = shuffle([...BANK[sectionId]]);
+
+  questions.forEach((q, qi) => {
+    const shuffledOpts = shuffle(q.opciones.map((o, i) => ({ ...o, origIdx: i })));
+    const shuffledJusts = shuffle(q.justificaciones.map((j, i) => ({ ...j, origIdx: i })));
+
+    const card = document.createElement('div');
+    card.className = 'quiz-card';
+    card.dataset.answered = 'false';
+    card.dataset.justAnswered = 'false';
+
+    const letters = ['A', 'B', 'C', 'D'];
+
+    // Options HTML
+    const optsHTML = shuffledOpts.map((opt, idx) => `
+      <button class="quiz-option" data-correct="${opt.correcto}" onclick="handleAnswer(this)">
+        <span class="opt-letter">${letters[idx]}</span>
+        <span>${opt.texto}</span>
+      </button>
+    `).join('');
+
+    // Justification options HTML
+    const justOptsHTML = shuffledJusts.map((j, idx) => `
+      <button class="quiz-option" data-correct="${j.correcto}" onclick="handleJustif(this)">
+        <span class="opt-letter">${letters[idx]}</span>
+        <span>${j.texto}</span>
+      </button>
+    `).join('');
+
+    card.innerHTML = `
+      <span class="quiz-tag tag-caso">📋 Caso ficticio</span>
+      <div class="quiz-caso">${q.caso}</div>
+      <span class="quiz-tag tag-pregunta">❓ Pregunta</span>
+      <div class="quiz-pregunta">${q.pregunta}</div>
+      <div class="quiz-options">${optsHTML}</div>
+      <div class="quiz-feedback" id="fb-${sectionId}-${qi}"></div>
+      <div class="quiz-justif-block" id="jb-${sectionId}-${qi}">
+        <span class="quiz-tag tag-justifica">💡 ¿Por qué?</span>
+        <div class="quiz-justif-pregunta">${q.justificacion_pregunta}</div>
+        <div class="quiz-options">${justOptsHTML}</div>
+        <div class="quiz-feedback" id="jfb-${sectionId}-${qi}"></div>
+      </div>
+    `;
+
+    // Store question data
+    card.dataset.feedbackCorrect = q.feedback_correcto;
+    card.dataset.feedbackWrong = q.feedback_wrong;
+    card.dataset.justFeedback = q.justificacion_correcto;
+    card.dataset.fbId = `fb-${sectionId}-${qi}`;
+    card.dataset.jbId = `jb-${sectionId}-${qi}`;
+    card.dataset.jfbId = `jfb-${sectionId}-${qi}`;
+
+    container.appendChild(card);
+  });
+}
+
+function handleAnswer(btn) {
+  const card = btn.closest('.quiz-card');
+  if (card.dataset.answered === 'true') return;
+  card.dataset.answered = 'true';
+
+  const isCorrect = btn.dataset.correct === 'true';
+  const allOpts = card.querySelectorAll('.quiz-options:first-of-type .quiz-option');
+
+  allOpts.forEach(opt => {
+    opt.disabled = true;
+    if (opt.dataset.correct === 'true') opt.classList.add('correct');
+  });
+
+  if (!isCorrect) {
+    btn.classList.add('wrong');
+  }
+
+  // Show feedback
+  const fb = document.getElementById(card.dataset.fbId);
+  fb.className = `quiz-feedback show ${isCorrect ? 'fb-correct' : 'fb-wrong'}`;
+  fb.innerHTML = `<div class="fb-label">${isCorrect ? '✓ Correcto' : '✗ Incorrecto'}</div>${isCorrect ? card.dataset.feedbackCorrect : card.dataset.feedbackWrong}`;
+
+  totalAnswered++;
+  if (isCorrect) totalCorrect++;
+  updateGlobalScore();
+
+  // Show justification block
+  setTimeout(() => {
+    const jb = document.getElementById(card.dataset.jbId);
+    jb.classList.add('show');
+    jb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 400);
+}
+
+function handleJustif(btn) {
+  const card = btn.closest('.quiz-card');
+  if (card.dataset.justAnswered === 'true') return;
+  card.dataset.justAnswered = 'true';
+
+  const isCorrect = btn.dataset.correct === 'true';
+  const justBlock = document.getElementById(card.dataset.jbId);
+  const allOpts = justBlock.querySelectorAll('.quiz-option');
+
+  allOpts.forEach(opt => {
+    opt.disabled = true;
+    if (opt.dataset.correct === 'true') opt.classList.add('correct');
+  });
+  if (!isCorrect) btn.classList.add('wrong');
+
+  const jfb = document.getElementById(card.dataset.jfbId);
+  jfb.className = `quiz-feedback show ${isCorrect ? 'fb-correct' : 'fb-wrong'}`;
+  jfb.innerHTML = `<div class="fb-label">${isCorrect ? '✓ Justificación correcta' : '✗ Justificación incorrecta'}</div>${card.dataset.justFeedback}`;
+
+  totalAnswered++;
+  if (isCorrect) totalCorrect++;
+  updateGlobalScore();
+}
+
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+for (let i = 1; i <= 9; i++) {
+  buildSection(i, `section-${i}-quiz`);
+}
+
+// ─── NAV SCROLL ──────────────────────────────────────────────────────────────
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollBtn');
+  btn.classList.toggle('visible', window.scrollY > 400);
+
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+  let current = 0;
+  sections.forEach((s, i) => {
+    if (window.scrollY >= s.offsetTop - 120) current = i;
+  });
+  navItems.forEach((n, i) => n.classList.toggle('active', i === current));
+});
+</script>
+</body>
+</html>
