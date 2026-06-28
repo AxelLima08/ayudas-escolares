@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Apuntes de Derecho Laboral</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1E3A5F;
+  --teal: #0D9E75;
+  --teal-light: #E6F7F2;
+  --amber: #D97706;
+  --amber-light: #FEF3C7;
+  --coral: #D85A30;
+  --coral-light: #FDF0EB;
+  --purple: #6D28D9;
+  --purple-light: #EDE9FE;
+  --blue-light: #EFF6FF;
+  --blue-border: #2563EB;
+  --bg: #F4F2EE;
+  --card: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #6B7280;
+  --border: #E2DDD6;
+  --sidebar-w: 260px;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); display: flex; min-height: 100vh; font-size: 15px; line-height: 1.7; padding-bottom: 88px; }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w); min-height: 100vh; background: var(--navy);
+  position: fixed; top: 0; left: 0; overflow-y: auto;
+  display: flex; flex-direction: column; z-index: 100;
+}
+.sidebar-brand {
+  padding: 1.5rem 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar-brand h1 { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.4; }
+.sidebar-brand p { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+.sidebar nav { padding: 0.75rem 0; flex: 1; }
+.nav-group { margin-bottom: 0.25rem; }
+.nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 0.75rem 1.25rem 0.25rem; }
+.nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 1.25rem; font-size: 13px; color: rgba(255,255,255,0.6);
+  text-decoration: none; transition: all 0.15s; cursor: pointer; border: none; background: none; width: 100%; text-align: left;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-item.active { color: #fff; background: rgba(13,158,117,0.25); border-right: 3px solid var(--teal); }
+.nav-item .num { font-size: 11px; font-weight: 600; color: var(--teal); min-width: 18px; }
+.sidebar-footer { padding: 1rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; color: rgba(255,255,255,0.3); }
+
+/* MAIN */
+.main { margin-left: var(--sidebar-w); flex: 1; max-width: calc(100% - var(--sidebar-w)); }
+.top-bar {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 0.75rem 2.5rem; display: flex; align-items: center; gap: 12px;
+  position: sticky; top: 0; z-index: 50;
+}
+.top-bar .pill {
+  background: var(--teal-light); color: var(--teal); font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px; letter-spacing: 0.03em;
+}
+.top-bar .crumb { font-size: 13px; color: var(--text-muted); }
+
+/* SECTIONS */
+.section { padding: 3rem 2.5rem; border-bottom: 1px solid var(--border); max-width: 860px; }
+.section-header { margin-bottom: 1.75rem; }
+.section-num { font-size: 11px; font-weight: 600; color: var(--teal); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.section-title { font-size: 26px; font-weight: 600; color: var(--navy); line-height: 1.25; }
+.section-sub { font-size: 14px; color: var(--text-muted); margin-top: 6px; line-height: 1.6; }
+
+/* TYPOGRAPHY */
+h3 { font-size: 17px; font-weight: 600; color: var(--navy); margin: 1.75rem 0 0.6rem; }
+h4 { font-size: 14px; font-weight: 600; color: var(--text); margin: 1.25rem 0 0.4rem; }
+p { margin-bottom: 0.85rem; }
+strong { font-weight: 600; }
+ul, ol { padding-left: 1.4rem; margin-bottom: 0.85rem; }
+li { margin-bottom: 0.35rem; }
+
+/* CALLOUT BOXES */
+.box { border-radius: 10px; padding: 0.9rem 1.1rem; margin: 1.1rem 0; }
+.box .box-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.box p, .box li { margin-bottom: 0.3rem; font-size: 14px; }
+.box ul { margin-bottom: 0; }
+
+.why { background: var(--teal-light); border-left: 4px solid var(--teal); }
+.why .box-label { color: var(--teal); }
+.why p, .why li { color: #065F46; }
+
+.example { background: var(--blue-light); border-left: 4px solid var(--blue-border); }
+.example .box-label { color: var(--blue-border); }
+.example p, .example li { color: #1E3A8A; }
+
+.warning { background: var(--amber-light); border-left: 4px solid var(--amber); }
+.warning .box-label { color: var(--amber); }
+.warning p, .warning li { color: #92400E; }
+
+.important { background: var(--purple-light); border-left: 4px solid var(--purple); }
+.important .box-label { color: var(--purple); }
+.important p, .important li { color: #4C1D95; }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; margin: 1rem 0; border-radius: 10px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: var(--navy); color: #fff; padding: 10px 14px; text-align: left; font-weight: 500; font-size: 12px; }
+th:first-child { border-radius: 10px 0 0 0; }
+th:last-child { border-radius: 0 10px 0 0; }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text); }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: #FAFAF8; }
+
+/* CARDS GRID */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 1rem 0; }
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1rem 1.1rem;
+}
+.card .card-icon { font-size: 22px; margin-bottom: 8px; }
+.card .card-title { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 5px; }
+.card .card-body { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.card .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px; margin-top: 6px; }
+.badge-teal { background: var(--teal-light); color: var(--teal); }
+.badge-amber { background: var(--amber-light); color: var(--amber); }
+.badge-purple { background: var(--purple-light); color: var(--purple); }
+.badge-blue { background: var(--blue-light); color: var(--blue-border); }
+.badge-coral { background: var(--coral-light); color: var(--coral); }
+
+/* FLOW DIAGRAM */
+.flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 1.2rem 0; }
+.flow-box { background: var(--card); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 16px; font-size: 13px; font-weight: 500; }
+.flow-box.accent { background: var(--navy); color: #fff; border-color: var(--navy); }
+.flow-box.teal { background: var(--teal-light); color: #065F46; border-color: var(--teal); }
+.flow-box.coral { background: var(--coral-light); color: #7C2D12; border-color: var(--coral); }
+.flow-box.amber { background: var(--amber-light); color: #92400E; border-color: var(--amber); }
+.flow-arrow { color: var(--text-muted); font-size: 18px; font-weight: 300; }
+
+/* PYRAMID */
+.pyramid-wrap {
+  background: var(--navy); border-radius: 12px; padding: 1.75rem 1.5rem;
+  margin: 1.25rem 0;
+}
+.pyramid-level {
+  display: flex; align-items: center; gap: 14px; margin-bottom: 6px;
+}
+.pyramid-bar {
+  height: 32px; border-radius: 4px; flex-shrink: 0; transition: opacity 0.2s;
+  min-width: 12px;
+}
+.pyramid-bar:hover { opacity: 0.75; }
+.pyramid-text {
+  color: #fff; font-size: 12.5px; font-weight: 500; line-height: 1.4;
+  flex: 1;
+}
+.pyramid-rank {
+  font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.35);
+  letter-spacing: 0.06em; min-width: 20px; text-align: right;
+}
+
+/* LEVEL TABLE */
+.level-table { width: 100%; margin: 1rem 0; }
+.level-row {
+  display: grid; grid-template-columns: 40px 1fr 1fr; gap: 0;
+  border-bottom: 1px solid var(--border);
+}
+.level-row:last-child { border-bottom: none; }
+.level-row > div { padding: 10px 14px; font-size: 13px; }
+.level-num { font-weight: 700; color: var(--teal); font-size: 14px; }
+
+/* STEPS */
+.steps { counter-reset: step; margin: 1rem 0; }
+.step {
+  display: flex; gap: 14px; align-items: flex-start;
+  padding: 0.85rem 0; border-bottom: 1px solid var(--border);
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  min-width: 30px; height: 30px; border-radius: 50%;
+  background: var(--navy); color: #fff; font-size: 13px; font-weight: 600;
+  display: flex; align-items: center; justify-content: center; margin-top: 2px;
+}
+.step-content { flex: 1; }
+.step-title { font-size: 14px; font-weight: 600; color: var(--navy); margin-bottom: 3px; }
+.step-body { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+
+/* VS TABLE */
+.vs-table { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 1rem 0; }
+.vs-header { padding: 10px 14px; font-size: 12px; font-weight: 600; color: #fff; }
+.vs-header.a { background: var(--navy); }
+.vs-header.b { background: var(--teal); border-left: 1px solid rgba(255,255,255,0.2); }
+.vs-cell { padding: 9px 14px; font-size: 13px; border-top: 1px solid var(--border); color: var(--text); }
+.vs-cell.b { border-left: 1px solid var(--border); }
+
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+
+/* SCROLL TOP */
+.scroll-top {
+  position: fixed; bottom: 1.5rem; right: 1.5rem; width: 40px; height: 40px;
+  background: var(--navy); color: #fff; border: none; border-radius: 50%;
+  font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s; z-index: 200;
+}
+.scroll-top.visible { opacity: 1; }
+
+/* MOBILE */
+.menu-btn { display: none; }
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { transform: translateX(-260px); transition: transform 0.3s; width: 260px; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; max-width: 100%; }
+  .menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 8px; background: none; cursor: pointer; font-size: 18px; }
+  .section { padding: 2rem 1.25rem; }
+  .top-bar { padding: 0.75rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>Derecho Laboral</h1>
+    <p>Apuntes · ET Nº17 Cornelio Saavedra</p>
+  </div>
+  <nav>
+    <div class="nav-group">
+      <div class="nav-label">Fundamentos</div>
+      <a class="nav-item active" onclick="scrollToSection('s1')"><span class="num">01</span> Principios del Derecho</a>
+      <a class="nav-item" onclick="scrollToSection('s2')"><span class="num">02</span> Marco Normativo</a>
+      <a class="nav-item" onclick="scrollToSection('s3')"><span class="num">03</span> Sujetos</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Colectivo</div>
+      <a class="nav-item" onclick="scrollToSection('s4')"><span class="num">04</span> Derecho Colectivo</a>
+      <a class="nav-item" onclick="scrollToSection('s5')"><span class="num">05</span> Delegados Sindicales</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Contrato y Relación</div>
+      <a class="nav-item" onclick="scrollToSection('s6')"><span class="num">06</span> Modalidades del Contrato</a>
+      <a class="nav-item" onclick="scrollToSection('s7')"><span class="num">07</span> Derechos del Trabajador</a>
+      <a class="nav-item" onclick="scrollToSection('s8')"><span class="num">08</span> Deberes del Trabajador</a>
+      <a class="nav-item" onclick="scrollToSection('s9')"><span class="num">09</span> Derechos del Empleador</a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">Apuntes de clase</div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="top-bar">
+    <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+    <span class="pill">Derecho Laboral</span>
+    <span class="crumb">Apuntes de clase</span>
+  </div>
+
+  <!-- S1: PRINCIPIOS -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">01 — Fundamentos</div>
+      <h2 class="section-title">Principios del Derecho del Trabajo</h2>
+      <p class="section-sub">Reglas base que orientan cómo se interpreta y aplica el derecho laboral en cualquier situación.</p>
+    </div>
+
+    <div class="box why">
+      <div class="box-label">Hiposuficiencia</div>
+      <p>Es la desigualdad que existe entre el empleado y el empleador a la hora de negociar. El empleador parte siempre desde una posición de mayor poder. Todos los principios siguientes existen para compensar esa desigualdad.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <div class="card-title">1. Protectorio</div>
+        <div class="card-body">Protege al trabajador en tres dimensiones: duda a favor, norma más favorable y condiciones siempre para mejor.</div>
+        <span class="badge badge-teal">Principal</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔒</div>
+        <div class="card-title">2. Irrenunciabilidad</div>
+        <div class="card-body">Ningún trabajador puede renunciar a sus derechos, aunque quiera hacerlo voluntariamente.</div>
+        <span class="badge badge-blue">Obligatorio</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">👁️</div>
+        <div class="card-title">3. Primacía de la realidad</div>
+        <div class="card-body">Importa más lo que ocurre en los hechos que lo que dice el papel o el contrato.</div>
+        <span class="badge badge-amber">Clave</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚓</div>
+        <div class="card-title">4. Estabilidad</div>
+        <div class="card-body">Se presume que quien inicia una relación laboral la conservará hasta su jubilación.</div>
+        <span class="badge badge-purple">Relación laboral</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚖️</div>
+        <div class="card-title">5. Equidad / Igualdad</div>
+        <div class="card-body">Los trabajadores son todos iguales siempre que tengan la misma categoría laboral.</div>
+        <span class="badge badge-teal">Igualdad</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">💸</div>
+        <div class="card-title">6. Gratuidad</div>
+        <div class="card-body">Todos los costos judiciales del trabajador son gratuitos.</div>
+        <span class="badge badge-coral">Acceso</span>
+      </div>
+    </div>
+
+    <h3>Principio Protectorio en detalle</h3>
+    <div class="box example">
+      <div class="box-label">In dubio pro operario</div>
+      <p>En caso de duda, el juez resuelve a favor del trabajador.</p>
+    </div>
+    <div class="box example">
+      <div class="box-label">Norma más favorable</div>
+      <p>Si se aplican dos o más normas a un mismo caso, el juez utiliza la más favorable para el trabajador.</p>
+    </div>
+    <div class="box example">
+      <div class="box-label">Condición más favorable</div>
+      <p>Si cambian las condiciones de trabajo del trabajador, siempre serán para mejor y no para peor.</p>
+    </div>
+
+    <hr class="divider">
+    <h3>Definición del Derecho del Trabajo</h3>
+    <p>Conjunto de normas jurídicas e institucionales protectoras del trabajo, que surge del hecho social del trabajo en relación de dependencia, así como de las relaciones de asociaciones profesionales y empleadores entre sí y con el Estado.</p>
+  </section>
+
+  <!-- S2: MARCO NORMATIVO -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">02 — Fundamentos</div>
+      <h2 class="section-title">Marco Normativo</h2>
+      <p class="section-sub">La Ley de Contrato de Trabajo 20.744 es la norma base del derecho laboral en Argentina. Por encima y por debajo de ella existe toda una jerarquía de normas.</p>
+    </div>
+
+    <div class="box warning">
+      <div class="box-label">LCT 20.744 — Exclusiones</div>
+      <p>La LCT no se aplica a trabajadores <strong>estatales</strong>, <strong>agrarios</strong> ni al <strong>servicio doméstico</strong>. Cada uno tiene su propio régimen.</p>
+    </div>
+
+    <h3>Pirámide normativa</h3>
+    <p>Las normas se ordenan jerárquicamente: la de mayor rango siempre prevalece. Ante un conflicto entre dos normas, gana la que está más arriba.</p>
+
+    <div class="pyramid-wrap" id="pyramidContainer">
+      <!-- JS genera los niveles -->
+    </div>
+
+    <div class="box why" style="margin-top:1rem;">
+      <div class="box-label">¿Cómo se lee la pirámide?</div>
+      <p>Si una cláusula del contrato individual contradice un convenio colectivo, prevalece el convenio. Si una ley nacional contradice un tratado internacional, prevalece el tratado. Siempre gana la norma de mayor jerarquía.</p>
+    </div>
+  </section>
+
+  <!-- S3: SUJETOS -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">03 — Fundamentos</div>
+      <h2 class="section-title">Sujetos de la Relación Laboral</h2>
+      <p class="section-sub">Quiénes intervienen en una relación de trabajo y qué rol cumple cada uno.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">👤</div>
+        <div class="card-title">Trabajador</div>
+        <div class="card-body">Persona física que se obliga a prestar un servicio.</div>
+        <span class="badge badge-blue">Art. 25</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏢</div>
+        <div class="card-title">Empleador</div>
+        <div class="card-body">Persona física o conjunto de ellas / personas jurídicas.</div>
+        <span class="badge badge-amber">Art. 26</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <div class="card-title">Socio Empleado</div>
+        <div class="card-body">Persona que, integrando una sociedad, presta a esta toda su actividad o parte principal en forma personal y habitual.</div>
+        <span class="badge badge-coral">Art. 27</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- S4: DERECHO COLECTIVO -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">04 — Derecho Colectivo</div>
+      <h2 class="section-title">Organizaciones y Niveles</h2>
+      <p class="section-sub">El derecho colectivo organiza a trabajadores y empleadores en distintos niveles. Cuanto más alto el nivel, más amplia la representación.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Nivel</th><th>Trabajadores</th><th>Empleadores</th><th>Alcance</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>3°</strong></td>
+            <td><strong>CGT</strong></td>
+            <td><strong>UIA</strong></td>
+            <td>Todo el país, todos los sectores</td>
+          </tr>
+          <tr>
+            <td><strong>2°</strong></td>
+            <td>Federación Sindical</td>
+            <td>Federación Empresarial</td>
+            <td>Todo el país, misma especialidad</td>
+          </tr>
+          <tr>
+            <td><strong>1°</strong></td>
+            <td>Sindicato</td>
+            <td>Cámara Empresarial</td>
+            <td>Misma especialidad y jurisdicción</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>¿Qué es cada organización?</h3>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">👷</div>
+        <div class="card-title">Sindicato</div>
+        <div class="card-body">Grupo de trabajadores de una misma especialidad y jurisdicción que se unen en defensa de sus derechos laborales y procuran el bienestar familiar.</div>
+        <span class="badge badge-teal">1° nivel</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏭</div>
+        <div class="card-title">Cámara Empresarial</div>
+        <div class="card-body">Grupo de empleadores de la misma especialidad y jurisdicción que se unen en defensa de sus derechos comerciales.</div>
+        <span class="badge badge-amber">1° nivel</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <div class="card-title">Federación Sindical</div>
+        <div class="card-body">Grupo de sindicatos de la misma especialidad de todo el país.</div>
+        <span class="badge badge-blue">2° nivel</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌐</div>
+        <div class="card-title">Federación Empresarial</div>
+        <div class="card-body">Grupo que abarca las cámaras empresariales de la misma especialidad de todo el país.</div>
+        <span class="badge badge-blue">2° nivel</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏛️</div>
+        <div class="card-title">CGT</div>
+        <div class="card-body">Confederación General del Trabajo. Abarca todas las federaciones de trabajadores del país.</div>
+        <span class="badge badge-coral">3° nivel</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏛️</div>
+        <div class="card-title">UIA</div>
+        <div class="card-body">Unión Industrial Argentina. Abarca todas las federaciones empresariales del país.</div>
+        <span class="badge badge-coral">3° nivel</span>
+      </div>
+    </div>
+
+    <div class="box important">
+      <div class="box-label">Negociación del SMVM</div>
+      <p>La CGT y la UIA negocian el <strong>Salario Mínimo Vital y Móvil (SMVM)</strong>: el salario mínimo que debe cobrar un trabajador que realiza al menos 48 horas semanales.</p>
+    </div>
+
+    <h3>Personería — cómo se legalizan</h3>
+    <div class="vs-table">
+      <div class="vs-header a">Sindicato → Personería Gremial</div>
+      <div class="vs-header b">Cámara Empresarial → Personería Jurídica</div>
+      <div class="vs-cell">Aprobada por el Estado a través del Ministerio de Trabajo.</div>
+      <div class="vs-cell b">Inscripción en la Inspección General de Justicia (IGJ), que controla que las empresas sean creadas con fines lícitos.</div>
+      <div class="vs-cell"><strong>Requisitos:</strong> ser el sindicato con más afiliados en su jurisdicción y tener al menos el 40% de los trabajadores afiliados.</div>
+      <div class="vs-cell b">No requiere demostrar representatividad: basta con inscribirse cumpliendo los requisitos legales.</div>
+    </div>
+  </section>
+
+  <!-- S5: DELEGADOS -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">05 — Derecho Colectivo</div>
+      <h2 class="section-title">Delegados Sindicales</h2>
+      <p class="section-sub">El nexo entre el trabajador individual y el sindicato.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Amparo Sindical</div>
+        <div class="card-body">Acción judicial rápida en la que el delegado le pide al juez que obligue al empleador a reconocerlo como delegado.</div>
+        <span class="badge badge-blue">Garantía</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🛡️</div>
+        <div class="card-title">Tutela Gremial</div>
+        <div class="card-body">Ningún delegado puede ser despedido mientras esté en su cargo. Desde el momento en que se postula queda protegido y no puede ser despedido por 1 año.</div>
+        <span class="badge badge-teal">Protección</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Licencia Gremial</div>
+        <div class="card-body">El trabajador deja de trabajar para el empleador y pasa al sindicato. El empleador debe conservarle el puesto y la categoría laboral para cuando regrese.</div>
+        <span class="badge badge-amber">Reserva de puesto</span>
+      </div>
+    </div>
+
+    <div class="flow" style="justify-content: center; margin-top: 1.5rem;">
+      <div class="flow-box">Se postula como delegado</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box teal">Queda protegido desde ese momento</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box accent">No puede ser despedido por 1 año</div>
+    </div>
+  </section>
+
+  <!-- S6: MODALIDADES -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">06 — Contrato</div>
+      <h2 class="section-title">Modalidades del Contrato de Trabajo</h2>
+      <p class="section-sub">Tres formas en que puede estructurarse la relación contractual entre trabajador y empleador.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">♾️</div>
+        <div class="card-title">Por tiempo indeterminado</div>
+        <div class="card-body">
+          Dura hasta la jubilación. No requiere forma escrita. Incluye un período de prueba de 3, 6 o 12 meses según el caso.
+        </div>
+        <span class="badge badge-teal">Más común</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">📅</div>
+        <div class="card-title">Por tiempo determinado</div>
+        <div class="card-body">
+          Tiene un plazo fijo de hasta 5 años. Requiere forma escrita. Si el empleador rescinde antes, corresponde indemnización por daños y perjuicios.
+        </div>
+        <span class="badge badge-amber">Escrito obligatorio</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Eventual</div>
+        <div class="card-body">
+          Se da por razones excepcionales. Requiere forma escrita.
+        </div>
+        <span class="badge badge-coral">Excepcional</span>
+      </div>
+    </div>
+
+    <div class="box warning">
+      <div class="box-label">Período de prueba</div>
+      <p>El plazo varía (3, 6 o 12 meses) y las últimas reformas no establecen un criterio único claro. Depende del caso.</p>
+    </div>
+
+    <h3>Contratos por tiempo determinado: típico vs. atípico</h3>
+    <p>Dentro de los contratos de tiempo determinado hay dos variantes según la causa que los origina:</p>
+    <div class="vs-table">
+      <div class="vs-header a">Determinado Típico — Temporada</div>
+      <div class="vs-header b">Determinado Atípico — Eventual</div>
+      <div class="vs-cell">La causa es estacional: se repite todos los años en la misma época (cosecha, temporada turística, etc.).</div>
+      <div class="vs-cell b">La causa es excepcional: no es previsible ni se repite. Requiere forma escrita.</div>
+    </div>
+  </section>
+
+  <!-- S7: DERECHOS TRABAJADOR -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">07 — Relación Laboral</div>
+      <h2 class="section-title">Derechos del Trabajador</h2>
+      <p class="section-sub">Lo que el empleador está obligado a garantizarle al trabajador por ley.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">💰</div>
+        <div class="card-title">Recepción del salario</div>
+        <div class="card-body">Siempre en cuenta bancaria, en pesos, y antes del día 5 del mes siguiente.</div>
+        <span class="badge badge-teal">Tiempo y forma</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">Ocupación efectiva</div>
+        <div class="card-body">El trabajador tiene derecho a trabajar solo según la categoría laboral para la que fue contratado.</div>
+        <span class="badge badge-blue">Categoría</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <div class="card-title">Aportes previsionales y sindicales</div>
+        <div class="card-body">El empleador actúa como agente de retención: retiene el aporte jubilatorio y sindical del trabajador para luego depositarlo.</div>
+        <span class="badge badge-amber">Retención</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚖️</div>
+        <div class="card-title">Igualdad de trato</div>
+        <div class="card-body">Todos los trabajadores son iguales siempre que tengan la misma categoría.</div>
+        <span class="badge badge-purple">Igualdad</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">💡</div>
+        <div class="card-title">Inventos y descubrimientos</div>
+        <div class="card-body">Todo invento o descubrimiento que haga el trabajador es suyo, aunque haya usado elementos de la empresa.</div>
+        <span class="badge badge-coral">Propiedad intelectual</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">📚</div>
+        <div class="card-title">Formación profesional</div>
+        <div class="card-body">Cursos dictados por el Ministerio de Trabajo para trabajadores de pequeñas empresas.</div>
+        <span class="badge badge-blue">Pequeñas empresas</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- S8: DEBERES TRABAJADOR -->
+  <section class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">08 — Relación Laboral</div>
+      <h2 class="section-title">Deberes del Trabajador</h2>
+      <p class="section-sub">Las obligaciones que el trabajador asume al entrar en una relación laboral.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🔧</div>
+        <div class="card-title">Diligencia y colaboración</div>
+        <div class="card-body">Realizar las tareas que le asigne el empleador, respetando su categoría.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤝</div>
+        <div class="card-title">Fidelidad</div>
+        <div class="card-body">Ser fiel, amable y ayudar a los compañeros.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-title">Cumplimiento de órdenes</div>
+        <div class="card-body">Acatar las indicaciones del empleador.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🚫</div>
+        <div class="card-title">No concurrencia</div>
+        <div class="card-body">No puede excederse de las indicaciones que le da su empleador.</div>
+      </div>
+    </div>
+
+    <h3>Responsabilidad por daños</h3>
+    <div class="flow">
+      <div class="flow-box accent">Dolo — con intención</div>
+      <div class="flow-arrow">|</div>
+      <div class="flow-box amber">Culpa — sin intención</div>
+      <div class="flow-arrow">|</div>
+      <div class="flow-box coral">Culpa grave — sin intención pero con negligencia</div>
+    </div>
+  </section>
+
+  <!-- S9: DERECHOS EMPLEADOR -->
+  <section class="section" id="s9">
+    <div class="section-header">
+      <div class="section-num">09 — Relación Laboral</div>
+      <h2 class="section-title">Derechos del Empleador</h2>
+      <p class="section-sub">Las facultades que la ley le reconoce al empleador para organizar y disciplinar el trabajo.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🧭</div>
+        <div class="card-title">Facultad de Dirección</div>
+        <div class="card-body">Derecho a elegir el objeto social y/o comercial de la empresa.</div>
+        <span class="badge badge-teal">Organización</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔄</div>
+        <div class="card-title">Facultad de Modificación</div>
+        <div class="card-body">Derecho a establecer los modos de producción y comercialización del objeto.</div>
+        <span class="badge badge-blue">Producción</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚖️</div>
+        <div class="card-title">Facultades Disciplinarias</div>
+        <div class="card-body">Pasos formales previos al despido: amonestación → suspensión → despido con causa.</div>
+        <span class="badge badge-amber">Disciplina</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔍</div>
+        <div class="card-title">Controles Personales</div>
+        <div class="card-body">Derecho a revisar los elementos personales de los trabajadores, debiendo hacerlo con todos por igual.</div>
+        <span class="badge badge-coral">Igualdad obligatoria</span>
+      </div>
+    </div>
+
+    <h3>Pasos disciplinarios</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Amonestación o apercibimiento</div>
+          <div class="step-body">Puede ser oral o escrita. Es el primer llamado de atención formal.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Suspensión</div>
+          <div class="step-body">Se llega aquí tras 3 amonestaciones. Siempre es por escrito mediante Carta Documento. El trabajador tiene 30 días para rechazarla.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Despido con causa</div>
+          <div class="step-body">Instancia definitiva. Se llega tras acumular 3 suspensiones.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flow" style="justify-content:center; margin-top:0.5rem;">
+      <div class="flow-box">3 amonestaciones</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box amber">Suspensión (×3)</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box coral">Despido con causa</div>
+    </div>
+  </section>
+
+  <div style="padding: 2rem 2.5rem; text-align: center; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border);">
+    Apuntes de Derecho Laboral · ET Nº17 D.E. 13 Cornelio Saavedra
+  </div>
+</main>
+
+<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ════════════════════════════════════════════
+     PODCAST BAR
+════════════════════════════════════════════ -->
+<style>
+/* ── Podcast bar ── */
+#podcastBar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 82px;
+  background: #0f1117;
+  border-top: 1px solid #252a38;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  gap: 16px;
+  z-index: 200;
+  font-family: 'Inter', sans-serif;
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.28);
+}
+
+/* Podcast icon + block info */
+#podcastBar .pb-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 160px;
+  max-width: 220px;
+}
+#podcastBar .pb-eyebrow {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #3ecfa0;
+  white-space: nowrap;
+}
+#podcastBar .pb-title {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #e8eaf0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+/* Progress + time */
+#podcastBar .pb-center {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+#podcastBar .pb-progress-track {
+  height: 3px;
+  background: #252a38;
+  border-radius: 3px;
+  overflow: visible;
+  position: relative;
+  cursor: pointer;
+}
+#podcastBar .pb-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5b8dee, #3ecfa0);
+  border-radius: 3px;
+  width: 0%;
+  transition: width 0.3s linear;
+}
+#podcastBar .pb-times {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: #6b7280;
+}
+
+/* Controls */
+#podcastBar .pb-controls {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+#podcastBar .pb-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 7px;
+  transition: color 0.15s, background 0.15s;
+}
+#podcastBar .pb-btn:hover { color: #fff; background: #1e2435; }
+#podcastBar .pb-btn-play {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, #5b8dee, #7b6cf0);
+  color: #fff !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 12px rgba(91,141,238,0.4);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+#podcastBar .pb-btn-play:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 20px rgba(91,141,238,0.55);
+  background: linear-gradient(135deg, #5b8dee, #7b6cf0);
+}
+
+/* Speed + Voice */
+#podcastBar .pb-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+#podcastBar select {
+  background: #1e2435;
+  border: 1px solid #252a38;
+  color: #e8eaf0;
+  border-radius: 7px;
+  font-size: 11px;
+  font-family: 'Inter', sans-serif;
+  padding: 4px 7px;
+  cursor: pointer;
+  outline: none;
+  max-width: 140px;
+}
+#podcastBar .pb-speed {
+  display: flex;
+  gap: 2px;
+}
+#podcastBar .pb-speed-btn {
+  background: #1e2435;
+  border: 1px solid #252a38;
+  color: #6b7280;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  padding: 3px 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+#podcastBar .pb-speed-btn.active {
+  background: rgba(91,141,238,0.2);
+  color: #5b8dee;
+  border-color: rgba(91,141,238,0.4);
+}
+#podcastBar .pb-speed-btn:hover { color: #fff; }
+
+/* Waveform mini */
+#podcastBar .pb-wave {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 28px;
+  flex-shrink: 0;
+}
+#podcastBar .pb-wave .b {
+  width: 2.5px;
+  border-radius: 2px;
+  background: #5b8dee;
+  opacity: 0.3;
+  height: 4px;
+  transition: height 0.1s ease, opacity 0.1s ease;
+}
+#podcastBar .pb-wave .b.on {
+  opacity: 1;
+  animation: pbwave 0.7s ease-in-out infinite alternate;
+}
+@keyframes pbwave {
+  from { height: 4px; }
+  to   { height: 22px; }
+}
+#podcastBar .pb-wave .b:nth-child(2n)  { animation-delay: 0.1s; }
+#podcastBar .pb-wave .b:nth-child(3n)  { animation-delay: 0.2s; }
+#podcastBar .pb-wave .b:nth-child(4n)  { animation-delay: 0.15s; }
+
+/* responsive: hide voice selector on small screens */
+@media (max-width: 680px) {
+  #podcastBar select { display: none; }
+  #podcastBar .pb-info { max-width: 130px; }
+}
+@media (max-width: 480px) {
+  #podcastBar .pb-speed { display: none; }
+  #podcastBar .pb-info { max-width: 100px; }
+}
+</style>
+
+<div id="podcastBar">
+
+  <!-- Waveform -->
+  <div class="pb-wave" id="pbWave"></div>
+
+  <!-- Block info -->
+  <div class="pb-info">
+    <span class="pb-eyebrow" id="pbBlockNum">BLOQUE 01</span>
+    <span class="pb-title" id="pbBlockTitle">Principios del Derecho del Trabajo</span>
+  </div>
+
+  <!-- Progress + time (center) -->
+  <div class="pb-center">
+    <div class="pb-progress-track" id="pbTrack">
+      <div class="pb-progress-fill" id="pbFill"></div>
+    </div>
+    <div class="pb-times">
+      <span id="pbElapsed">0:00</span>
+      <span id="pbTotal">—</span>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="pb-controls">
+    <button class="pb-btn" id="pbPrev" title="Bloque anterior">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+    </button>
+    <button class="pb-btn pb-btn-play" id="pbPlay" title="Play / Pausa">
+      <svg id="pbIconPlay" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="pbIconPause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <button class="pb-btn" id="pbNext" title="Siguiente bloque">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/></svg>
+    </button>
+  </div>
+
+  <!-- Right: voice + speed -->
+  <div class="pb-right">
+    <select id="pbVoiceSelect"></select>
+    <div class="pb-speed">
+      <button class="pb-speed-btn" data-rate="0.85">0.85×</button>
+      <button class="pb-speed-btn active" data-rate="1">1×</button>
+      <button class="pb-speed-btn" data-rate="1.2">1.2×</button>
+      <button class="pb-speed-btn" data-rate="1.5">1.5×</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function() {
+// ── CONTENT ──────────────────────────────────
+const BLOCKS = [
+  { title: "Principios del Derecho del Trabajo", text: `Buenas, buenas. Bienvenidos a este episodio de Derecho Laboral. Hoy vamos a repasar todo, desde cero, sin jerga complicada, cada tema con ejemplos reales para que no se te vaya de la cabeza. Son nueve bloques. Arrancamos. Empecemos por la pregunta más básica: ¿por qué hay leyes especiales para el trabajo? ¿No alcanza con la libertad de contrato entre dos personas adultas? La respuesta es no, y hay una sola razón: la hiposuficiencia. Cuando un trabajador y un empleador se sientan a negociar, no están en igualdad de condiciones. El empleador tiene el dinero, tiene el puesto, tiene el poder. El trabajador necesita el trabajo para vivir. Esa desigualdad estructural es lo que los juristas llaman hiposuficiencia, y todos los principios que vamos a ver ahora existen para compensarla. Primero: el Principio Protectorio. Es el más importante, y tiene tres dimensiones. In dubio pro operario: si hay una duda en la interpretación de una norma, el juez resuelve a favor del trabajador, siempre. Norma más favorable: si hay dos normas que podrían aplicarse al mismo caso, se usa la que más le conviene al trabajador. Condición más favorable: las condiciones laborales de alguien solo pueden cambiar para bien, nunca para peor. Segundo: el Principio de Irrenunciabilidad. Este es fundamental y la gente no lo conoce: ningún trabajador puede renunciar a sus derechos laborales, aunque quiera hacerlo. Ejemplo: Ana firmó un contrato donde renunciaba voluntariamente a sus vacaciones pagas. Su jefa le explicó que era un acuerdo entre adultos. ¿Qué pasa? Esa cláusula es nula. No tiene ningún efecto. Da igual que Ana la haya firmado de buena fe: los derechos laborales no se pueden ceder. Tercero: Primacía de la Realidad. Lo que importa es lo que pasa en los hechos, no lo que dice el papel. Caso: Facundo trabaja como repositor en un supermercado. Su contrato dice prestación de servicios independiente. Pero Facundo cumple horario fijo, usa uniforme de la empresa y recibe órdenes del encargado todos los días. ¿Es empleado en relación de dependencia? Sí. No importa lo que diga el contrato: los hechos indican que hay subordinación. Cuarto: Principio de Estabilidad. Cuando alguien entra a trabajar, la ley presume que va a conservar ese trabajo hasta que se jubile. Quinto: Equidad e Igualdad. Todos los trabajadores de la misma categoría son iguales y deben recibir el mismo trato. Caso: Romina y Carlos hacen exactamente el mismo trabajo. Misma categoría, mismas tareas. Pero Carlos cobra cincuenta mil pesos más por mes sin ninguna documentación que lo justifique. Eso es una violación directa del principio de igualdad. Sexto: Principio de Gratuidad. Todos los costos judiciales de un juicio laboral son gratuitos para el trabajador.` },
+  { title: "Marco Normativo: la Pirámide", text: `La Ley de Contrato de Trabajo, número 20.744, es la norma base del derecho laboral en Argentina. Cuando alguien habla de la LCT, habla de esto. Pero atención: la LCT no aplica a todo el mundo. Hay tres grupos excluidos: los trabajadores estatales, los trabajadores agrarios y el servicio doméstico. Cada uno tiene su propia legislación especial. Las normas se ordenan jerárquicamente. Cuando dos normas se contradicen, siempre gana la de mayor rango. De arriba hacia abajo. Primero, la Constitución Nacional, artículo 14 bis. Es la base constitucional de todos los derechos laborales en Argentina. Segundo, los Tratados Internacionales y Convenios de la OIT, incluyendo el Pacto de San José de Costa Rica. Tercero, las Leyes Nacionales: la LCT 20.744, la Ley de Asociaciones Sindicales, la Ley de Riesgos del Trabajo. Cuarto, los Convenios Colectivos de Trabajo: acuerdos entre sindicatos y cámaras empresariales que regulan cada sector. Quinto, los Estatutos Profesionales. Sexto, los Usos y Costumbres. Y séptimo, los Contratos Individuales de Trabajo. La regla es simple: si tu contrato individual dice algo que contradice un convenio colectivo, prevalece el convenio. Si una ley nacional contradice un tratado internacional, prevalece el tratado. Siempre gana lo de mayor jerarquía.` },
+  { title: "Sujetos de la Relación Laboral", text: `¿Quiénes son las partes en una relación de trabajo? El Trabajador, definido en el artículo 25 de la LCT, es la persona física que se obliga a prestar un servicio. Tiene que ser una persona física: no puede ser una empresa la que trabaje. El Empleador, artículo 26, puede ser una persona física o una persona jurídica. Caso: Industrias del Norte S.A. contrata a Valentina como administrativa. ¿Quién es el empleador? La sociedad anónima. La LCT expresamente incluye a las personas jurídicas como empleadores. Si no fuera así, quedarían fuera de la regulación laboral la gran mayoría de los trabajos modernos. El Socio Empleado, artículo 27, es una figura especial. Es alguien que es socio de una empresa y al mismo tiempo trabaja en ella de forma personal y habitual. ¿Por qué existe esta categoría? Porque tiene una doble relación: como socio tiene derechos societarios; como trabajador tiene derechos laborales. La LCT lo reconoce para que no quede sin protección laboral por el hecho de ser socio.` },
+  { title: "Derecho Colectivo: Organizaciones", text: `Hasta acá vimos el derecho individual del trabajo. Ahora pasamos al derecho colectivo: cómo se organizan en grupos. Hay tres niveles de organización, tanto para trabajadores como para empleadores. Primer nivel, la base. Del lado de los trabajadores: el Sindicato. Es un grupo de trabajadores de la misma especialidad y jurisdicción que se unen para defender sus derechos. Del lado de los empleadores: la Cámara Empresarial. Ejemplo: los trabajadores panaderos de Rosario forman un sindicato. Los empleadores panaderos de Rosario forman una cámara empresarial. Segundo nivel: la Federación Sindical agrupa todos los sindicatos de la misma especialidad de todo el país. La Federación Empresarial hace lo mismo para las cámaras. Tercer nivel, el techo. La CGT, Confederación General del Trabajo, agrupa todas las federaciones de trabajadores del país. La UIA, Unión Industrial Argentina, hace lo mismo para los empleadores. La CGT y la UIA negocian el Salario Mínimo Vital y Móvil: el piso salarial que debe cobrar cualquier trabajador que haga al menos 48 horas semanales. Los sindicatos obtienen Personería Gremial, que la otorga el Ministerio de Trabajo. El sindicato debe tener al menos el cuarenta por ciento de los trabajadores afiliados. Las cámaras empresariales obtienen Personería Jurídica ante la IGJ.` },
+  { title: "Delegados Sindicales", text: `El delegado sindical es el nexo entre el trabajador individual y el sindicato. Es el representante gremial dentro de la empresa. Hay tres figuras clave que lo protegen. La Tutela Gremial es la más importante: ningún delegado puede ser despedido mientras esté en su cargo. Y la protección empieza desde el momento en que se postula, no desde que asume. Caso: Graciela se postuló como delegada sindical. Tres días después el empleador la despidió por reestructuración. ¿Puede hacerlo? No. La Tutela Gremial ya la cubría desde el momento de la postulación, y esa protección dura un año. El Amparo Sindical es una acción judicial rápida en la que el delegado le pide a un juez que obligue al empleador a reconocerlo como tal. La Licencia Gremial: cuando el delegado necesita ausentarse para cumplir funciones sindicales, entra en licencia gremial. El empleador está obligado a conservarle el puesto y la categoría para cuando regrese. Caso: Tomás fue elegido para representar al sindicato en una negociación nacional de seis meses. ¿Puede su empleador darle el puesto a otro de forma permanente? No. Debe reservárselo.` },
+  { title: "Modalidades del Contrato", text: `Un contrato de trabajo puede tener tres formas según su duración. El Contrato por Tiempo Indeterminado es el más común. No tiene fecha de vencimiento: dura hasta la jubilación del trabajador. Incluye un período de prueba al inicio, de tres, seis o doce meses. Durante el período de prueba, el empleador puede desvincular al trabajador sin causa y sin indemnización. Caso: Lucas empezó a trabajar hace dos meses. El empleador quiere desvincularlo. ¿Puede? Sí, porque Lucas aún está en período de prueba. Una vez que ese período termina, cualquier despido sin causa genera indemnización. El Contrato por Tiempo Determinado tiene un plazo fijo de hasta cinco años y requiere forma escrita. Puede ser típico —de temporada, cuando la causa es estacional y se repite todos los años— o atípico —eventual, cuando la causa es excepcional e irrepetible. Caso: Fernanda firmó un contrato por plazo fijo de tres años. Al año y medio, la empresa lo rescinde. ¿Qué le corresponde? Indemnización por daños y perjuicios. Es como un incumplimiento de contrato. El Contrato Eventual es para situaciones excepcionales que no son predecibles. Requiere forma escrita.` },
+  { title: "Derechos del Trabajador", text: `Estos son los derechos que el empleador está obligado a garantizar por ley. Recepción del salario: debe pagarse en cuenta bancaria, en pesos, y antes del día cinco del mes siguiente. Caso: Pedro trabaja en logística. Su empleador le paga en efectivo el día diez. Hay dos problemas: la forma, que tiene que ser en cuenta bancaria, y el plazo, que tiene que ser antes del día cinco. El pago en cuenta bancaria genera un registro formal: si el empleador dice que pagó y no pagó, el banco lo prueba. El efectivo no deja rastro. Ocupación efectiva: el trabajador tiene derecho a realizar únicamente las tareas de su categoría laboral. Caso: Claudia fue contratada como diseñadora gráfica. Su jefe quiere que también atienda el teléfono, limpie la oficina y haga las compras. ¿Puede obligarla? No. Solo puede hacer tareas de diseño gráfico. Aportes previsionales y sindicales: el empleador actúa como agente de retención y deposita los aportes en los organismos correspondientes. Igualdad de trato: todos los trabajadores de la misma categoría deben recibir el mismo trato. Inventos y descubrimientos: todo invento del trabajador es suyo, aunque haya usado elementos de la empresa. Excepción: si fue contratado específicamente para investigar, el invento pertenece a la empresa.` },
+  { title: "Deberes del Trabajador", text: `El trabajador también tiene obligaciones. Son cuatro. Diligencia y Colaboración: realizar las tareas que le asigne el empleador, respetando su categoría. Fidelidad: ser leal al empleador. No puede trabajar para la competencia ni pasarle información sensible. Caso: Lorena trabaja en la empresa de su competidor mientras sigue siendo empleada, y le pasa información sobre los clientes. ¿Qué deber viola? El deber de Fidelidad. Y no es cualquier violación: pasarle información confidencial a la competencia es justa causa de despido directo. No necesita el proceso disciplinario previo. Cumplimiento de Órdenes: acatar las indicaciones del empleador dentro de su categoría. No Concurrencia: no puede excederse de las indicaciones del empleador ni actuar por fuera de sus límites. Responsabilidad por daños: hay tres niveles. Dolo: actuó con intención de causar el daño. Culpa: actuó sin intención, pero causó daño. Culpa Grave: actuó sin intención, pero con una negligencia inexcusable dado su contexto. Caso: Gabriel trabaja en seguridad y por descuido dejó una puerta sin cerrar y entraron a robar. Culpa grave. No quiso que entraran, no hay dolo. Pero su descuido fue gravísimo para alguien cuya función es justamente evitar eso.` },
+  { title: "Derechos del Empleador", text: `El empleador también tiene derechos. Son cuatro facultades. Facultad de Dirección: el empleador tiene derecho a elegir el objeto social de su empresa y cómo se organiza. Los empleados no pueden vetar decisiones de negocio. Caso: Muebles del Sur decide cambiar su sistema de producción de madera maciza a MDF. Los empleados dicen que el empleador no puede cambiarlo sin su acuerdo. ¿Tienen razón? No. La Facultad de Dirección le permite al empleador decidir cómo produce. Pero si el cambio implica empeorar las condiciones laborales, eso sí puede impugnarse. Facultad de Modificación: derecho a modificar los modos de producción y comercialización. Facultades Disciplinarias: existe un proceso formal antes de poder despedir con causa. Tres pasos. Paso uno: Amonestación o Apercibimiento, oral o escrita. Paso dos: Suspensión, tras tres amonestaciones, siempre por escrito mediante Carta Documento. El trabajador tiene treinta días para rechazarla. Paso tres: Despido con Causa, tras tres suspensiones. Caso: un empleado tiene tres amonestaciones. El empleador quiere suspenderlo. El empleado dice que falta otra. ¿Quién tiene razón? El empleador. Tres amonestaciones ya habilitan la suspensión. Controles Personales: el empleador puede revisar los elementos personales de los trabajadores, pero debe hacerlo con todos por igual. Controlar selectivamente convierte al control en discriminación. Y eso fue todo. Gracias por escuchar. ¡Éxitos en el examen!` }
+];
+
+// ── STATE ─────────────────────────────────────
+let block = 0;
+let synth = window.speechSynthesis;
+let utt = null;
+let playing = false;
+let voices = [];
+let rate = 1;
+let charIdx = 0;
+let timerIv = null;
+let elapsed = 0;
+let startT = null;
+
+// ── WAVEFORM ──────────────────────────────────
+const wave = document.getElementById('pbWave');
+for (let i = 0; i < 14; i++) {
+  const b = document.createElement('div');
+  b.className = 'b';
+  b.style.animationDelay = (Math.random() * 0.4) + 's';
+  b.style.animationDuration = (0.45 + Math.random() * 0.5) + 's';
+  wave.appendChild(b);
+}
+function setWave(on) {
+  wave.querySelectorAll('.b').forEach(b => b.classList.toggle('on', on));
+}
+
+// ── VOICES ───────────────────────────────────
+function loadVoices() {
+  voices = synth.getVoices();
+  const sel = document.getElementById('pbVoiceSelect');
+  sel.innerHTML = '';
+  const es = voices.filter(v => v.lang.startsWith('es'));
+  const rest = voices.filter(v => !v.lang.startsWith('es'));
+  [...es, ...rest].forEach(v => {
+    const o = document.createElement('option');
+    o.value = v.name;
+    o.textContent = v.name + ' (' + v.lang + ')';
+    sel.appendChild(o);
+  });
+  const picks = [
+    v => v.name.includes('Google') && v.lang.startsWith('es'),
+    v => v.name.toLowerCase().includes('paulina'),
+    v => v.name.toLowerCase().includes('mónica') || v.name.toLowerCase().includes('monica'),
+    v => v.lang === 'es-419' || v.lang === 'es-AR',
+    v => v.lang.startsWith('es'),
+  ];
+  for (const fn of picks) {
+    const m = [...es, ...rest].find(fn);
+    if (m) { sel.value = m.name; break; }
+  }
+}
+synth.onvoiceschanged = loadVoices;
+loadVoices();
+
+// ── HELPERS ───────────────────────────────────
+function fmt(s) {
+  const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+function setIcon(p) {
+  document.getElementById('pbIconPlay').style.display  = p ? 'none'  : 'block';
+  document.getElementById('pbIconPause').style.display = p ? 'block' : 'none';
+}
+function updateInfo() {
+  document.getElementById('pbBlockNum').textContent   = 'BLOQUE 0' + (block + 1);
+  document.getElementById('pbBlockTitle').textContent = BLOCKS[block].title;
+}
+function startTimer() {
+  startT = Date.now() - elapsed * 1000;
+  timerIv = setInterval(() => {
+    elapsed = (Date.now() - startT) / 1000;
+    document.getElementById('pbElapsed').textContent = fmt(elapsed);
+  }, 500);
+}
+function stopTimer() {
+  clearInterval(timerIv);
+  elapsed = 0;
+  document.getElementById('pbElapsed').textContent = '0:00';
+}
+
+// ── SPEECH ────────────────────────────────────
+function stopCurrent() {
+  synth.cancel();
+  playing = false;
+  setWave(false);
+  setIcon(false);
+  stopTimer();
+}
+
+function speak(fromChar) {
+  stopCurrent();
+  const fullText = BLOCKS[block].text;
+  charIdx = fromChar || 0;
+  const text = charIdx > 0 ? fullText.slice(charIdx) : fullText;
+
+  utt = new SpeechSynthesisUtterance(text);
+  const sel = document.getElementById('pbVoiceSelect');
+  utt.voice = voices.find(v => v.name === sel.value) || voices[0] || null;
+  utt.rate  = rate;
+  utt.pitch = 1;
+  utt.lang  = 'es-AR';
+
+  const total = fullText.length / (rate * 14);
+  document.getElementById('pbTotal').textContent = fmt(total);
+
+  utt.onboundary = (e) => {
+    if (e.name === 'word') {
+      charIdx = (fromChar || 0) + e.charIndex;
+      document.getElementById('pbFill').style.width =
+        Math.min((charIdx / fullText.length) * 100, 100) + '%';
+    }
+  };
+  utt.onstart = () => {
+    playing = true; setWave(true); setIcon(true); startTimer();
+  };
+  utt.onend = () => {
+    if (block < BLOCKS.length - 1) {
+      block++;
+      updateInfo();
+      document.getElementById('pbFill').style.width = '0%';
+      speak(0);
+    } else {
+      stopCurrent();
+      document.getElementById('pbFill').style.width = '100%';
+    }
+  };
+  utt.onerror = (e) => { if (e.error !== 'interrupted') stopCurrent(); };
+  synth.speak(utt);
+}
+
+// ── CONTROLS ──────────────────────────────────
+document.getElementById('pbPlay').addEventListener('click', () => {
+  if (playing) { stopCurrent(); }
+  else { speak(charIdx); }
+});
+document.getElementById('pbPrev').addEventListener('click', () => {
+  stopCurrent();
+  block = Math.max(0, block - 1);
+  charIdx = 0;
+  updateInfo();
+  document.getElementById('pbFill').style.width = '0%';
+  document.getElementById('pbTotal').textContent = '—';
+});
+document.getElementById('pbNext').addEventListener('click', () => {
+  stopCurrent();
+  block = Math.min(BLOCKS.length - 1, block + 1);
+  charIdx = 0;
+  updateInfo();
+  document.getElementById('pbFill').style.width = '0%';
+  document.getElementById('pbTotal').textContent = '—';
+});
+
+document.querySelectorAll('.pb-speed-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pb-speed-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    rate = parseFloat(btn.dataset.rate);
+    if (playing) speak(charIdx);
+  });
+});
+
+// ── WAKE LOCK ─────────────────────────────────
+let wakeLock = null;
+async function reqWL() {
+  if (!('wakeLock' in navigator)) return;
+  try { wakeLock = await navigator.wakeLock.request('screen'); } catch(e) {}
+}
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') reqWL();
+});
+document.body.addEventListener('click', reqWL, { once: true });
+reqWL();
+
+// ── INIT ──────────────────────────────────────
+updateInfo();
+document.body.addEventListener('click', () => {
+  if (voices.length === 0) loadVoices();
+}, { once: true });
+
+})();
+</script>
+
+<script>
+// Pirámide normativa — texto afuera, barra de color a la izquierda
+(function() {
+  const levels = [
+    { label: 'CN Art. 14 bis — Derechos laborales y Seguridad Social', color: '#4A90D9', barW: 14 },
+    { label: 'Tratados Internacionales / Convenios OIT / Pacto San José de Costa Rica', color: '#2563EB', barW: 22 },
+    { label: 'Leyes Nacionales: LCT 20.744 — Ley de Asociaciones — Ley de Riesgos del Trabajo', color: '#0D9E75', barW: 32 },
+    { label: 'Convenios Colectivos de Trabajo', color: '#D97706', barW: 42 },
+    { label: 'Estatutos Profesionales', color: '#D85A30', barW: 52 },
+    { label: 'Usos y costumbres', color: '#6D28D9', barW: 62 },
+    { label: 'Contratos Individuales de Trabajo', color: '#4B5563', barW: 72 },
+  ];
+
+  const container = document.getElementById('pyramidContainer');
+  levels.forEach((lvl, i) => {
+    const row = document.createElement('div');
+    row.className = 'pyramid-level';
+
+    const rank = document.createElement('div');
+    rank.className = 'pyramid-rank';
+    rank.textContent = (levels.length - i) + '°';
+
+    const bar = document.createElement('div');
+    bar.className = 'pyramid-bar';
+    bar.style.cssText = `background:${lvl.color}; width:${lvl.barW}px;`;
+
+    const text = document.createElement('div');
+    text.className = 'pyramid-text';
+    text.textContent = lvl.label;
+
+    row.appendChild(rank);
+    row.appendChild(bar);
+    row.appendChild(text);
+    container.appendChild(row);
+  });
+})();
+
+// Scroll active nav
+function scrollToSection(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollBtn');
+  btn.classList.toggle('visible', window.scrollY > 400);
+
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+  let current = 0;
+  sections.forEach((s, i) => {
+    if (window.scrollY >= s.offsetTop - 120) current = i;
+  });
+  navItems.forEach((n, i) => n.classList.toggle('active', i === current));
+});
+</script>
+</body>
+</html>
