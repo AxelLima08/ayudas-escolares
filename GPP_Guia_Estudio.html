@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gestión de los Procesos Productivos — Guía de Estudio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+:root {
+  --navy: #1E3A5F;
+  --teal: #0D9E75;
+  --teal-light: #E6F7F2;
+  --amber: #D97706;
+  --amber-light: #FEF3C7;
+  --coral: #D85A30;
+  --coral-light: #FDF0EB;
+  --purple: #6D28D9;
+  --purple-light: #EDE9FE;
+  --blue-light: #EFF6FF;
+  --blue-border: #2563EB;
+  --bg: #F4F2EE;
+  --card: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #6B7280;
+  --border: #E2DDD6;
+  --sidebar-w: 250px;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); display: flex; min-height: 100vh; font-size: 15px; line-height: 1.7; }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w); min-height: 100vh; background: var(--navy);
+  position: fixed; top: 0; left: 0; overflow-y: auto;
+  display: flex; flex-direction: column; z-index: 100;
+}
+.sidebar-brand {
+  padding: 1.5rem 1.25rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.sidebar-brand h1 { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.4; }
+.sidebar-brand p { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+.sidebar nav { padding: 0.75rem 0; flex: 1; }
+.nav-group { margin-bottom: 0.25rem; }
+.nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 0.75rem 1.25rem 0.25rem; }
+.nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 1.25rem; font-size: 13px; color: rgba(255,255,255,0.6);
+  text-decoration: none; transition: all 0.15s; cursor: pointer; border: none; background: none; width: 100%; text-align: left;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-item.active { color: #fff; background: rgba(13,158,117,0.25); border-right: 3px solid var(--teal); }
+.nav-item .num { font-size: 11px; font-weight: 600; color: var(--teal); min-width: 18px; }
+.sidebar-footer { padding: 1rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; color: rgba(255,255,255,0.3); }
+
+/* MAIN */
+.main { margin-left: var(--sidebar-w); flex: 1; max-width: calc(100% - var(--sidebar-w)); }
+.top-bar {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 0.75rem 2.5rem; display: flex; align-items: center; gap: 12px;
+  position: sticky; top: 0; z-index: 50;
+}
+.top-bar .pill {
+  background: var(--teal-light); color: var(--teal); font-size: 11px; font-weight: 600;
+  padding: 3px 10px; border-radius: 20px; letter-spacing: 0.03em;
+}
+.top-bar .crumb { font-size: 13px; color: var(--text-muted); }
+
+/* SECTIONS */
+.section { padding: 3rem 2.5rem; border-bottom: 1px solid var(--border); max-width: 860px; }
+.section-header { margin-bottom: 1.75rem; }
+.section-num { font-size: 11px; font-weight: 600; color: var(--teal); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.section-title { font-size: 26px; font-weight: 600; color: var(--navy); line-height: 1.25; }
+.section-sub { font-size: 14px; color: var(--text-muted); margin-top: 6px; line-height: 1.6; }
+
+/* TYPOGRAPHY */
+h3 { font-size: 17px; font-weight: 600; color: var(--navy); margin: 1.75rem 0 0.6rem; }
+h4 { font-size: 14px; font-weight: 600; color: var(--text); margin: 1.25rem 0 0.4rem; }
+p { margin-bottom: 0.85rem; }
+strong { font-weight: 600; }
+ul, ol { padding-left: 1.4rem; margin-bottom: 0.85rem; }
+li { margin-bottom: 0.35rem; }
+
+/* CALLOUT BOXES */
+.box { border-radius: 10px; padding: 0.9rem 1.1rem; margin: 1.1rem 0; }
+.box .box-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+.box p, .box li { margin-bottom: 0.3rem; font-size: 14px; }
+.box ul { margin-bottom: 0; }
+
+.why { background: var(--teal-light); border-left: 4px solid var(--teal); }
+.why .box-label { color: var(--teal); }
+.why p, .why li { color: #065F46; }
+
+.example { background: var(--blue-light); border-left: 4px solid var(--blue-border); }
+.example .box-label { color: var(--blue-border); }
+.example p, .example li { color: #1E3A8A; }
+
+.warning { background: var(--amber-light); border-left: 4px solid var(--amber); }
+.warning .box-label { color: var(--amber); }
+.warning p, .warning li { color: #92400E; }
+
+.important { background: var(--purple-light); border-left: 4px solid var(--purple); }
+.important .box-label { color: var(--purple); }
+.important p, .important li { color: #4C1D95; }
+
+.burgerlab { background: var(--coral-light); border-left: 4px solid var(--coral); }
+.burgerlab .box-label { color: var(--coral); }
+.burgerlab p, .burgerlab li { color: #7C2D12; }
+
+/* FORMULA */
+.formula {
+  background: #1A1A2E; color: #E2E8F0; font-family: var(--mono);
+  border-radius: 8px; padding: 1rem 1.25rem; margin: 1rem 0; font-size: 14px; line-height: 1.8;
+  overflow-x: auto;
+}
+.formula .var { color: #7DD3FC; }
+.formula .op { color: #F9A8D4; }
+.formula .comment { color: #4B5563; font-size: 12px; }
+
+/* CARDS GRID */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; margin: 1rem 0; }
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1rem 1.1rem;
+}
+.card .card-icon { font-size: 22px; margin-bottom: 8px; }
+.card .card-title { font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 5px; }
+.card .card-body { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
+.card .badge { display: inline-block; font-size: 10px; font-weight: 600; padding: 2px 7px; border-radius: 10px; margin-top: 6px; }
+.badge-teal { background: var(--teal-light); color: var(--teal); }
+.badge-amber { background: var(--amber-light); color: var(--amber); }
+.badge-purple { background: var(--purple-light); color: var(--purple); }
+.badge-blue { background: var(--blue-light); color: var(--blue-border); }
+.badge-coral { background: var(--coral-light); color: var(--coral); }
+
+/* FLOW DIAGRAM */
+.flow { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin: 1.2rem 0; }
+.flow-box { background: var(--card); border: 1.5px solid var(--border); border-radius: 8px; padding: 10px 16px; font-size: 13px; font-weight: 500; }
+.flow-box.accent { background: var(--navy); color: #fff; border-color: var(--navy); }
+.flow-box.teal { background: var(--teal-light); color: #065F46; border-color: var(--teal); }
+.flow-arrow { color: var(--text-muted); font-size: 18px; font-weight: 300; }
+
+/* TABLE */
+.table-wrap { overflow-x: auto; margin: 1rem 0; border-radius: 10px; border: 1px solid var(--border); }
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { background: var(--navy); color: #fff; padding: 10px 14px; text-align: left; font-weight: 500; font-size: 12px; }
+th:first-child { border-radius: 10px 0 0 0; }
+th:last-child { border-radius: 0 10px 0 0; }
+td { padding: 9px 14px; border-bottom: 1px solid var(--border); color: var(--text); }
+tr:last-child td { border-bottom: none; }
+tr:nth-child(even) td { background: #FAFAF8; }
+.td-green { color: #065F46; font-weight: 500; }
+.td-red { color: #991B1B; font-weight: 500; }
+.td-highlight td { background: #FEF3C7 !important; font-weight: 600; }
+
+/* DIVIDER */
+.divider { border: none; border-top: 1px solid var(--border); margin: 1.75rem 0; }
+
+/* CALCULATOR */
+.calc-card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1.5rem; margin: 1.25rem 0;
+}
+.calc-card h4 { margin-top: 0; color: var(--navy); }
+.calc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 1rem; }
+.calc-field label { display: block; font-size: 12px; font-weight: 500; color: var(--text-muted); margin-bottom: 5px; }
+.calc-field input {
+  width: 100%; padding: 8px 12px; border: 1px solid var(--border); border-radius: 8px;
+  font-family: var(--sans); font-size: 14px; color: var(--text); background: var(--bg);
+  outline: none; transition: border-color 0.15s;
+}
+.calc-field input:focus { border-color: var(--teal); }
+.calc-result-box {
+  background: var(--navy); color: #fff; border-radius: 10px; padding: 1rem 1.25rem;
+  margin-top: 1rem;
+}
+.calc-result-box .result-label { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.08em; }
+.calc-result-box .result-val { font-size: 22px; font-weight: 600; margin: 4px 0; color: #5EEAD4; }
+.calc-result-box .result-note { font-size: 12px; color: rgba(255,255,255,0.6); }
+.calc-results-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin-top: 1rem; }
+.mini-result { background: #F8F9FA; border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 1rem; }
+.mini-result .label { font-size: 11px; color: var(--text-muted); }
+.mini-result .value { font-size: 16px; font-weight: 600; color: var(--navy); margin-top: 2px; }
+canvas { max-width: 100%; }
+.chart-container { margin-top: 1.25rem; }
+
+/* 3E METER */
+.meter-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.meter-label { font-size: 13px; font-weight: 500; min-width: 100px; color: var(--text); }
+.meter-bar { flex: 1; height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+.meter-fill { height: 100%; border-radius: 5px; transition: width 0.4s; }
+.meter-val { font-size: 13px; font-weight: 600; min-width: 40px; text-align: right; color: var(--navy); }
+
+/* MOBILE */
+.menu-btn { display: none; }
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { transform: translateX(-250px); transition: transform 0.3s; width: 250px; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; max-width: 100%; }
+  .menu-btn { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 8px; background: none; cursor: pointer; font-size: 18px; }
+  .section { padding: 2rem 1.25rem; }
+  .top-bar { padding: 0.75rem 1.25rem; }
+}
+.tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+.vs-table { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin: 1rem 0; }
+.vs-col { }
+.vs-header { padding: 10px 14px; font-size: 12px; font-weight: 600; color: #fff; }
+.vs-header.a { background: var(--navy); }
+.vs-header.b { background: var(--teal); border-left: 1px solid rgba(255,255,255,0.2); }
+.vs-row { display: contents; }
+.vs-cell { padding: 9px 14px; font-size: 13px; border-top: 1px solid var(--border); color: var(--text); }
+.vs-cell.b { border-left: 1px solid var(--border); }
+.scroll-top {
+  position: fixed; bottom: 1.5rem; right: 1.5rem; width: 40px; height: 40px;
+  background: var(--navy); color: #fff; border: none; border-radius: 50%;
+  font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s; z-index: 200;
+}
+.scroll-top.visible { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>Gestión de los Procesos Productivos</h1>
+    <p>6to año · Guía de Estudio Completa</p>
+  </div>
+  <nav>
+    <div class="nav-group">
+      <div class="nav-label">Fundamentos</div>
+      <a class="nav-item active" onclick="scrollTo('s1')"><span class="num">01</span> Planificación, Gestión y Control</a>
+      <a class="nav-item" onclick="scrollTo('s2')"><span class="num">02</span> El Sistema Productivo</a>
+      <a class="nav-item" onclick="scrollTo('s3')"><span class="num">03</span> Empresa vs. Industria</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Producción</div>
+      <a class="nav-item" onclick="scrollTo('s4')"><span class="num">04</span> Factores de Producción</a>
+      <a class="nav-item" onclick="scrollTo('s5')"><span class="num">05</span> Tipos de Procesos</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Rendimiento</div>
+      <a class="nav-item" onclick="scrollTo('s6')"><span class="num">06</span> Productividad y Tipos</a>
+      <a class="nav-item" onclick="scrollTo('s7')"><span class="num">07</span> Eficiencia, Eficacia, Efectividad</a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Costos</div>
+      <a class="nav-item" onclick="scrollTo('s8')"><span class="num">08</span> Tipos de Costos</a>
+      <a class="nav-item" onclick="scrollTo('s9')"><span class="num">09</span> Costos vs. Gastos</a>
+      <a class="nav-item" onclick="scrollTo('s10')"><span class="num">10</span> Costo de Oportunidad</a>
+      <a class="nav-item" onclick="scrollTo('s11')"><span class="num">11</span> Costo Marginal y MC</a>
+      <a class="nav-item" onclick="scrollTo('s12')"><span class="num">12</span> Punto de Equilibrio</a>
+    </div>
+  </nav>
+  <div class="sidebar-footer">Prof. Barreiro Graciela Carolina</div>
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+  <div class="top-bar">
+    <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+    <span class="pill">GPP</span>
+    <span class="crumb">Guía de Estudio Interactiva</span>
+  </div>
+
+  <!-- S1: PGC -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">01 — Fundamentos</div>
+      <h2 class="section-title">Planificación, Gestión y Control</h2>
+      <p class="section-sub">Las 3 etapas que forman de comienzo a fin cualquier proceso productivo. Sin las tres, el proceso no existe o falla.</p>
+    </div>
+
+    <p>Gestionar una empresa no es solo "hacer cosas". Es un ciclo continuo de tres etapas que se retroalimentan. Si falta alguna, todo el sistema pierde consistencia.</p>
+
+    <div class="flow" style="justify-content:center; margin: 1.5rem 0;">
+      <div class="flow-box accent">📋 Planificación</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box accent">⚙️ Gestión</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box accent">✅ Control</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box teal">🔄 Nueva planificación</div>
+    </div>
+
+    <h3>Las 3 etapas en detalle</h3>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📋</div>
+        <div class="card-title">1 — Planificación</div>
+        <div class="card-body">Definir por adelantado <strong>¿Qué hacer?</strong>, <strong>¿Cómo y cuándo?</strong> y <strong>¿Quién lo hará?</strong>. Es el mapa antes del viaje.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚙️</div>
+        <div class="card-title">2 — Gestión</div>
+        <div class="card-body">El conjunto de acciones, transacciones y decisiones para <strong>ejecutar</strong> lo planificado. Es poner en marcha el mapa.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">✅</div>
+        <div class="card-title">3 — Control</div>
+        <div class="card-body">Comparar los <strong>resultados obtenidos</strong> con lo planificado. ¿Llegamos a donde queríamos? ¿Por qué sí o no?</div>
+      </div>
+    </div>
+
+    <div class="why">
+      <div class="box-label">¿Por qué las tres juntas?</div>
+      <p>Planificar sin controlar es no saber si llegaste. Controlar sin haber planificado es no tener con qué comparar. Ejecutar sin planificar es actuar al azar. Las tres se necesitan mutuamente para que el ciclo tenga sentido.</p>
+    </div>
+
+    <div class="burgerlab">
+      <div class="box-label">🍔 BurgerLab — Ejemplo corriendo</div>
+      <p><strong>Planificación:</strong> El lunes a las 8am, el dueño decide que van a preparar 300 hamburguesas para el mediodía, divide tareas entre los 3 cocineros y estima los insumos.</p>
+      <p><strong>Gestión:</strong> Los cocineros ejecutan, el dueño coordina, resuelve que falta pan y llama al proveedor de urgencia.</p>
+      <p><strong>Control:</strong> Al cierre, vendieron 280. ¿Por qué faltaron 20? Revisaron y vieron que una parrilla estuvo 30 min apagada. Ese aprendizaje mejora la próxima planificación.</p>
+    </div>
+  </section>
+
+  <!-- S2: SISTEMA PRODUCTIVO -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">02 — Fundamentos</div>
+      <h2 class="section-title">El Sistema Productivo</h2>
+      <p class="section-sub">Todo proceso productivo es un sistema que transforma entradas en salidas, rodeado por un entorno que lo condiciona.</p>
+    </div>
+
+    <div class="why">
+      <div class="box-label">¿Por qué lo llamamos "sistema"?</div>
+      <p>Un sistema es una unidad formada por partes que <strong>interactúan con un objetivo común</strong>. En producción, las partes son los insumos, las máquinas, las personas y los procesos. Funcionan juntas y el resultado es diferente a la suma de cada parte por separado.</p>
+    </div>
+
+    <h3>Los 3 elementos del sistema</h3>
+    <div class="flow" style="justify-content:center;">
+      <div style="text-align:center;">
+        <div class="flow-box" style="border-color:var(--blue-border); margin-bottom:6px;">📥 INPUTS<br><small style="color:var(--text-muted)">Materias primas, trabajo,<br>energía, capital, tecnología</small></div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div style="text-align:center;">
+        <div class="flow-box accent" style="margin-bottom:6px;">⚙️ TRANSFORMACIÓN<br><small style="opacity:0.7">Diseño, producción,<br>distribución</small></div>
+        <div style="font-size:11px; color:var(--text-muted); text-align:center;">↑ ENTORNO ↓</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div style="text-align:center;">
+        <div class="flow-box teal" style="margin-bottom:6px;">📦 OUTPUTS<br><small>Productos (bienes<br>o servicios)</small></div>
+      </div>
+    </div>
+    <div style="text-align:center; margin: 0.5rem 0 1rem; font-size:12px; color:var(--text-muted);">↑ RETROALIMENTACIÓN: los outputs informan mejoras a los inputs ↑</div>
+
+    <div class="important">
+      <div class="box-label">El entorno importa</div>
+      <p>La empresa NO vive sola. El entorno incluye proveedores, clientes, competencia, regulaciones del gobierno, y el mercado. Todas las decisiones internas deben considerar cómo reacciona el entorno. Un aumento de costos de un proveedor cambia todo el sistema.</p>
+    </div>
+
+    <h3>Actores del entorno</h3>
+    <div class="cards">
+      <div class="card"><div class="card-title">Proveedores</div><div class="card-body">Suministran materias primas, herramientas, trabajadores. Sin ellos, los inputs no llegan.</div></div>
+      <div class="card"><div class="card-title">Clientes</div><div class="card-body">Quienes compran y pagan el output. Determinan si el sistema tiene razón de existir.</div></div>
+      <div class="card"><div class="card-title">Competencia</div><div class="card-body">Produce algo similar. Obliga a la empresa a ser más eficiente y a diferenciar su producto.</div></div>
+    </div>
+
+    <div class="burgerlab">
+      <div class="box-label">🍔 BurgerLab</div>
+      <p><strong>Inputs:</strong> carne, pan, queso, cocineros, gas, parrilla, recetas.<br>
+      <strong>Transformación:</strong> preparar, cocinar, armar, empacar.<br>
+      <strong>Output:</strong> la hamburguesa lista para el cliente.<br>
+      <strong>Entorno:</strong> si sube el precio de la carne (proveedor), el costo del input cambia y hay que replantear el precio de venta.</p>
+    </div>
+  </section>
+
+  <!-- S3: EMPRESA vs INDUSTRIA -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">03 — Fundamentos</div>
+      <h2 class="section-title">Empresa vs. Industria</h2>
+      <p class="section-sub">Dos conceptos que se confunden pero son distintos. Toda industria es una empresa, pero no toda empresa es una industria.</p>
+    </div>
+
+    <p>Antes de estudiar producción, hay que entender a qué tipo de organización nos referimos. La diferencia está en lo que hacen con sus recursos.</p>
+
+    <div class="why">
+      <div class="box-label">¿Por qué distinguirlos?</div>
+      <p>Porque los conceptos de costos, productividad y sistemas de producción aplican de forma diferente en cada caso. Una empresa de servicios no fabrica nada físico. Una industria sí transforma materia prima. El análisis cambia según el tipo.</p>
+    </div>
+
+    <h3>¿Qué es cada una?</h3>
+    <div class="vs-table">
+      <div class="vs-header a">Empresa</div>
+      <div class="vs-header b">Industria</div>
+      <div class="vs-cell">Unidad social con fines de lucro que coordina recursos para desarrollar actividades económicas.</div>
+      <div class="vs-cell b">Organización dedicada a <strong>transformar materias primas</strong> en productos elaborados. Es el sector secundario.</div>
+      <div class="vs-cell">Puede estar en el sector primario (agro), secundario (manufactura) o terciario (servicios).</div>
+      <div class="vs-cell b">Pertenece específicamente al sector secundario de la economía.</div>
+      <div class="vs-cell">Puede no realizar transformaciones físicas (ej: banco, consultora, supermercado).</div>
+      <div class="vs-cell b">Su característica distintiva ES la transformación física de insumos.</div>
+      <div class="vs-cell">Una empresa puede poseer varias plantas industriales.</div>
+      <div class="vs-cell b">La industria generalmente tiene una planta física (fábrica) donde ocurre la producción.</div>
+    </div>
+
+    <h3>Lo que tienen en común</h3>
+    <div class="box example">
+      <div class="box-label">Semejanzas clave</div>
+      <ul>
+        <li>Ambas son organizaciones formadas por personas.</li>
+        <li>Ambas coordinan recursos (humanos, materiales, financieros, tecnológicos).</li>
+        <li>Ambas operan con fines de lucro en el sistema capitalista.</li>
+        <li>Ambas reúnen factores de producción para generar valor.</li>
+        <li>Ambas buscan satisfacer necesidades de la sociedad.</li>
+      </ul>
+    </div>
+
+    <div class="example">
+      <div class="box-label">Ejemplo concreto</div>
+      <p><strong>Coca-Cola</strong> es una empresa que posee varias industrias (plantas embotelladoras). La planta en Palermo es la industria — donde se transforma agua, azúcar y concentrado en bebida embotellada. La empresa es la entidad legal que las controla a todas, junto con la administración, marketing y finanzas.</p>
+      <p><strong>Un kiosco</strong> es una empresa (compra y vende), pero no es una industria: no transforma nada.</p>
+    </div>
+
+    <p><strong>Conclusión:</strong> La industria es un tipo especial de empresa cuya función básica es transformar insumos en bienes aptos para el consumo o la inversión.</p>
+  </section>
+
+  <!-- S4: FACTORES -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">04 — Producción</div>
+      <h2 class="section-title">Factores de la Producción</h2>
+      <p class="section-sub">Los recursos o "ingredientes" que cualquier empresa necesita combinar para producir algo.</p>
+    </div>
+
+    <p>Los factores de la producción son los medios o entradas (inputs) con los que cuenta una sociedad para transformar recursos y obtener bienes y servicios. Sin ellos, no hay producción posible.</p>
+
+    <div class="why">
+      <div class="box-label">¿Por qué clasificarlos?</div>
+      <p>Porque cada factor tiene un dueño diferente, un costo diferente y genera una recompensa diferente. Si no sabés qué factores usás, no podés calcular costos reales, no podés mejorar la productividad ni tomar decisiones de inversión.</p>
+    </div>
+
+    <h3>Los 5 factores</h3>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <div class="card-title">Tierra / Naturaleza</div>
+        <div class="card-body">Todo lo que aporta la naturaleza: suelo, agua, minerales, bosques, energía (gas, electricidad, solar). Es preexistente a la actividad humana.<br><br>BurgerLab: el local, el gas para la parrilla, el agua para limpiar.</div>
+        <span class="badge badge-teal">Retribución: Renta</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">👷</div>
+        <div class="card-title">Trabajo</div>
+        <div class="card-body">El esfuerzo humano invertido en la producción, tanto físico como intelectual. Incluye operarios, supervisores, vendedores, diseñadores.<br><br>BurgerLab: los cocineros, el cajero, el delivery.</div>
+        <span class="badge badge-blue">Retribución: Salario</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏭</div>
+        <div class="card-title">Capital</div>
+        <div class="card-body">Bienes duraderos creados por el ser humano que se usan para producir otros bienes: máquinas, edificios, herramientas, computadoras.<br><br>BurgerLab: la parrilla industrial, las freidoras, las heladeras.</div>
+        <span class="badge badge-amber">Retribución: Interés</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">💻</div>
+        <div class="card-title">Tecnología</div>
+        <div class="card-body">El conjunto de conocimientos y técnicas que permiten combinar los factores de manera eficiente. Puede ser una máquina, un proceso o software.<br><br>BurgerLab: la app de pedidos, la receta estandarizada, el sistema de turnos.</div>
+        <span class="badge badge-purple">Retribución: Regalías</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧠</div>
+        <div class="card-title">Empresa / Empresario</div>
+        <div class="card-body">El factor coordinador que organiza, planifica y dirige a los demás, asumiendo el riesgo económico. Sin él, los otros factores no se juntan.<br><br>BurgerLab: el dueño que arriesgó sus ahorros y toma decisiones.</div>
+        <span class="badge badge-coral">Retribución: Ganancia</span>
+      </div>
+    </div>
+
+    <div class="why">
+      <div class="box-label">¿Por qué el empresario es un factor separado?</div>
+      <p>Porque asume una asimetría de riesgo única: los otros factores cobran siempre (el cocinero cobra aunque el negocio pierda plata, el alquiler se paga igual). El empresario solo cobra si hay ganancia. Esa diferencia justifica clasificarlo aparte.</p>
+    </div>
+
+    <h3>Retribuciones — ¿por qué existe cada una?</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Factor</th><th>Retribución</th><th>Razón de ser</th></tr>
+        <tr><td>Tierra</td><td>Renta</td><td>El dueño del recurso natural podría usarlo para otra cosa o no prestarlo</td></tr>
+        <tr><td>Trabajo</td><td>Salario</td><td>Compensar el tiempo, esfuerzo y habilidades que el trabajador no recupera</td></tr>
+        <tr><td>Capital</td><td>Interés</td><td>Por el desgaste del bien y el costo de oportunidad del dinero invertido</td></tr>
+        <tr><td>Empresa</td><td>Ganancia / Beneficio</td><td>Premio por asumir el riesgo de que todo puede salir mal</td></tr>
+        <tr><td>Tecnología</td><td>Regalías / Royalties</td><td>Compensar el conocimiento creado (patentes, marcas, diseños exclusivos)</td></tr>
+      </table>
+    </div>
+
+    <div class="warning">
+      <div class="box-label">Si falta un factor…</div>
+      <p>Los factores son complementarios. Si BurgerLab tiene parrillas (capital) pero no hay cocineros (trabajo) → las máquinas están paradas. Si tiene cocineros pero no hay gas (tierra) → no se puede cocinar. Como un rompecabezas: todas las piezas son necesarias.</p>
+    </div>
+  </section>
+
+  <!-- S5: PROCESOS -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">05 — Producción</div>
+      <h2 class="section-title">Tipos de Procesos Productivos</h2>
+      <p class="section-sub">No todas las empresas producen igual. El sistema de producción debe calzar con el volumen, la variedad del producto y el tipo de cliente.</p>
+    </div>
+
+    <div class="why">
+      <div class="box-label">¿Por qué elegir el sistema correcto?</div>
+      <p>Porque elegir mal significa o pagar de más (montar una línea continua para un producto único) o no poder abastecer el mercado (hacer pedido por pedido cuando la demanda es masiva). El sistema productivo impacta directamente en los costos, la flexibilidad y la calidad.</p>
+    </div>
+
+    <h3>1. Producción Continua / En Masa (serie)</h3>
+    <p>Flujo en línea. El producto se mueve de una etapa a la siguiente de forma secuencial. Se fabrica el mismo producto por tiempo indefinido, en grandes cantidades, con los mismos estándares. Opera 24/7 con paradas mínimas.</p>
+    <div class="example">
+      <div class="box-label">Ejemplos</div>
+      <p><strong>Continua:</strong> Refinería de petróleo, planta de tratamiento de agua, Coca-Cola. Nunca paran.<br>
+      <strong>En masa / serie:</strong> Fábrica de autos Toyota, fábrica de zapatillas Nike. Alto volumen, poca variedad.</p>
+    </div>
+    <div class="warning">
+      <div class="box-label">Desventaja clave</div>
+      <p>Casi sin flexibilidad. Si el mercado cambia (surge demanda de un nuevo producto), reconvertir la línea es carísimo y lleva meses. "Está rígidamente planificado para un solo producto durante años."</p>
+    </div>
+
+    <h3>2. Producción por Proyecto / A Pedido (posición fija)</h3>
+    <p>Se fabrica un producto único o muy específico. El contacto con el cliente es cercano porque se planifica según su necesidad. No se empieza a fabricar sin tener el pedido. El producto permanece fijo y los recursos se mueven hacia él.</p>
+    <div class="example">
+      <div class="box-label">Ejemplos</div>
+      <p>Construcción de un edificio, fabricación de un barco, diseño de un videojuego personalizado, menú especial para un evento.</p>
+    </div>
+
+    <h3>3. Producción por Lotes (o por proceso)</h3>
+    <p>Se fabrica una cantidad determinada de un producto (el "lote"), luego se cambia a otro lote diferente. Cada lote puede ser idéntico dentro de sí mismo, pero cambia entre lotes. Flexibilidad media.</p>
+    <div class="example">
+      <div class="box-label">Ejemplos</div>
+      <p>Panadería que hornea 200 facturas, después 150 medialunas, después 100 panes. Fabricación de ropa por temporada. 1000 frascos de alcohol en gel.</p>
+    </div>
+
+    <h3>4. Producción Artesanal</h3>
+    <p>El sistema más antiguo. Se usa herramientas manuales para satisfacer necesidades específicas. Alta calidad, alta personalización, volumen bajo.</p>
+    <div class="example">
+      <div class="box-label">Ejemplos</div>
+      <p>Muebles hechos a medida, joyería artesanal, instrumentos musicales de luthier.</p>
+    </div>
+
+    <h3>Cuadro comparativo</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Tipo</th><th>Volumen</th><th>Variedad</th><th>Flexibilidad</th><th>Contacto cliente</th><th>Ejemplo</th></tr>
+        <tr><td><strong>Proyecto</strong></td><td>Muy bajo</td><td>Alta</td><td>Alta</td><td>Alto</td><td>Edificio</td></tr>
+        <tr><td><strong>Artesanal</strong></td><td>Bajo</td><td>Alta</td><td>Alta</td><td>Alto</td><td>Muebles a medida</td></tr>
+        <tr><td><strong>Lotes</strong></td><td>Medio</td><td>Media</td><td>Media</td><td>Medio</td><td>Ropa, panadería</td></tr>
+        <tr><td><strong>Masa / Serie</strong></td><td>Alto</td><td>Baja</td><td>Baja</td><td>Bajo</td><td>Autos, galletitas</td></tr>
+        <tr><td><strong>Continua</strong></td><td>Muy alto</td><td>Muy baja</td><td>Muy baja</td><td>Ninguno</td><td>Petróleo, Coca-Cola</td></tr>
+      </table>
+    </div>
+
+    <div class="important">
+      <div class="box-label">Sistemas híbridos</div>
+      <p>En la vida real es difícil encontrar un tipo "puro". BurgerLab usa lotes para la producción diaria, pero si un cliente pide un menú especial para un evento, usa producción por proyecto. Las empresas combinan sistemas según el producto y el cliente.</p>
+    </div>
+  </section>
+
+  <!-- S6: PRODUCTIVIDAD -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">06 — Rendimiento</div>
+      <h2 class="section-title">Productividad y Tipos</h2>
+      <p class="section-sub">La productividad mide qué tan bien se usan los recursos para obtener resultados. Es siempre una medida relativa.</p>
+    </div>
+
+    <p>La productividad es la relación entre el resultado de una actividad productiva (outputs) y los recursos usados para obtenerla (inputs). En simple: <em>"lograr más con lo mismo, o lo mismo con menos"</em>.</p>
+
+    <div class="warning">
+      <div class="box-label">¡No confundir producción con productividad!</div>
+      <p>Producir más unidades no significa ser más productivo. Si para hacer 400 hamburguesas necesitás 10 cocineros y el mes pasado hacías 400 con 6, tu producción es igual pero tu productividad empeoró. La producción mide cantidad; la productividad mide eficiencia.</p>
+    </div>
+
+    <h3>¿Por qué es "relativa"?</h3>
+    <div class="why">
+      <div class="box-label">La razón</div>
+      <p>Decir que BurgerLab produce 50 hamburguesas por hora-hombre no dice nada solo. Pero si la competencia produce 70, entonces BurgerLab es menos productivo. Si el mes pasado producía 40, entonces mejoró. Sin comparación, el número no informa.</p>
+    </div>
+
+    <h3>Fórmula general</h3>
+    <div class="formula">
+<span class="var">Productividad</span> <span class="op">=</span> <span class="var">Outputs</span> / <span class="var">Inputs</span>
+<span class="comment">  → Ej: unidades producidas / horas trabajadas</span>
+
+<span class="comment">Variación porcentual (año a año):</span>
+<span class="var">Productividad Comparada</span> <span class="op">=</span> (Productividad Actual / Productividad Anterior <span class="op">-</span> 1) <span class="op">×</span> 100</div>
+
+    <h3>Tipos de productividad</h3>
+
+    <h4>A. Productividad Parcial</h4>
+    <p>Relaciona la producción total con <strong>un solo tipo de insumo</strong>. Es la más usada en el día a día porque es fácil de calcular y entender.</p>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Tipo</th><th>Fórmula</th><th>Ejemplo (producción = 1000 u.)</th></tr>
+        <tr><td>Mano de obra (laboral)</td><td>Producción / Trabajadores</td><td>1000 / 300 = 3,33 u/trabajador</td></tr>
+        <tr><td>Por hora-hombre</td><td>Producción / Horas trabajadas</td><td>1000 / 400 HH = 2,5 u/HH</td></tr>
+        <tr><td>Maquinaria</td><td>Producción / Horas-máquina</td><td>1000 / 200 HM = 5 u/HM</td></tr>
+        <tr><td>Materiales</td><td>Producción / Insumos materiales</td><td>1000 / 200 = 5</td></tr>
+        <tr><td>Capital</td><td>Producción / Insumo capital</td><td>1000 / 300 = 3,33</td></tr>
+        <tr><td>Energía</td><td>Producción / Insumo energía</td><td>1000 / 100 = 10</td></tr>
+      </table>
+    </div>
+
+    <h4>B. Productividad Total de los Factores (PTF)</h4>
+    <p>Mide el aumento o disminución del rendimiento por variación de <strong>varios factores a la vez</strong>: trabajo, capital y conocimiento. Es más compleja y se asocia al crecimiento de largo plazo de la empresa y a la tecnología.</p>
+
+    <h4>C. Productividad Marginal</h4>
+    <p>¿Cuánto cambia la producción cuando agrego <strong>una unidad más de un solo factor</strong>, manteniendo los demás constantes? Esto conecta directamente con la Ley de Rendimientos Decrecientes.</p>
+    <div class="formula"><span class="var">Productividad Marginal</span> <span class="op">=</span> Producción Total(n) <span class="op">-</span> Producción Total(n<span class="op">-</span>1)</div>
+
+    <h3>Ley de Rendimientos Decrecientes</h3>
+    <p>Si se agrega un factor variable (más cocineros) pero se mantienen fijos los demás (las parrillas), llega un punto en que cada cocinero adicional produce cada vez menos. Los recursos fijos se saturan.</p>
+
+    <div class="table-wrap">
+      <table>
+        <tr><th>Cocineros</th><th>Hamburguesas/día (total)</th><th>Productividad Marginal</th><th>Situación</th></tr>
+        <tr><td>1</td><td>80</td><td>80</td><td>Trabaja solo, aprovecha todo</td></tr>
+        <tr><td>2</td><td>180</td><td>100</td><td>Se dividen tareas, máxima colaboración</td></tr>
+        <tr><td>3</td><td>240</td><td>60</td><td>Eficiencia cae, empieza a sobrar espacio</td></tr>
+        <tr class="td-highlight"><td>4</td><td>265</td><td class="td-red">25 ⚠</td><td>Solo 2 parrillas: uno espera siempre</td></tr>
+        <tr><td>5</td><td>270</td><td class="td-red">5</td><td>Se estorban, el quinto casi no aporta</td></tr>
+      </table>
+    </div>
+
+    <div class="why">
+      <div class="box-label">¿Por qué pasa esto?</div>
+      <p>Porque hay un factor fijo (2 parrillas) que no crece. A partir del 4to cocinero, ya no hay parrilla disponible: tiene que esperar o compartir. La solución correcta es invertir en más parrillas (capital) antes de contratar más gente (trabajo).</p>
+    </div>
+
+    <h3>Calculadora de Productividad</h3>
+    <div class="calc-card">
+      <h4>Calculá la productividad de tu empresa</h4>
+      <div class="calc-grid">
+        <div class="calc-field"><label>Unidades producidas</label><input type="number" id="cp_prod" value="1200" oninput="calcProductividad()"></div>
+        <div class="calc-field"><label>Cantidad de trabajadores</label><input type="number" id="cp_trab" value="4" oninput="calcProductividad()"></div>
+        <div class="calc-field"><label>Horas por trabajador</label><input type="number" id="cp_hs" value="160" oninput="calcProductividad()"></div>
+        <div class="calc-field"><label>Productividad anterior (u/HH)</label><input type="number" id="cp_ant" value="1.5" step="0.01" oninput="calcProductividad()"></div>
+      </div>
+      <div class="calc-results-grid">
+        <div class="mini-result"><div class="label">Productividad laboral (u/trabajador)</div><div class="value" id="r_lab">—</div></div>
+        <div class="mini-result"><div class="label">Productividad por hora-hombre</div><div class="value" id="r_hh">—</div></div>
+        <div class="mini-result"><div class="label">Variación vs. período anterior</div><div class="value" id="r_var">—</div></div>
+        <div class="mini-result"><div class="label">Resultado</div><div class="value" id="r_result" style="font-size:13px">—</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S7: 3E -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">07 — Rendimiento</div>
+      <h2 class="section-title">Eficiencia, Eficacia y Efectividad</h2>
+      <p class="section-sub">Las "tres E de una organización exitosa". Se parecen pero miden cosas distintas. Confundirlas lleva a decisiones equivocadas.</p>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">Eficacia</div>
+        <div class="card-body"><strong>¿Llegaste al objetivo?</strong><br>Mide el grado de consecución de metas. No importa cómo ni con cuántos recursos. Lo que importa es el resultado.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚡</div>
+        <div class="card-title">Eficiencia</div>
+        <div class="card-body"><strong>¿Usaste bien los recursos?</strong><br>Mide la relación entre recursos empleados y resultados. Ser eficiente es lograr el objetivo usando los <em>mínimos recursos necesarios</em>.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏆</div>
+        <div class="card-title">Efectividad</div>
+        <div class="card-body"><strong>¿Llegaste Y usaste bien?</strong><br>La combinación de eficacia + eficiencia. Es el objetivo real de cualquier organización: hacer lo que hay que hacer, bien hecho.</div>
+      </div>
+    </div>
+
+    <h3>La trampa: ser uno sin ser el otro</h3>
+    <div class="example">
+      <div class="box-label">Ejemplos que aclaran la diferencia</div>
+      <p><strong>Eficaz pero ineficiente:</strong> BurgerLab vendió las 300 hamburguesas prometidas (logró el objetivo ✓) pero usó el doble de carne por error del cocinero (desperdició recursos ✗).</p>
+      <p><strong>Eficiente pero ineficaz:</strong> Para ahorrar costos, BurgerLab redujo los ingredientes a la mitad. Gastó muy poco (usó pocos recursos ✓) pero los clientes no quedaron satisfechos y las ventas cayeron a 100 (no logró el objetivo ✗).</p>
+      <p><strong>Efectivo:</strong> Vendió 300 hamburguesas usando exactamente los ingredientes planificados. Logró el objetivo y optimizó los recursos. ✓✓</p>
+    </div>
+
+    <div class="why">
+      <div class="box-label">¿Por qué EFICIENCIA + EFICACIA = EFECTIVIDAD/PRODUCTIVIDAD?</div>
+      <p>Porque la productividad no es solo producir cantidad (eficacia) ni solo ahorrar recursos (eficiencia). Es lograr las dos cosas al mismo tiempo. Una empresa que llega a sus metas usando los recursos precisos es productiva. Por eso se dice que eficiencia + eficacia = productividad/efectividad.</p>
+    </div>
+
+    <h3>Indicadores — ¿cómo medirlo?</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Concepto</th><th>¿Qué mide?</th><th>Ejemplo de indicador</th></tr>
+        <tr><td><strong>Eficacia</strong></td><td>Cumplimiento del objetivo</td><td>% de pedidos entregados a tiempo; % de máquinas entregadas sin retrasos</td></tr>
+        <tr><td><strong>Eficiencia</strong></td><td>Consumo de recursos por resultado</td><td>Horas técnico por licencia tramitada; kg de acero por unidad producida</td></tr>
+        <tr><td><strong>Efectividad</strong></td><td>Ambos combinados</td><td>Costo real vs costo planificado por unidad producida dentro de plazo</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- S8: COSTOS -->
+  <section class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">08 — Costos</div>
+      <h2 class="section-title">Tipos de Costos</h2>
+      <p class="section-sub">Los costos son el lenguaje oculto de la producción. Conocerlos es la diferencia entre tomar decisiones informadas o actuar a ciegas.</p>
+    </div>
+
+    <div class="why">
+      <div class="box-label">¿Para qué sirve conocer los costos?</div>
+      <ul>
+        <li>Calcular el precio adecuado de productos y servicios.</li>
+        <li>Saber qué productos generan ganancias y cuáles pérdidas.</li>
+        <li>Identificar dónde se puede reducir costos sin perder calidad.</li>
+        <li>Negociar con proveedores y tomar decisiones de inversión.</li>
+        <li>Calcular el punto de equilibrio.</li>
+      </ul>
+    </div>
+
+    <h3>Clasificación 1: Según su comportamiento</h3>
+    <div class="vs-table">
+      <div class="vs-header a">Costos Fijos (CF)</div>
+      <div class="vs-header b">Costos Variables (CV)</div>
+      <div class="vs-cell">No cambian con la cantidad producida. Son los mismos si producís 1 unidad o 1.000.</div>
+      <div class="vs-cell b">Suben o bajan en proporción directa a la cantidad producida.</div>
+      <div class="vs-cell"><strong>Ejemplos:</strong> Alquiler, sueldos base, seguro, depreciación de maquinaria, internet, licencias de software.</div>
+      <div class="vs-cell b"><strong>Ejemplos:</strong> Materia prima, mano de obra por hora extra, combustible, comisiones de ventas, flete.</div>
+      <div class="vs-cell">Si BurgerLab cierra un día, el alquiler se paga igual.</div>
+      <div class="vs-cell b">Si BurgerLab no produce hamburguesas, no gasta en carne.</div>
+    </div>
+
+    <div class="why">
+      <div class="box-label">¿Por qué distinguirlos?</div>
+      <p>Porque te dicen cosas diferentes. Los costos fijos son la "carga base" que siempre tenés, vendas o no. Los variables te muestran cuánto cuesta producir una unidad adicional. Esta distinción es esencial para calcular el punto de equilibrio y para decidir si conviene aceptar un pedido extra a precio reducido (decisión de corto plazo).</p>
+    </div>
+
+    <h3>Clasificación 2: Según su relación con el producto</h3>
+    <div class="cards">
+      <div class="card">
+        <div class="card-title">Costos Directos</div>
+        <div class="card-body">Se pueden asignar específicamente a un producto o servicio concreto. Se sabe exactamente cuánto de este costo va a cada unidad.<br><br><strong>Ej:</strong> la carne y el pan de cada hamburguesa; la tela de cada camisa.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Costos Indirectos</div>
+        <div class="card-body">No se pueden asignar a un producto específico: se distribuyen entre varios. Hay que asignarlos con algún criterio (área, horas, etc).<br><br><strong>Ej:</strong> el alquiler del local, el sueldo del gerente, los seguros.</div>
+      </div>
+    </div>
+
+    <h3>Análisis de costos: fórmulas clave</h3>
+    <div class="formula">
+<span class="comment">Costo Total:</span>
+<span class="var">CT</span> <span class="op">=</span> <span class="var">CF</span> <span class="op">+</span> <span class="var">CV</span>
+
+<span class="comment">Costo Unitario:</span>
+<span class="var">CU</span> <span class="op">=</span> <span class="var">CT</span> / <span class="var">Q</span>
+<span class="comment">  donde Q = cantidad producida</span>
+
+<span class="comment">Costo Directo:</span>
+<span class="var">CD</span> <span class="op">=</span> Cantidad de insumo directo <span class="op">×</span> Precio unitario del insumo
+
+<span class="comment">Costo Indirecto unitario:</span>
+<span class="var">CI_unit</span> <span class="op">=</span> Costos Indirectos Totales / Base de asignación</div>
+
+    <div class="burgerlab">
+      <div class="box-label">🍔 BurgerLab — Ejemplo numérico</div>
+      <p><strong>Costos fijos mensuales:</strong> Alquiler $80.000 + Sueldos base $60.000 + Seguro $10.000 = CF $150.000</p>
+      <p><strong>Costos variables por hamburguesa:</strong> Carne $300 + Pan $80 + Queso $100 + Gas $50 + Packaging $70 = CV unitario $600</p>
+      <p>Si produce 400 hamburguesas: CV total = $600 × 400 = $240.000. CT = $150.000 + $240.000 = $390.000. Costo unitario = $390.000 / 400 = $975 por hamburguesa.</p>
+    </div>
+  </section>
+
+  <!-- S9: COSTOS VS GASTOS -->
+  <section class="section" id="s9">
+    <div class="section-header">
+      <div class="section-num">09 — Costos</div>
+      <h2 class="section-title">Costos vs. Gastos</h2>
+      <p class="section-sub">Se usan como sinónimos pero no son lo mismo. Confundirlos distorsiona el precio del producto y la rentabilidad real.</p>
+    </div>
+
+    <p>La diferencia fundamental está en la <strong>relación con la producción</strong>. No es una diferencia de magnitud ni de cuándo se pagan, sino de para qué sirven.</p>
+
+    <div class="vs-table">
+      <div class="vs-header a">Costos</div>
+      <div class="vs-header b">Gastos</div>
+      <div class="vs-cell">Relacionados directamente con <strong>producir</strong> el bien o servicio.</div>
+      <div class="vs-cell b">Relacionados con el <strong>funcionamiento general</strong> de la empresa, no con producir.</div>
+      <div class="vs-cell">Forman parte del costo del producto.</div>
+      <div class="vs-cell b">No forman parte del costo del producto.</div>
+      <div class="vs-cell">Suelen ser recurrentes y ligados al ciclo productivo.</div>
+      <div class="vs-cell b">Pueden ser esporádicos o periódicos.</div>
+      <div class="vs-cell">Sirven para evaluar la rentabilidad de la producción.</div>
+      <div class="vs-cell b">Se analizan para controlar el funcionamiento de la empresa.</div>
+    </div>
+
+    <h3>Ejemplos concretos</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Es COSTO</th><th>Es GASTO</th></tr>
+        <tr><td>Materia prima (harina para el pan)</td><td>Alquiler de la oficina administrativa</td></tr>
+        <tr><td>Salario del cocinero (mano de obra directa)</td><td>Sueldo del contador o del área de marketing</td></tr>
+        <tr><td>Gas y electricidad de la producción</td><td>Gastos de publicidad en Instagram</td></tr>
+        <tr><td>Depreciación de la parrilla industrial</td><td>Intereses de un préstamo bancario</td></tr>
+        <tr><td>Packaging de cada hamburguesa</td><td>Comisiones bancarias por el uso del POS</td></tr>
+      </table>
+    </div>
+
+    <div class="why">
+      <div class="box-label">¿Por qué importa la distinción?</div>
+      <p>Si mezclas costos y gastos, calculás mal el precio de tu producto. Un error clásico: incluir la publicidad en el "costo de cada hamburguesa". La publicidad es un gasto general, no cambia por unidad producida. Si la incluís, sobreestimás el costo y podés poner un precio innecesariamente alto, perdiendo clientes.</p>
+    </div>
+
+    <div class="burgerlab">
+      <div class="box-label">🍔 BurgerLab — La confusión clásica</div>
+      <p>El dueño gasta $20.000 por mes en redes sociales. Si lo suma al costo de cada hamburguesa (divide entre 400 unidades = $50 extra por unidad), su "costo" sube a $1.025. Pero eso es un gasto, no un costo de producción. El precio debería calcularse sobre el costo real ($975) y el gasto en publicidad se analiza por separado como inversión de marketing.</p>
+    </div>
+  </section>
+
+  <!-- S10: COSTO DE OPORTUNIDAD -->
+  <section class="section" id="s10">
+    <div class="section-header">
+      <div class="section-num">10 — Costos</div>
+      <h2 class="section-title">Costo de Oportunidad</h2>
+      <p class="section-sub">El valor de lo que resignás al elegir una opción sobre otra. Es un costo que no aparece en ninguna factura, pero es real.</p>
+    </div>
+
+    <p>Cada vez que tomás una decisión, estás descartando alternativas. El costo de oportunidad es el valor de la mejor alternativa que dejaste de lado.</p>
+
+    <div class="why">
+      <div class="box-label">¿Por qué importa si no aparece en el balance?</div>
+      <p>Porque puede ser que estés "ganando" contablemente pero perdiendo económicamente. Si tu empresa gana $100.000 por año pero el dinero invertido en ella podría estar generando $150.000 en otro negocio, estás teniendo un costo de oportunidad de $50.000 que el balance no muestra.</p>
+    </div>
+
+    <h3>Ejemplo cotidiano</h3>
+    <div class="example">
+      <div class="box-label">La pizza o el cine</div>
+      <p>Tenés $10.000 y dos opciones: pizza con amigos o cine. Al elegir la pizza, el costo de oportunidad es el placer del cine + la experiencia de verla. Al elegir el cine, el costo de oportunidad es el sabor de la pizza + compartir con amigos en casa. No importa cuál elijas: la alternativa descartada siempre tiene un valor.</p>
+    </div>
+
+    <h3>En las empresas</h3>
+    <div class="cards">
+      <div class="card">
+        <div class="card-title">Decisión de inversión</div>
+        <div class="card-body">BurgerLab puede comprar una nueva parrilla ($200.000) o poner ese dinero en un plazo fijo al 8% anual ($16.000/año). Si la parrilla genera menos de $16.000 anuales de beneficio adicional, no conviene comprarla.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Decisión de tiempo</div>
+        <div class="card-body">El dueño dedica 8 horas diarias al local. Esas horas podrían usarse en otro trabajo que paga $5.000/hora. El costo de oportunidad de su tiempo es $40.000/día.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Decisión de expansión</div>
+        <div class="card-body">Abrir un segundo local vs. invertir en mejorar el primero. La opción elegida lleva el costo de oportunidad de los beneficios que hubiera dado la otra.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- S11: COSTO MARGINAL Y MC -->
+  <section class="section" id="s11">
+    <div class="section-header">
+      <div class="section-num">11 — Costos</div>
+      <h2 class="section-title">Costo Marginal y Margen de Contribución</h2>
+      <p class="section-sub">Dos herramientas para tomar decisiones a corto plazo: ¿conviene producir una unidad más? ¿cuánto aporta cada venta?</p>
+    </div>
+
+    <h3>Costo Marginal (CM)</h3>
+    <p>Es el aumento en el costo total cuando se produce <strong>una unidad adicional</strong>. Representa el costo variable de esa última unidad.</p>
+
+    <div class="formula"><span class="var">CM</span> <span class="op">=</span> CT(n) <span class="op">-</span> CT(n<span class="op">-</span>1)
+<span class="comment">  donde n = número de unidades producidas</span></div>
+
+    <div class="why">
+      <div class="box-label">¿Para qué sirve el costo marginal?</div>
+      <p>Para decidir si aceptar un pedido especial a precio reducido. Si un cliente pide 50 hamburguesas extra a $700 (menos del precio normal de $1.500), ¿conviene? Depende del costo marginal. Si producir cada unidad adicional cuesta $600 (solo insumos variables, ya que los fijos están pagos), conviene: ganás $100 por unidad extra. Los costos fijos no cambian en el corto plazo.</p>
+    </div>
+
+    <div class="example">
+      <div class="box-label">Ejemplo</div>
+      <p>BurgerLab: costo total de producir 200 hamburguesas = $270.000. Costo total de producir 201 = $270.600. <strong>Costo marginal de la unidad 201 = $600</strong>. Ese es el costo variable unitario.</p>
+    </div>
+
+    <h3>Margen de Contribución (MC)</h3>
+    <p>La diferencia entre el precio de venta y el costo variable unitario. Cada unidad vendida "contribuye" con ese monto a cubrir los costos fijos y luego generar ganancia.</p>
+
+    <div class="formula"><span class="var">MC</span> <span class="op">=</span> Precio de Venta <span class="op">-</span> Costo Variable Unitario</div>
+
+    <div class="why">
+      <div class="box-label">¿Por qué "margen de contribución" y no simplemente "ganancia"?</div>
+      <p>Porque no es la ganancia final. Es lo que cada unidad aporta para cubrir primero los costos fijos. Solo después de cubrir todos los costos fijos, ese margen empieza a transformarse en ganancia real. Por eso el nombre: contribuye a cubrir los fijos.</p>
+    </div>
+
+    <div class="burgerlab">
+      <div class="box-label">🍔 BurgerLab</div>
+      <p>Precio de venta = $1.500. Costo variable unitario = $600. <strong>Margen de contribución = $900</strong>.</p>
+      <p>Esto significa que cada hamburguesa que vende aporta $900 hacia los $150.000 de costos fijos. Necesita vender 150.000 / 900 = 167 hamburguesas para cubrir los fijos. A partir de la 168ª, cada hamburguesa genera $900 de ganancia pura.</p>
+    </div>
+
+    <h3>Diferencias clave</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Característica</th><th>Costo Marginal</th><th>Margen de Contribución</th></tr>
+        <tr><td>¿Qué mide?</td><td>Costo de producir una unidad más</td><td>Ganancia bruta por unidad vendida</td></tr>
+        <tr><td>Considera</td><td>Solo costos variables</td><td>Costos variables y su relación con el precio</td></tr>
+        <tr><td>Uso principal</td><td>Aceptar/rechazar pedidos especiales; fijar precios de corto plazo</td><td>Calcular PE; evaluar rentabilidad por producto</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <!-- S12: PUNTO DE EQUILIBRIO -->
+  <section class="section" id="s12">
+    <div class="section-header">
+      <div class="section-num">12 — Costos</div>
+      <h2 class="section-title">Punto de Equilibrio</h2>
+      <p class="section-sub">El nivel de ventas en que los ingresos totales igualan los costos totales. Ni ganancia ni pérdida. El umbral mínimo de supervivencia.</p>
+    </div>
+
+    <p>El punto de equilibrio (PE) es la cantidad de unidades que hay que vender para que la empresa no pierda ni gane. Por debajo → pérdida. Exactamente ahí → equilibrio. Por encima → ganancia.</p>
+
+    <div class="why">
+      <div class="box-label">¿Por qué existe este punto?</div>
+      <p>Porque los costos fijos existen aunque no vendas nada. El alquiler corre igual si el local está cerrado. Para cubrir esos costos fijos, necesitás que el margen de contribución de cada venta se vaya acumulando hasta alcanzarlos. El PE es el momento exacto en que esa acumulación llega a cero.</p>
+    </div>
+
+    <h3>Fórmulas</h3>
+    <div class="formula"><span class="comment">En unidades:</span>
+<span class="var">PE</span> <span class="op">=</span> <span class="var">CF</span> / (<span class="var">P</span> <span class="op">-</span> <span class="var">CV_unit</span>)
+<span class="comment">  = Costos Fijos / Margen de Contribución unitario</span>
+
+<span class="comment">En ingresos ($):</span>
+<span class="var">IT</span> <span class="op">=</span> <span class="var">CF</span> / [1 <span class="op">-</span> (<span class="var">CV_total</span> / <span class="var">Ventas Reales</span>)]
+
+<span class="comment">Verificación: En el PE debe cumplirse que:</span>
+<span class="var">P</span> <span class="op">×</span> <span class="var">Q</span> <span class="op">=</span> <span class="var">CF</span> <span class="op">+</span> (<span class="var">CV_unit</span> <span class="op">×</span> <span class="var">Q</span>)</div>
+
+    <h3>Calculadora interactiva</h3>
+    <div class="calc-card">
+      <h4>Calculá el punto de equilibrio de BurgerLab</h4>
+      <div class="calc-grid">
+        <div class="calc-field"><label>Costos fijos mensuales ($)</label><input type="number" id="pe_cf" value="150000" oninput="calcPE()"></div>
+        <div class="calc-field"><label>Precio de venta unitario ($)</label><input type="number" id="pe_pv" value="1500" oninput="calcPE()"></div>
+        <div class="calc-field"><label>Costo variable unitario ($)</label><input type="number" id="pe_cvu" value="600" oninput="calcPE()"></div>
+        <div class="calc-field"><label>Unidades vendidas en el mes</label><input type="number" id="pe_q" value="400" oninput="calcPE()"></div>
+      </div>
+      <div class="calc-results-grid">
+        <div class="mini-result"><div class="label">Margen de contribución unitario</div><div class="value" id="r_mc">—</div></div>
+        <div class="mini-result"><div class="label">Punto de equilibrio (unidades)</div><div class="value" id="r_pe">—</div></div>
+        <div class="mini-result"><div class="label">Punto de equilibrio (ingresos $)</div><div class="value" id="r_pev">—</div></div>
+        <div class="mini-result"><div class="label">Resultado del mes</div><div class="value" id="r_gana" style="font-size:14px;">—</div></div>
+      </div>
+      <div class="chart-container"><canvas id="peChart" height="200"></canvas></div>
+    </div>
+
+    <h3>¿Qué factores mueven el punto de equilibrio?</h3>
+    <div class="table-wrap">
+      <table>
+        <tr><th>Cambio</th><th>Efecto en el PE</th><th>¿Por qué?</th></tr>
+        <tr><td>↑ Costos fijos (sube el alquiler)</td><td class="td-red">PE sube ↑</td><td>Necesitás más ventas para cubrir más costos fijos</td></tr>
+        <tr><td>↑ Precio de venta</td><td class="td-green">PE baja ↓</td><td>Cada unidad aporta más al margen, se cubren los fijos antes</td></tr>
+        <tr><td>↓ Costo variable unitario</td><td class="td-green">PE baja ↓</td><td>El margen de contribución crece, se llega al equilibrio antes</td></tr>
+        <tr><td>↑ Costo variable unitario</td><td class="td-red">PE sube ↑</td><td>El margen cae, hay que vender más para cubrir los fijos</td></tr>
+      </table>
+    </div>
+
+    <h3>Aplicaciones del PE</h3>
+    <ul>
+      <li><strong>Evaluar la viabilidad de un negocio:</strong> ¿Es realista vender lo que el PE requiere?</li>
+      <li><strong>Fijar metas de ventas:</strong> Saber cuánto mínimo hay que vender.</li>
+      <li><strong>Tomar decisiones de precios:</strong> ¿Qué pasa si bajo el precio un 10%?</li>
+      <li><strong>Evaluar nuevos productos:</strong> ¿A cuántas unidades de venta se paga solo?</li>
+    </ul>
+
+    <div class="important">
+      <div class="box-label">Hay que recalcularlo periódicamente</div>
+      <p>El PE cambia con el tiempo porque los costos cambian (inflación, nuevos proveedores), el precio puede cambiar y la eficiencia puede mejorar. El PE del año pasado no necesariamente aplica hoy.</p>
+    </div>
+  </section>
+
+  <div style="padding: 2rem 2.5rem; text-align: center; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border);">
+    Guía de Estudio — Gestión de los Procesos Productivos · 6to año · Prof. Barreiro Graciela Carolina
+  </div>
+</main>
+
+<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+function scrollTo(id) {
+  document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollBtn');
+  btn.classList.toggle('visible', window.scrollY > 400);
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+  let current = 0;
+  sections.forEach((s, i) => {
+    if (window.scrollY >= s.offsetTop - 120) current = i;
+  });
+  navItems.forEach((n, i) => n.classList.toggle('active', i === current));
+});
+
+function calcProductividad() {
+  const prod = parseFloat(document.getElementById('cp_prod').value) || 0;
+  const trab = parseFloat(document.getElementById('cp_trab').value) || 1;
+  const hs   = parseFloat(document.getElementById('cp_hs').value) || 1;
+  const ant  = parseFloat(document.getElementById('cp_ant').value) || 1;
+  const hh   = trab * hs;
+  const laboral = prod / trab;
+  const porHH   = prod / hh;
+  const variacion = ((porHH / ant) - 1) * 100;
+  document.getElementById('r_lab').textContent = laboral.toFixed(2) + ' u/trab.';
+  document.getElementById('r_hh').textContent  = porHH.toFixed(2) + ' u/HH';
+  document.getElementById('r_var').textContent  = (variacion >= 0 ? '+' : '') + variacion.toFixed(1) + '%';
+  const res = document.getElementById('r_result');
+  if (variacion > 0) { res.textContent = '✅ Mejoró'; res.style.color = '#0D9E75'; }
+  else if (variacion < 0) { res.textContent = '⚠️ Empeoró'; res.style.color = '#D97706'; }
+  else { res.textContent = '= Sin cambio'; res.style.color = '#6B7280'; }
+}
+calcProductividad();
+
+let peChartInst = null;
+function calcPE() {
+  const cf  = parseFloat(document.getElementById('pe_cf').value) || 0;
+  const pv  = parseFloat(document.getElementById('pe_pv').value) || 0;
+  const cvu = parseFloat(document.getElementById('pe_cvu').value) || 0;
+  const q   = parseFloat(document.getElementById('pe_q').value) || 0;
+  const mc  = pv - cvu;
+  if (mc <= 0) {
+    document.getElementById('r_mc').textContent = 'Negativo';
+    document.getElementById('r_pe').textContent = 'Imposible';
+    return;
+  }
+  const pe  = Math.ceil(cf / mc);
+  const pev = pe * pv;
+  const ganancia = (pv * q) - cf - (cvu * q);
+  document.getElementById('r_mc').textContent  = '$' + mc.toLocaleString('es-AR');
+  document.getElementById('r_pe').textContent  = pe.toLocaleString('es-AR') + ' u.';
+  document.getElementById('r_pev').textContent = '$' + pev.toLocaleString('es-AR');
+  const rg = document.getElementById('r_gana');
+  if (ganancia > 0)      { rg.textContent = '✅ Ganancia $' + Math.round(ganancia).toLocaleString('es-AR'); rg.style.color = '#0D9E75'; }
+  else if (ganancia < 0) { rg.textContent = '❌ Pérdida $' + Math.round(Math.abs(ganancia)).toLocaleString('es-AR'); rg.style.color = '#D85A30'; }
+  else                   { rg.textContent = '⚖️ Equilibrio exacto'; rg.style.color = '#6B7280'; }
+  drawPEChart(cf, pv, cvu, pe);
+}
+
+function drawPEChart(cf, pv, cvu, pe) {
+  const canvas = document.getElementById('peChart');
+  if (!canvas) return;
+  if (peChartInst) peChartInst.destroy();
+  const maxQ = Math.ceil(pe * 1.9);
+  const step = Math.max(1, Math.floor(maxQ / 12));
+  const labels = [], ingData = [], costData = [], cfData = [];
+  for (let q = 0; q <= maxQ; q += step) {
+    labels.push(q);
+    ingData.push(Math.round(q * pv));
+    costData.push(Math.round(cf + q * cvu));
+    cfData.push(cf);
+  }
+  peChartInst = new Chart(canvas, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Ingresos totales', data: ingData, borderColor: '#0D9E75', backgroundColor: 'rgba(13,158,117,0.07)', borderWidth: 2.5, pointRadius: 0, fill: false, tension: 0 },
+        { label: 'Costos totales', data: costData, borderColor: '#D85A30', backgroundColor: 'rgba(216,90,48,0.07)', borderWidth: 2.5, pointRadius: 0, fill: false, tension: 0 },
+        { label: 'Costos fijos', data: cfData, borderColor: '#6D28D9', backgroundColor: 'transparent', borderWidth: 1.5, borderDash: [5,4], pointRadius: 0, fill: false, tension: 0 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: true,
+      plugins: {
+        legend: { position: 'top', labels: { font: { size: 12, family: 'Inter' }, boxWidth: 14, padding: 16 } },
+        tooltip: { callbacks: { label: c => c.dataset.label + ': $' + c.parsed.y.toLocaleString('es-AR') } }
+      },
+      scales: {
+        x: { title: { display: true, text: 'Unidades vendidas', font: { size: 12 } }, grid: { color: 'rgba(0,0,0,0.05)' } },
+        y: { title: { display: true, text: '$ (pesos)', font: { size: 12 } }, ticks: { callback: v => '$' + (v/1000).toFixed(0) + 'k' }, grid: { color: 'rgba(0,0,0,0.05)' } }
+      }
+    }
+  });
+}
+calcPE();
+</script>
+</body>
+</html>

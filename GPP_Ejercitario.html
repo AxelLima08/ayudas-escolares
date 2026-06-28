@@ -1,0 +1,1448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GPP — Ejercitario Completo</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #1E3A5F;
+  --teal: #0D9E75;
+  --teal-light: #E6F7F2;
+  --amber: #D97706;
+  --amber-light: #FEF3C7;
+  --coral: #D85A30;
+  --coral-light: #FDF0EB;
+  --purple: #6D28D9;
+  --purple-light: #EDE9FE;
+  --blue-light: #EFF6FF;
+  --blue-border: #2563EB;
+  --bg: #F4F2EE;
+  --card: #FFFFFF;
+  --text: #1A1A1A;
+  --text-muted: #6B7280;
+  --border: #E2DDD6;
+  --sidebar-w: 260px;
+  --sans: 'Inter', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--sans); background: var(--bg); color: var(--text); display: flex; min-height: 100vh; font-size: 15px; line-height: 1.7; }
+
+/* SIDEBAR */
+.sidebar {
+  width: var(--sidebar-w); min-height: 100vh; background: var(--navy);
+  position: fixed; top: 0; left: 0; overflow-y: auto;
+  display: flex; flex-direction: column; z-index: 100;
+}
+.sidebar-brand { padding: 1.5rem 1.25rem 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.sidebar-brand h1 { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.4; }
+.sidebar-brand p { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+.sidebar nav { padding: 0.75rem 0; flex: 1; }
+.nav-group { margin-bottom: 0.25rem; }
+.nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.3); padding: 0.75rem 1.25rem 0.25rem; }
+.nav-item {
+  display: flex; align-items: center; gap: 8px;
+  padding: 7px 1.25rem; font-size: 12px; color: rgba(255,255,255,0.6);
+  text-decoration: none; transition: all 0.15s; cursor: pointer; border: none; background: none; width: 100%; text-align: left;
+}
+.nav-item:hover { color: #fff; background: rgba(255,255,255,0.06); }
+.nav-item.active { color: #fff; background: rgba(13,158,117,0.25); border-right: 3px solid var(--teal); }
+.nav-item .num { font-size: 11px; font-weight: 600; color: var(--teal); min-width: 18px; }
+.nav-item .type-badge { font-size: 9px; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.5); padding: 1px 5px; border-radius: 4px; margin-left: auto; white-space: nowrap; }
+.sidebar-footer { padding: 1rem 1.25rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 11px; color: rgba(255,255,255,0.3); }
+
+/* SCOREBOARD */
+.scoreboard {
+  background: var(--navy); color: #fff;
+  padding: 0.9rem 1.25rem; margin: 0.75rem 1.25rem;
+  border-radius: 10px; font-size: 12px;
+}
+.scoreboard .sc-label { color: rgba(255,255,255,0.4); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
+.scoreboard .sc-val { font-size: 22px; font-weight: 600; color: #5EEAD4; line-height: 1.1; }
+.scoreboard .sc-sub { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+.progress-bar { height: 5px; background: rgba(255,255,255,0.12); border-radius: 3px; margin-top: 8px; }
+.progress-fill { height: 100%; background: var(--teal); border-radius: 3px; transition: width 0.4s; }
+
+/* MAIN */
+.main { margin-left: var(--sidebar-w); flex: 1; max-width: calc(100% - var(--sidebar-w)); }
+.top-bar {
+  background: var(--card); border-bottom: 1px solid var(--border);
+  padding: 0.75rem 2.5rem; display: flex; align-items: center; gap: 12px;
+  position: sticky; top: 0; z-index: 50;
+}
+.top-bar .pill { background: var(--teal-light); color: var(--teal); font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.03em; }
+.top-bar .crumb { font-size: 13px; color: var(--text-muted); }
+.top-bar .reset-btn {
+  margin-left: auto; background: var(--coral-light); color: var(--coral); border: 1px solid var(--coral);
+  font-size: 12px; font-weight: 600; padding: 5px 14px; border-radius: 8px; cursor: pointer;
+  transition: all 0.15s;
+}
+.top-bar .reset-btn:hover { background: var(--coral); color: #fff; }
+
+/* SECTION */
+.section { padding: 2.5rem 2.5rem; border-bottom: 1px solid var(--border); max-width: 860px; }
+.section-header { margin-bottom: 1.5rem; }
+.section-num { font-size: 11px; font-weight: 600; color: var(--teal); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
+.section-title { font-size: 24px; font-weight: 600; color: var(--navy); line-height: 1.25; }
+.section-sub { font-size: 13px; color: var(--text-muted); margin-top: 6px; }
+
+/* EXERCISE BLOCKS */
+.ex-block {
+  background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+  padding: 1.25rem 1.5rem; margin: 1.25rem 0;
+}
+.ex-block h4 {
+  font-size: 13px; font-weight: 600; color: var(--navy);
+  margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;
+}
+.ex-tag {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+}
+.tag-tf { background: var(--blue-light); color: var(--blue-border); }
+.tag-mc { background: var(--purple-light); color: var(--purple); }
+.tag-match { background: var(--amber-light); color: var(--amber); }
+.tag-calc { background: var(--coral-light); color: var(--coral); }
+.tag-connect { background: var(--teal-light); color: var(--teal); }
+
+/* INSTRUCTION */
+.instruction { font-size: 13px; color: var(--text-muted); margin-bottom: 1rem; font-style: italic; }
+
+/* TRUE / FALSE */
+.tf-item { margin-bottom: 1rem; }
+.tf-statement { font-size: 14px; color: var(--text); margin-bottom: 0.5rem; line-height: 1.5; }
+.tf-statement .q-num { font-weight: 700; color: var(--navy); margin-right: 4px; }
+.tf-options { display: flex; gap: 8px; }
+.tf-btn {
+  padding: 6px 20px; border-radius: 8px; font-size: 13px; font-weight: 600;
+  border: 1.5px solid var(--border); background: var(--bg); cursor: pointer;
+  transition: all 0.15s;
+}
+.tf-btn:hover { border-color: var(--navy); color: var(--navy); }
+.tf-btn.selected { border-color: var(--navy); background: var(--navy); color: #fff; }
+.tf-btn.correct { border-color: var(--teal); background: var(--teal-light); color: #065F46; }
+.tf-btn.wrong { border-color: var(--coral); background: var(--coral-light); color: var(--coral); }
+.tf-feedback { font-size: 12px; margin-top: 5px; padding: 6px 10px; border-radius: 6px; display: none; line-height: 1.5; }
+.tf-feedback.show { display: block; }
+.tf-feedback.ok { background: var(--teal-light); color: #065F46; }
+.tf-feedback.fail { background: var(--coral-light); color: #7C2D12; }
+
+/* MULTIPLE CHOICE */
+.mc-item { margin-bottom: 1.25rem; }
+.mc-question { font-size: 14px; font-weight: 500; margin-bottom: 0.6rem; line-height: 1.5; }
+.mc-question .q-num { font-weight: 700; color: var(--navy); margin-right: 4px; }
+.mc-options { display: flex; flex-direction: column; gap: 7px; }
+.mc-opt {
+  display: flex; align-items: flex-start; gap: 10px; padding: 9px 13px;
+  border: 1.5px solid var(--border); border-radius: 9px; cursor: pointer;
+  font-size: 13px; transition: all 0.15s; background: var(--bg);
+}
+.mc-opt:hover { border-color: var(--navy); background: #fff; }
+.mc-opt.selected { border-color: var(--navy); background: #fff; }
+.mc-opt.correct { border-color: var(--teal); background: var(--teal-light); color: #065F46; }
+.mc-opt.wrong { border-color: var(--coral); background: var(--coral-light); color: #7C2D12; }
+.mc-opt .opt-letter { font-weight: 700; min-width: 18px; font-size: 12px; }
+.mc-feedback { font-size: 12px; margin-top: 6px; padding: 6px 10px; border-radius: 6px; display: none; line-height: 1.5; }
+.mc-feedback.show { display: block; }
+.mc-feedback.ok { background: var(--teal-light); color: #065F46; }
+.mc-feedback.fail { background: var(--coral-light); color: #7C2D12; }
+
+/* MATCHING */
+.match-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 0.5rem; }
+.match-col-label { font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.match-left-item {
+  padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 13px; cursor: pointer; transition: all 0.15s; background: var(--bg);
+  display: flex; align-items: center; gap: 8px;
+}
+.match-left-item .ml { font-weight: 700; color: var(--navy); font-size: 12px; }
+.match-left-item.selected { border-color: var(--purple); background: var(--purple-light); }
+.match-left-item.matched { border-color: var(--teal); background: var(--teal-light); color: #065F46; }
+.match-right-item {
+  padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+  font-size: 13px; cursor: pointer; transition: all 0.15s; background: var(--bg);
+}
+.match-right-item:hover { border-color: var(--navy); background: #fff; }
+.match-right-item.matched { border-color: var(--teal); background: var(--teal-light); color: #065F46; pointer-events: none; }
+.match-right-item.wrong-flash { border-color: var(--coral); background: var(--coral-light); }
+.match-result { font-size: 13px; margin-top: 8px; font-weight: 500; min-height: 20px; }
+
+/* CALCULATION */
+.calc-scenario { background: #F8F9FA; border-left: 4px solid var(--coral); border-radius: 0 8px 8px 0; padding: 0.9rem 1.1rem; margin-bottom: 1rem; font-size: 14px; line-height: 1.6; }
+.calc-scenario strong { color: var(--navy); }
+.calc-questions { display: flex; flex-direction: column; gap: 12px; }
+.calc-q { display: flex; flex-direction: column; gap: 6px; }
+.calc-q label { font-size: 13px; font-weight: 500; color: var(--text); }
+.calc-input-row { display: flex; gap: 8px; align-items: center; }
+.calc-input {
+  padding: 8px 12px; border: 1.5px solid var(--border); border-radius: 8px;
+  font-family: var(--mono); font-size: 14px; width: 160px; background: var(--bg);
+  outline: none; transition: border-color 0.15s;
+}
+.calc-input:focus { border-color: var(--teal); }
+.calc-input.correct-input { border-color: var(--teal); background: var(--teal-light); }
+.calc-input.wrong-input { border-color: var(--coral); background: var(--coral-light); }
+.check-btn {
+  padding: 7px 16px; background: var(--navy); color: #fff; border: none;
+  border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; transition: background 0.15s;
+}
+.check-btn:hover { background: #162D4F; }
+.calc-fb { font-size: 12px; padding: 6px 10px; border-radius: 6px; display: none; line-height: 1.5; }
+.calc-fb.show { display: block; }
+.calc-fb.ok { background: var(--teal-light); color: #065F46; }
+.calc-fb.fail { background: var(--coral-light); color: #7C2D12; }
+
+/* CONNECT / SCENARIO */
+.scenario-block {
+  background: var(--amber-light); border-left: 4px solid var(--amber);
+  border-radius: 0 8px 8px 0; padding: 1rem 1.2rem; margin-bottom: 1rem; font-size: 14px; line-height: 1.6; color: #92400E;
+}
+.scenario-block .s-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); margin-bottom: 6px; }
+
+/* DIVIDER */
+hr.divider { border: none; border-top: 1px dashed var(--border); margin: 1.5rem 0; }
+
+/* SECTION SCORE */
+.section-score {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
+  padding: 0.9rem 1.2rem; margin-top: 1.5rem;
+}
+.section-score .ss-label { font-size: 13px; color: var(--text-muted); }
+.section-score .ss-val { font-size: 18px; font-weight: 700; color: var(--navy); margin-left: auto; }
+.section-score .ss-bar { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.section-score .ss-fill { height: 100%; background: var(--teal); border-radius: 4px; transition: width 0.5s; }
+
+/* MOBILE */
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar { transform: translateX(-260px); transition: transform 0.3s; width: 260px; }
+  .sidebar.open { transform: translateX(0); }
+  .main { margin-left: 0; max-width: 100%; }
+  .section { padding: 2rem 1.25rem; }
+  .top-bar { padding: 0.75rem 1.25rem; }
+  .match-grid { grid-template-columns: 1fr; }
+  .menu-btn { display: flex !important; }
+}
+.menu-btn { display: none; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid var(--border); border-radius: 8px; background: none; cursor: pointer; font-size: 18px; }
+
+.scroll-top {
+  position: fixed; bottom: 1.5rem; right: 1.5rem; width: 40px; height: 40px;
+  background: var(--navy); color: #fff; border: none; border-radius: 50%;
+  font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s; z-index: 200;
+}
+.scroll-top.visible { opacity: 1; }
+</style>
+</head>
+<body>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>GPP — Ejercitario</h1>
+    <p>6to año · Práctica completa</p>
+  </div>
+  <div class="scoreboard">
+    <div class="sc-label">Puntaje total</div>
+    <div class="sc-val" id="global-score">0</div>
+    <div class="sc-sub" id="global-sub">de 0 ejercicios respondidos</div>
+    <div class="progress-bar"><div class="progress-fill" id="global-bar" style="width:0%"></div></div>
+  </div>
+  <nav>
+    <div class="nav-group">
+      <div class="nav-label">Fundamentos</div>
+      <button class="nav-item" onclick="goTo('s1')"><span class="num">01</span> Planificación, Gestión y Control <span class="type-badge">V/F · MC</span></button>
+      <button class="nav-item" onclick="goTo('s2')"><span class="num">02</span> Sistema Productivo <span class="type-badge">V/F · MC</span></button>
+      <button class="nav-item" onclick="goTo('s3')"><span class="num">03</span> Empresa vs. Industria <span class="type-badge">V/F · Match</span></button>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Producción</div>
+      <button class="nav-item" onclick="goTo('s4')"><span class="num">04</span> Factores de Producción <span class="type-badge">MC · Match</span></button>
+      <button class="nav-item" onclick="goTo('s5')"><span class="num">05</span> Tipos de Procesos <span class="type-badge">V/F · MC</span></button>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Rendimiento</div>
+      <button class="nav-item" onclick="goTo('s6')"><span class="num">06</span> Productividad <span class="type-badge">Cálculo · MC</span></button>
+      <button class="nav-item" onclick="goTo('s7')"><span class="num">07</span> 3E <span class="type-badge">V/F · Escenario</span></button>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Costos</div>
+      <button class="nav-item" onclick="goTo('s8')"><span class="num">08</span> Tipos de Costos <span class="type-badge">Cálculo · MC</span></button>
+      <button class="nav-item" onclick="goTo('s9')"><span class="num">09</span> Costos vs. Gastos <span class="type-badge">Match · V/F</span></button>
+      <button class="nav-item" onclick="goTo('s10')"><span class="num">10</span> Costo de Oportunidad <span class="type-badge">MC · Cálculo</span></button>
+      <button class="nav-item" onclick="goTo('s11')"><span class="num">11</span> Costo Marginal y MC <span class="type-badge">Cálculo</span></button>
+      <button class="nav-item" onclick="goTo('s12')"><span class="num">12</span> Punto de Equilibrio <span class="type-badge">Cálculo · MC</span></button>
+    </div>
+  </nav>
+  <div class="sidebar-footer">Prof. Barreiro Graciela Carolina</div>
+</aside>
+
+<main class="main">
+  <div class="top-bar">
+    <button class="menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+    <span class="pill">GPP</span>
+    <span class="crumb">Ejercitario Interactivo</span>
+    <button class="reset-btn" onclick="resetAll()">↺ Reiniciar todo</button>
+  </div>
+
+  <!-- ====== S1 ====== -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">01 — Fundamentos</div>
+      <h2 class="section-title">Planificación, Gestión y Control</h2>
+      <p class="section-sub">Ciclo de las 3 etapas que forman cualquier proceso productivo.</p>
+    </div>
+
+    <!-- TF Block -->
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">Verdadero / Falso</span> Indicá si cada afirmación es verdadera o falsa.</h4>
+      <div class="instruction">Clic en V o F. Se muestra la explicación inmediatamente.</div>
+
+      <div class="tf-item" id="tf_s1_1">
+        <div class="tf-statement"><span class="q-num">1.</span> La etapa de Gestión es la que define por adelantado qué hacer, cómo y cuándo.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s1_1','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s1_1','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s1_1_fb">Esa es la <strong>Planificación</strong>. La Gestión ejecuta lo planificado: toma decisiones y coordina acciones durante el proceso.</div>
+      </div>
+
+      <div class="tf-item" id="tf_s1_2">
+        <div class="tf-statement"><span class="q-num">2.</span> Sin Control, la Planificación no tiene sentido porque no hay con qué comparar los resultados.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s1_2','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s1_2','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s1_2_fb">Correcto. Planificar sin controlar es no saber si llegaste. Las tres etapas son interdependientes.</div>
+      </div>
+
+      <div class="tf-item" id="tf_s1_3">
+        <div class="tf-statement"><span class="q-num">3.</span> El Control genera información que puede usarse para mejorar la siguiente Planificación.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s1_3','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s1_3','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s1_3_fb">Exacto. El ciclo es continuo: lo aprendido en el control retroalimenta la nueva planificación.</div>
+      </div>
+
+      <div class="tf-item" id="tf_s1_4">
+        <div class="tf-statement"><span class="q-num">4.</span> Si BurgerLab ejecuta bien sus tareas pero nunca definió un plan previo, el proceso igual es válido porque los resultados son buenos.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s1_4','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s1_4','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s1_4_fb">Falso. Ejecutar sin planificar es actuar al azar. Aunque a veces resulte bien, no es un proceso productivo gestionado: no hay objetivos definidos, no hay con qué controlar.</div>
+      </div>
+
+      <div class="tf-item" id="tf_s1_5">
+        <div class="tf-statement"><span class="q-num">5.</span> La Planificación responde a las preguntas "¿qué hacer?", "¿cómo?", "¿cuándo?" y "¿quién?".</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s1_5','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s1_5','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s1_5_fb">Correcto. Esas cuatro preguntas son el núcleo de la planificación productiva.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 01</span><div class="ss-bar"><div class="ss-fill" id="fill_s1" style="width:0%"></div></div><span class="ss-val" id="score_s1">0/5</span></div>
+    </div>
+
+    <!-- MC Block -->
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">Opción múltiple</span> Seleccioná la respuesta correcta.</h4>
+      <div class="mc-item" id="mc_s1_1">
+        <div class="mc-question"><span class="q-num">6.</span> BurgerLab vendió 280 hamburguesas en vez de las 300 planificadas y descubrió que una parrilla estuvo 30 min apagada. ¿En qué etapa ocurrió ese descubrimiento?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s1_1','a','b')"><span class="opt-letter">A</span> Planificación, al definir los objetivos del día.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s1_1','b','b')"><span class="opt-letter">B</span> Control, al comparar los resultados con lo planificado.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s1_1','c','b')"><span class="opt-letter">C</span> Gestión, al coordinar las tareas de los cocineros.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s1_1','d','b')"><span class="opt-letter">D</span> Planificación, porque se revisó el plan original.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s1_1_fb">La respuesta es B. El Control es la etapa donde se comparan los resultados obtenidos con lo planificado y se identifican las causas de las desviaciones.</div>
+      </div>
+
+      <div class="mc-item" id="mc_s1_2">
+        <div class="mc-question"><span class="q-num">7.</span> ¿Cuál de estas acciones corresponde a la etapa de Gestión?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s1_2','a','c')"><span class="opt-letter">A</span> Decidir producir 300 hamburguesas para el mediodía.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s1_2','b','c')"><span class="opt-letter">B</span> Verificar que se vendieron exactamente las unidades previstas.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s1_2','c','c')"><span class="opt-letter">C</span> Llamar al proveedor de urgencia al notar que falta pan.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s1_2','d','c')"><span class="opt-letter">D</span> Registrar que una parrilla estuvo apagada 30 minutos.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s1_2_fb">Correcto: C. La Gestión toma decisiones y ejecuta acciones durante el proceso productivo. Llamar al proveedor para resolver un problema en tiempo real es una acción de gestión.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 01 (MC)</span><div class="ss-bar"><div class="ss-fill" id="fill_s1b" style="width:0%"></div></div><span class="ss-val" id="score_s1b">0/2</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S2 ====== -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">02 — Fundamentos</div>
+      <h2 class="section-title">El Sistema Productivo</h2>
+      <p class="section-sub">Inputs → Transformación → Outputs, con entorno y retroalimentación.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">Verdadero / Falso</span></h4>
+      <div class="tf-item" id="tf_s2_1">
+        <div class="tf-statement"><span class="q-num">1.</span> En un sistema productivo, los inputs incluyen materias primas, trabajo, energía y capital.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s2_1','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s2_1','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s2_1_fb">Verdadero. Los inputs son todas las entradas al sistema: materias primas, mano de obra, energía, capital y tecnología.</div>
+      </div>
+      <div class="tf-item" id="tf_s2_2">
+        <div class="tf-statement"><span class="q-num">2.</span> La retroalimentación significa que los outputs del sistema no tienen relación con las decisiones futuras sobre los inputs.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s2_2','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s2_2','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s2_2_fb">Falso. La retroalimentación es exactamente lo contrario: los outputs informan y alimentan mejoras en los inputs y en el proceso.</div>
+      </div>
+      <div class="tf-item" id="tf_s2_3">
+        <div class="tf-statement"><span class="q-num">3.</span> El entorno de una empresa incluye proveedores, clientes y competencia, entre otros actores.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s2_3','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s2_3','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s2_3_fb">Correcto. El entorno también incluye regulaciones del gobierno y el mercado en general.</div>
+      </div>
+      <div class="tf-item" id="tf_s2_4">
+        <div class="tf-statement"><span class="q-num">4.</span> Si sube el precio de la carne (proveedor de BurgerLab), eso no afecta al sistema productivo porque es un factor externo.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s2_4','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s2_4','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s2_4_fb">Falso. El entorno condiciona directamente al sistema. Un cambio en el costo del input altera el costo total y puede obligar a replantear el precio de venta.</div>
+      </div>
+      <div class="tf-item" id="tf_s2_5">
+        <div class="tf-statement"><span class="q-num">5.</span> La característica de un "sistema" es que sus partes interactúan con un objetivo común, y el resultado es diferente a la suma de las partes.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s2_5','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s2_5','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s2_5_fb">Exacto. Esa sinergia —el resultado mayor a la suma de las partes— es la esencia del concepto de sistema.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 02</span><div class="ss-bar"><div class="ss-fill" id="fill_s2" style="width:0%"></div></div><span class="ss-val" id="score_s2">0/5</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">Opción múltiple</span></h4>
+      <div class="mc-item" id="mc_s2_1">
+        <div class="mc-question"><span class="q-num">6.</span> En BurgerLab, ¿cuál de los siguientes es un OUTPUT del sistema productivo?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s2_1','a','d')"><span class="opt-letter">A</span> El gas para la parrilla.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s2_1','b','d')"><span class="opt-letter">B</span> El cocinero que trabaja en el local.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s2_1','c','d')"><span class="opt-letter">C</span> La parrilla industrial.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s2_1','d','d')"><span class="opt-letter">D</span> La hamburguesa lista para el cliente.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s2_1_fb">D es el output. El gas, el cocinero y la parrilla son inputs (recursos que entran al sistema de transformación).</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 02 (MC)</span><div class="ss-bar"><div class="ss-fill" id="fill_s2b" style="width:0%"></div></div><span class="ss-val" id="score_s2b">0/1</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S3 ====== -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">03 — Fundamentos</div>
+      <h2 class="section-title">Empresa vs. Industria</h2>
+      <p class="section-sub">Toda industria es una empresa, pero no toda empresa es una industria.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">Verdadero / Falso</span></h4>
+      <div class="tf-item" id="tf_s3_1">
+        <div class="tf-statement"><span class="q-num">1.</span> Un kiosco que compra y vende productos sin transformarlos es un ejemplo de industria.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s3_1','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s3_1','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s3_1_fb">Falso. El kiosco es una empresa (sector terciario, servicios/comercio) pero no es una industria: no transforma materias primas en productos elaborados.</div>
+      </div>
+      <div class="tf-item" id="tf_s3_2">
+        <div class="tf-statement"><span class="q-num">2.</span> La industria pertenece específicamente al sector secundario de la economía.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s3_2','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s3_2','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s3_2_fb">Correcto. El sector secundario es el de la manufactura y transformación de materias primas.</div>
+      </div>
+      <div class="tf-item" id="tf_s3_3">
+        <div class="tf-statement"><span class="q-num">3.</span> Coca-Cola como empresa puede poseer varias plantas industriales (industrias).</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s3_3','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s3_3','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s3_3_fb">Verdadero. La empresa es la entidad legal que puede controlar múltiples plantas industriales (donde ocurre la transformación física).</div>
+      </div>
+      <div class="tf-item" id="tf_s3_4">
+        <div class="tf-statement"><span class="q-num">4.</span> Tanto empresa como industria coordinan recursos y buscan satisfacer necesidades de la sociedad.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s3_4','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s3_4','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s3_4_fb">Verdadero. Esa es una de las semejanzas clave: ambas coordinan recursos para generar valor y satisfacer necesidades.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 03</span><div class="ss-bar"><div class="ss-fill" id="fill_s3" style="width:0%"></div></div><span class="ss-val" id="score_s3">0/4</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-match">Conectar conceptos</span> Asociá cada descripción con empresa o industria.</h4>
+      <div class="instruction">Hacé clic en un concepto de la izquierda, luego en su descripción correcta de la derecha.</div>
+      <div class="match-grid" id="match_s3">
+        <div>
+          <div class="match-col-label">Concepto</div>
+          <div class="match-left-item" id="ml_s3_1" onclick="selectLeft('s3','1')"><span class="ml">A</span> Industria</div>
+          <div class="match-left-item" id="ml_s3_2" onclick="selectLeft('s3','2')"><span class="ml">B</span> Empresa</div>
+          <div class="match-left-item" id="ml_s3_3" onclick="selectLeft('s3','3')"><span class="ml">C</span> Sector Secundario</div>
+          <div class="match-left-item" id="ml_s3_4" onclick="selectLeft('s3','4')"><span class="ml">D</span> Sector Terciario</div>
+        </div>
+        <div>
+          <div class="match-col-label">Descripción</div>
+          <div class="match-right-item" id="mr_s3_r1" onclick="selectRight('s3','r1','2')">Unidad social con fines de lucro que puede estar en cualquier sector económico.</div>
+          <div class="match-right-item" id="mr_s3_r2" onclick="selectRight('s3','r2','3')">La manufactura y transformación de materias primas en productos elaborados.</div>
+          <div class="match-right-item" id="mr_s3_r3" onclick="selectRight('s3','r3','4')">Sector de servicios: bancos, consultoría, supermercados.</div>
+          <div class="match-right-item" id="mr_s3_r4" onclick="selectRight('s3','r4','1')">Organización cuya función esencial es transformar insumos en bienes aptos para el consumo.</div>
+        </div>
+      </div>
+      <div class="match-result" id="match_s3_result"></div>
+      <div class="section-score"><span class="ss-label">Puntos sección 03 (Match)</span><div class="ss-bar"><div class="ss-fill" id="fill_s3b" style="width:0%"></div></div><span class="ss-val" id="score_s3b">0/4</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S4 ====== -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">04 — Producción</div>
+      <h2 class="section-title">Factores de la Producción</h2>
+      <p class="section-sub">Los 5 factores con sus retribuciones y características.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-match">Conectar conceptos</span> Unir cada factor con su retribución.</h4>
+      <div class="instruction">Seleccioná factor (izquierda) y después su retribución correcta (derecha).</div>
+      <div class="match-grid" id="match_s4">
+        <div>
+          <div class="match-col-label">Factor</div>
+          <div class="match-left-item" id="ml_s4_1" onclick="selectLeft('s4','1')"><span class="ml">A</span> Tierra / Naturaleza</div>
+          <div class="match-left-item" id="ml_s4_2" onclick="selectLeft('s4','2')"><span class="ml">B</span> Trabajo</div>
+          <div class="match-left-item" id="ml_s4_3" onclick="selectLeft('s4','3')"><span class="ml">C</span> Capital</div>
+          <div class="match-left-item" id="ml_s4_4" onclick="selectLeft('s4','4')"><span class="ml">D</span> Empresa / Empresario</div>
+          <div class="match-left-item" id="ml_s4_5" onclick="selectLeft('s4','5')"><span class="ml">E</span> Tecnología</div>
+        </div>
+        <div>
+          <div class="match-col-label">Retribución</div>
+          <div class="match-right-item" id="mr_s4_r1" onclick="selectRight('s4','r1','2')">Salario</div>
+          <div class="match-right-item" id="mr_s4_r2" onclick="selectRight('s4','r2','3')">Interés</div>
+          <div class="match-right-item" id="mr_s4_r3" onclick="selectRight('s4','r3','4')">Ganancia / Beneficio</div>
+          <div class="match-right-item" id="mr_s4_r4" onclick="selectRight('s4','r4','5')">Regalías / Royalties</div>
+          <div class="match-right-item" id="mr_s4_r5" onclick="selectRight('s4','r5','1')">Renta</div>
+        </div>
+      </div>
+      <div class="match-result" id="match_s4_result"></div>
+      <div class="section-score"><span class="ss-label">Puntos sección 04</span><div class="ss-bar"><div class="ss-fill" id="fill_s4" style="width:0%"></div></div><span class="ss-val" id="score_s4">0/5</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">Opción múltiple</span></h4>
+      <div class="mc-item" id="mc_s4_1">
+        <div class="mc-question"><span class="q-num">1.</span> ¿Por qué el empresario cobra "ganancia" en vez de un sueldo fijo como el resto de los factores?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s4_1','a','b')"><span class="opt-letter">A</span> Porque es el dueño y puede decidir cuánto cobrar.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s4_1','b','b')"><span class="opt-letter">B</span> Porque asume el riesgo de pérdida: solo cobra si hay resultado positivo, a diferencia del resto.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s4_1','c','b')"><span class="opt-letter">C</span> Porque no aporta ningún recurso tangible al proceso.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s4_1','d','b')"><span class="opt-letter">D</span> Porque la tecnología ya cubre sus costos.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s4_1_fb">B es la respuesta. Los demás factores cobran aunque el negocio pierda (el alquiler se paga igual, el cocinero cobra igual). El empresario es el único que puede terminar sin cobrar nada si hay pérdida.</div>
+      </div>
+      <div class="mc-item" id="mc_s4_2">
+        <div class="mc-question"><span class="q-num">2.</span> En BurgerLab, las freidoras y las heladeras son ejemplos de:</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s4_2','a','c')"><span class="opt-letter">A</span> Factor Tierra / Naturaleza.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s4_2','b','c')"><span class="opt-letter">B</span> Factor Trabajo.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s4_2','c','c')"><span class="opt-letter">C</span> Factor Capital.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s4_2','d','c')"><span class="opt-letter">D</span> Factor Tecnología.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s4_2_fb">C. El capital son bienes duraderos creados por el ser humano que se usan para producir: máquinas, equipos, herramientas.</div>
+      </div>
+      <div class="mc-item" id="mc_s4_3">
+        <div class="mc-question"><span class="q-num">3.</span> Si BurgerLab tiene parrillas (capital) pero no hay cocineros (trabajo), ¿qué pasa?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s4_3','a','c')"><span class="opt-letter">A</span> Igual pueden producir hamburguesas con menos eficiencia.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s4_3','b','c')"><span class="opt-letter">B</span> Solo baja la productividad por HH.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s4_3','c','c')"><span class="opt-letter">C</span> Las máquinas están paradas y no hay producción: los factores son complementarios.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s4_3','d','c')"><span class="opt-letter">D</span> La tecnología puede reemplazar al trabajo.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s4_3_fb">Correcto: C. Los factores son complementarios, como un rompecabezas. Si falta uno, el proceso no funciona.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 04 (MC)</span><div class="ss-bar"><div class="ss-fill" id="fill_s4b" style="width:0%"></div></div><span class="ss-val" id="score_s4b">0/3</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S5 ====== -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">05 — Producción</div>
+      <h2 class="section-title">Tipos de Procesos Productivos</h2>
+      <p class="section-sub">Continua, por proyecto, por lotes y artesanal.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">Verdadero / Falso</span></h4>
+      <div class="tf-item" id="tf_s5_1">
+        <div class="tf-statement"><span class="q-num">1.</span> La producción continua tiene alta flexibilidad para adaptarse a cambios del mercado.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s5_1','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s5_1','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s5_1_fb">Falso. La producción continua tiene muy baja flexibilidad: reconvertir la línea es carísimo y puede llevar meses. Es su desventaja clave.</div>
+      </div>
+      <div class="tf-item" id="tf_s5_2">
+        <div class="tf-statement"><span class="q-num">2.</span> En la producción por proyecto, el producto permanece fijo y los recursos se mueven hacia él.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s5_2','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s5_2','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s5_2_fb">Correcto. Por eso también se llama "posición fija": el barco, el edificio o el videojuego no se mueve a las máquinas; son los recursos los que van al proyecto.</div>
+      </div>
+      <div class="tf-item" id="tf_s5_3">
+        <div class="tf-statement"><span class="q-num">3.</span> Una panadería que produce 200 facturas, luego 150 medialunas y luego 100 panes usa producción continua.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s5_3','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s5_3','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s5_3_fb">Falso. Es producción por lotes: fabrica una cantidad determinada de un producto y luego cambia a otro. La producción continua nunca para y siempre hace lo mismo.</div>
+      </div>
+      <div class="tf-item" id="tf_s5_4">
+        <div class="tf-statement"><span class="q-num">4.</span> En los sistemas productivos de la vida real es raro encontrar un tipo "puro": la mayoría combina sistemas.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s5_4','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s5_4','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s5_4_fb">Verdadero. BurgerLab usa lotes para el día a día pero puede usar proyecto para un menú especial de evento.</div>
+      </div>
+      <div class="tf-item" id="tf_s5_5">
+        <div class="tf-statement"><span class="q-num">5.</span> La producción artesanal tiene volumen muy alto y baja variedad.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s5_5','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s5_5','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s5_5_fb">Falso. Es exactamente lo contrario: volumen bajo y variedad alta (cada pieza es personalizada). Lo de volumen muy alto es la producción continua.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 05</span><div class="ss-bar"><div class="ss-fill" id="fill_s5" style="width:0%"></div></div><span class="ss-val" id="score_s5">0/5</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">Opción múltiple</span> Identificá el tipo de proceso.</h4>
+      <div class="mc-item" id="mc_s5_1">
+        <div class="mc-question"><span class="q-num">6.</span> Una fábrica de Toyota produce miles de autos iguales cada día en una línea de ensamblaje con alta automatización y baja variedad. ¿Qué tipo de producción es?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s5_1','a','b')"><span class="opt-letter">A</span> Artesanal.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s5_1','b','b')"><span class="opt-letter">B</span> En masa / Serie.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s5_1','c','b')"><span class="opt-letter">C</span> Por proyecto.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s5_1','d','b')"><span class="opt-letter">D</span> Por lotes.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s5_1_fb">B. Producción en masa/serie: alto volumen, baja variedad, línea estandarizada, poca flexibilidad.</div>
+      </div>
+      <div class="mc-item" id="mc_s5_2">
+        <div class="mc-question"><span class="q-num">7.</span> Un cliente le pide a BurgerLab un menú especial para un casamiento de 80 personas. ¿Qué tipo de producción aplica?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s5_2','a','a')"><span class="opt-letter">A</span> Por proyecto, ya que es un pedido único y específico.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s5_2','b','a')"><span class="opt-letter">B</span> Continua, porque igual usa las mismas parrillas.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s5_2','c','a')"><span class="opt-letter">C</span> Por lotes, porque cocina grupos de hamburguesas.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s5_2','d','a')"><span class="opt-letter">D</span> Artesanal, porque el cliente está involucrado.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s5_2_fb">A. Producción por proyecto: pedido único o muy específico, alto contacto con el cliente, no empieza sin tener el pedido.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 05 (MC)</span><div class="ss-bar"><div class="ss-fill" id="fill_s5b" style="width:0%"></div></div><span class="ss-val" id="score_s5b">0/2</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S6 ====== -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">06 — Rendimiento</div>
+      <h2 class="section-title">Productividad y Tipos</h2>
+      <p class="section-sub">Cálculos de productividad laboral, por HH y variación porcentual.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">Opción múltiple</span></h4>
+      <div class="mc-item" id="mc_s6_1">
+        <div class="mc-question"><span class="q-num">1.</span> BurgerLab produce 400 hamburguesas con 10 cocineros. El mes pasado producía 400 con 6 cocineros. ¿Qué cambió?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s6_1','a','c')"><span class="opt-letter">A</span> La producción mejoró.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s6_1','b','c')"><span class="opt-letter">B</span> La producción empeoró.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s6_1','c','c')"><span class="opt-letter">C</span> La producción es igual pero la productividad empeoró.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s6_1','d','c')"><span class="opt-letter">D</span> Tanto la producción como la productividad mejoraron.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s6_1_fb">C. Producción = misma cantidad (400 u.). Productividad laboral: antes era 400/6 = 66,7 u/trab; ahora es 400/10 = 40 u/trab → empeoró. Más gente para el mismo resultado.</div>
+      </div>
+      <div class="mc-item" id="mc_s6_2">
+        <div class="mc-question"><span class="q-num">2.</span> ¿Cuál de estos es un ejemplo de productividad parcial por maquinaria?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s6_2','a','b')"><span class="opt-letter">A</span> 1000 unidades / 300 trabajadores.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s6_2','b','b')"><span class="opt-letter">B</span> 1000 unidades / 200 horas-máquina.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s6_2','c','b')"><span class="opt-letter">C</span> 1000 unidades / 400 horas-hombre.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s6_2','d','b')"><span class="opt-letter">D</span> Aumento del 15% en la PTF.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s6_2_fb">B. Productividad de maquinaria = producción / horas-máquina. A es laboral, C es por hora-hombre, D es PTF.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 06 (MC)</span><div class="ss-bar"><div class="ss-fill" id="fill_s6" style="width:0%"></div></div><span class="ss-val" id="score_s6">0/2</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-calc">Cálculo</span> Ejercicios numéricos de productividad.</h4>
+      <div class="calc-scenario">
+        <strong>Escenario:</strong> BurgerLab produjo <strong>1.200 hamburguesas</strong> en el mes. Trabajaron <strong>5 cocineros</strong>, cada uno con <strong>160 horas</strong>. El mes anterior la productividad por hora-hombre era <strong>1,2 u/HH</strong>.
+      </div>
+      <div class="calc-questions">
+        <div class="calc-q">
+          <label>a) ¿Cuántas horas-hombre (HH) trabajaron en total?</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s6_1" type="number" placeholder="HH">
+            <button class="check-btn" onclick="checkCalc('ci_s6_1', 800, 0, 's6_c1')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s6_c1">HH = 5 trabajadores × 160 hs = <strong>800 HH</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>b) ¿Cuál es la productividad por hora-hombre del mes actual? (redondeá a 2 decimales)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s6_2" type="number" step="0.01" placeholder="u/HH">
+            <button class="check-btn" onclick="checkCalc('ci_s6_2', 1.5, 0.05, 's6_c2')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s6_c2">Productividad HH = 1200 / 800 = <strong>1,5 u/HH</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>c) ¿Cuál es la variación porcentual respecto al mes anterior? (en %)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s6_3" type="number" step="0.1" placeholder="% variación">
+            <button class="check-btn" onclick="checkCalc('ci_s6_3', 25, 1, 's6_c3')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s6_c3">Variación = (1,5 / 1,2 − 1) × 100 = 0,25 × 100 = <strong>+25%</strong>. Mejoró.</div>
+        </div>
+        <div class="calc-q">
+          <label>d) ¿Cuál es la productividad laboral (por trabajador)?</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s6_4" type="number" placeholder="u/trab">
+            <button class="check-btn" onclick="checkCalc('ci_s6_4', 240, 0, 's6_c4')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s6_c4">Productividad laboral = 1200 / 5 = <strong>240 u/trabajador</strong>.</div>
+        </div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 06 (Cálculo)</span><div class="ss-bar"><div class="ss-fill" id="fill_s6b" style="width:0%"></div></div><span class="ss-val" id="score_s6b">0/4</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-calc">Cálculo</span> Productividad marginal.</h4>
+      <div class="calc-scenario">
+        <strong>Datos de BurgerLab:</strong> con 3 cocineros producen 240 hamburguesas/día; con 4 cocineros producen 265.
+      </div>
+      <div class="calc-questions">
+        <div class="calc-q">
+          <label>¿Cuál es la productividad marginal del 4to cocinero?</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s6_5" type="number" placeholder="u/cocinero extra">
+            <button class="check-btn" onclick="checkCalc('ci_s6_5', 25, 0, 's6_c5')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s6_c5">PM = PT(4) − PT(3) = 265 − 240 = <strong>25 unidades</strong>. Ya se nota la caída por los rendimientos decrecientes (2 parrillas para 4 cocineros).</div>
+        </div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 06 (Marginal)</span><div class="ss-bar"><div class="ss-fill" id="fill_s6c" style="width:0%"></div></div><span class="ss-val" id="score_s6c">0/1</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S7 ====== -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">07 — Rendimiento</div>
+      <h2 class="section-title">Eficiencia, Eficacia y Efectividad</h2>
+      <p class="section-sub">Las 3E: "¿llegaste?", "¿usaste bien los recursos?", "¿los dos?"</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">Verdadero / Falso</span></h4>
+      <div class="tf-item" id="tf_s7_1">
+        <div class="tf-statement"><span class="q-num">1.</span> Eficacia mide si se logró el objetivo, independientemente de los recursos usados.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s7_1','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s7_1','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s7_1_fb">Correcto. Eficacia = ¿llegaste al objetivo? No importa si usaste el doble de recursos; si llegaste, fuiste eficaz.</div>
+      </div>
+      <div class="tf-item" id="tf_s7_2">
+        <div class="tf-statement"><span class="q-num">2.</span> Una empresa puede ser eficiente e ineficaz al mismo tiempo.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s7_2','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s7_2','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s7_2_fb">Verdadero. Si para ahorrar se reducen ingredientes y el cliente queda insatisfecho, se fue eficiente (pocos recursos) pero ineficaz (no se logró el objetivo de satisfacción).</div>
+      </div>
+      <div class="tf-item" id="tf_s7_3">
+        <div class="tf-statement"><span class="q-num">3.</span> Efectividad = Eficiencia + Eficacia.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s7_3','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s7_3','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s7_3_fb">Verdadero. Efectividad es la combinación de ambas: lograr el objetivo usando los mínimos recursos necesarios.</div>
+      </div>
+      <div class="tf-item" id="tf_s7_4">
+        <div class="tf-statement"><span class="q-num">4.</span> Si BurgerLab vendió las 300 hamburguesas prometidas pero usó el doble de carne por error del cocinero, fue efectivo.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s7_4','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s7_4','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s7_4_fb">Falso. Fue eficaz (logró el objetivo) pero ineficiente (usó el doble de recursos). Sin eficiencia, no hay efectividad.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 07</span><div class="ss-bar"><div class="ss-fill" id="fill_s7" style="width:0%"></div></div><span class="ss-val" id="score_s7">0/4</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">Escenario de análisis</span> Leé y respondé.</h4>
+      <div class="scenario-block">
+        <div class="s-title">📍 Escenario</div>
+        El área de reparaciones de una empresa tenía como meta tramitar 50 licencias por semana. Esta semana tramitaron 52 (superaron el objetivo), pero cada licencia requirió el doble de horas técnico de lo planificado porque no tenían el sistema actualizado.
+      </div>
+      <div class="mc-item" id="mc_s7_1">
+        <div class="mc-question"><span class="q-num">1.</span> ¿Cómo se clasifica el desempeño del área esta semana?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s7_1','a','b')"><span class="opt-letter">A</span> Eficiente e ineficaz.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s7_1','b','b')"><span class="opt-letter">B</span> Eficaz pero ineficiente.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s7_1','c','b')"><span class="opt-letter">C</span> Efectiva.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s7_1','d','b')"><span class="opt-letter">D</span> Ni eficaz ni eficiente.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s7_1_fb">B. Tramitaron 52 (meta era 50) → eficaz ✓. Pero usaron el doble de horas-técnico → ineficiente ✗. No hay efectividad porque falla la eficiencia.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 07 (Escenario)</span><div class="ss-bar"><div class="ss-fill" id="fill_s7b" style="width:0%"></div></div><span class="ss-val" id="score_s7b">0/1</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S8 ====== -->
+  <section class="section" id="s8">
+    <div class="section-header">
+      <div class="section-num">08 — Costos</div>
+      <h2 class="section-title">Tipos de Costos</h2>
+      <p class="section-sub">Fijos vs. variables, directos vs. indirectos. Cálculo de CT y CU.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">Clasificación</span> ¿Fijo o variable?</h4>
+      <div class="mc-item" id="mc_s8_1">
+        <div class="mc-question"><span class="q-num">1.</span> El alquiler del local de BurgerLab ($80.000/mes) es un costo:</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s8_1','a','a')"><span class="opt-letter">A</span> Fijo, porque no cambia con la cantidad de hamburguesas producidas.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s8_1','b','a')"><span class="opt-letter">B</span> Variable, porque aumenta si se producen más hamburguesas.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s8_1','c','a')"><span class="opt-letter">C</span> Directo, porque es específico de cada hamburguesa.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s8_1','d','a')"><span class="opt-letter">D</span> Marginal, porque depende del volumen.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s8_1_fb">A. Costo fijo: se paga igual si BurgerLab produce 1 hamburguesa o 1.000. No cambia con el volumen.</div>
+      </div>
+      <div class="mc-item" id="mc_s8_2">
+        <div class="mc-question"><span class="q-num">2.</span> La carne ($300) que se usa para cada hamburguesa es un costo:</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s8_2','a','b')"><span class="opt-letter">A</span> Fijo e indirecto.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s8_2','b','b')"><span class="opt-letter">B</span> Variable y directo.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s8_2','c','b')"><span class="opt-letter">C</span> Fijo y directo.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s8_2','d','b')"><span class="opt-letter">D</span> Variable e indirecto.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s8_2_fb">B. Variable (sube si se producen más hamburguesas) y directo (se puede asignar exactamente a cada unidad).</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 08 (Clasificación)</span><div class="ss-bar"><div class="ss-fill" id="fill_s8" style="width:0%"></div></div><span class="ss-val" id="score_s8">0/2</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-calc">Cálculo</span> Costos totales y unitarios de BurgerLab.</h4>
+      <div class="calc-scenario">
+        <strong>Datos del mes:</strong> Alquiler $80.000 · Sueldos base $60.000 · Seguro $10.000<br>
+        CV unitario: Carne $300 + Pan $80 + Queso $100 + Gas $50 + Packaging $70<br>
+        Producción del mes: <strong>500 hamburguesas</strong>.
+      </div>
+      <div class="calc-questions">
+        <div class="calc-q">
+          <label>a) ¿Cuáles son los Costos Fijos totales del mes? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s8_1" type="number" placeholder="CF $">
+            <button class="check-btn" onclick="checkCalc('ci_s8_1', 150000, 0, 's8_c1')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s8_c1">CF = $80.000 + $60.000 + $10.000 = <strong>$150.000</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>b) ¿Cuál es el Costo Variable unitario? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s8_2" type="number" placeholder="CV unitario $">
+            <button class="check-btn" onclick="checkCalc('ci_s8_2', 600, 0, 's8_c2')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s8_c2">CVu = $300+$80+$100+$50+$70 = <strong>$600</strong> por hamburguesa.</div>
+        </div>
+        <div class="calc-q">
+          <label>c) ¿Cuál es el Costo Total del mes? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s8_3" type="number" placeholder="CT $">
+            <button class="check-btn" onclick="checkCalc('ci_s8_3', 450000, 0, 's8_c3')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s8_c3">CT = CF + CV = $150.000 + ($600 × 500) = $150.000 + $300.000 = <strong>$450.000</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>d) ¿Cuál es el Costo Unitario (CU) de cada hamburguesa? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s8_4" type="number" placeholder="CU $">
+            <button class="check-btn" onclick="checkCalc('ci_s8_4', 900, 0, 's8_c4')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s8_c4">CU = CT / Q = $450.000 / 500 = <strong>$900 por hamburguesa</strong>.</div>
+        </div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 08 (Cálculo)</span><div class="ss-bar"><div class="ss-fill" id="fill_s8b" style="width:0%"></div></div><span class="ss-val" id="score_s8b">0/4</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S9 ====== -->
+  <section class="section" id="s9">
+    <div class="section-header">
+      <div class="section-num">09 — Costos</div>
+      <h2 class="section-title">Costos vs. Gastos</h2>
+      <p class="section-sub">¿Está relacionado con producir? Costo. ¿Con el funcionamiento general? Gasto.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">Verdadero / Falso</span></h4>
+      <div class="tf-item" id="tf_s9_1">
+        <div class="tf-statement"><span class="q-num">1.</span> La publicidad en redes sociales de BurgerLab es un costo de producción que debe incluirse en el precio de cada hamburguesa.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s9_1','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s9_1','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s9_1_fb">Falso. Es un gasto de marketing, no un costo de producción. No está ligado al ciclo productivo ni varía con las unidades producidas. Incluirlo distorsiona el precio.</div>
+      </div>
+      <div class="tf-item" id="tf_s9_2">
+        <div class="tf-statement"><span class="q-num">2.</span> La depreciación de la parrilla industrial es un costo, no un gasto, porque está relacionada directamente con la producción.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s9_2','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s9_2','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s9_2_fb">Correcto. La parrilla se desgasta produciendo hamburguesas; su depreciación forma parte del costo de producción.</div>
+      </div>
+      <div class="tf-item" id="tf_s9_3">
+        <div class="tf-statement"><span class="q-num">3.</span> Los intereses de un préstamo bancario son un costo de producción.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s9_3','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s9_3','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s9_3_fb">Falso. Los intereses son un gasto financiero relacionado con el funcionamiento general de la empresa, no con producir cada unidad.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 09</span><div class="ss-bar"><div class="ss-fill" id="fill_s9" style="width:0%"></div></div><span class="ss-val" id="score_s9">0/3</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-match">Conectar conceptos</span> Clasificá cada ítem como Costo o Gasto.</h4>
+      <div class="instruction">Seleccioná el ítem (izquierda) y luego su categoría correcta (derecha).</div>
+      <div class="match-grid" id="match_s9">
+        <div>
+          <div class="match-col-label">Ítem</div>
+          <div class="match-left-item" id="ml_s9_1" onclick="selectLeft('s9','1')"><span class="ml">A</span> Harina para hacer el pan</div>
+          <div class="match-left-item" id="ml_s9_2" onclick="selectLeft('s9','2')"><span class="ml">B</span> Sueldo del contador</div>
+          <div class="match-left-item" id="ml_s9_3" onclick="selectLeft('s9','3')"><span class="ml">C</span> Salario del cocinero</div>
+          <div class="match-left-item" id="ml_s9_4" onclick="selectLeft('s9','4')"><span class="ml">D</span> Comisiones bancarias del POS</div>
+        </div>
+        <div>
+          <div class="match-col-label">Categoría</div>
+          <div class="match-right-item" id="mr_s9_r1" onclick="selectRight('s9','r1','1')">Costo de producción</div>
+          <div class="match-right-item" id="mr_s9_r2" onclick="selectRight('s9','r2','3')">Costo de producción (mano de obra directa)</div>
+          <div class="match-right-item" id="mr_s9_r3" onclick="selectRight('s9','r3','2')">Gasto administrativo</div>
+          <div class="match-right-item" id="mr_s9_r4" onclick="selectRight('s9','r4','4')">Gasto financiero</div>
+        </div>
+      </div>
+      <div class="match-result" id="match_s9_result"></div>
+      <div class="section-score"><span class="ss-label">Puntos sección 09 (Match)</span><div class="ss-bar"><div class="ss-fill" id="fill_s9b" style="width:0%"></div></div><span class="ss-val" id="score_s9b">0/4</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S10 ====== -->
+  <section class="section" id="s10">
+    <div class="section-header">
+      <div class="section-num">10 — Costos</div>
+      <h2 class="section-title">Costo de Oportunidad</h2>
+      <p class="section-sub">El valor de la mejor alternativa descartada al tomar una decisión.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">Opción múltiple</span></h4>
+      <div class="mc-item" id="mc_s10_1">
+        <div class="mc-question"><span class="q-num">1.</span> BurgerLab tiene $200.000 para invertir: puede comprar una nueva parrilla o ponerlo en un plazo fijo al 8% anual ($16.000/año). Decide comprar la parrilla. ¿Cuál es el costo de oportunidad de esa decisión?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s10_1','a','c')"><span class="opt-letter">A</span> $200.000 (el precio de la parrilla).</div>
+          <div class="mc-opt" onclick="checkMC('mc_s10_1','b','c')"><span class="opt-letter">B</span> $0, porque la parrilla va a generar ingresos.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s10_1','c','c')"><span class="opt-letter">C</span> $16.000 anuales (lo que hubiera generado el plazo fijo).</div>
+          <div class="mc-opt" onclick="checkMC('mc_s10_1','d','c')"><span class="opt-letter">D</span> El costo de mantenimiento de la parrilla.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s10_1_fb">C. El costo de oportunidad es el valor de la mejor alternativa descartada: los $16.000 anuales del plazo fijo que dejó de recibir al elegir comprar la parrilla.</div>
+      </div>
+      <div class="mc-item" id="mc_s10_2">
+        <div class="mc-question"><span class="q-num">2.</span> ¿Por qué el costo de oportunidad NO aparece en el balance contable de la empresa?</div>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s10_2','a','b')"><span class="opt-letter">A</span> Porque es un costo muy pequeño para registrar.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s10_2','b','b')"><span class="opt-letter">B</span> Porque es el valor de una alternativa que no se concretó; la contabilidad solo registra lo que ocurrió.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s10_2','c','b')"><span class="opt-letter">C</span> Porque la ley prohíbe registrarlo.</div>
+          <div class="mc-opt" onclick="checkMC('mc_s10_2','d','b')"><span class="opt-letter">D</span> Porque es igual a cero en todos los casos.</div>
+        </div>
+        <div class="mc-feedback" id="mc_s10_2_fb">B. La contabilidad registra solo transacciones reales. El costo de oportunidad es un costo económico implícito (no desembolsado) que analiza lo que se podría haber ganado con la alternativa no elegida.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 10 (MC)</span><div class="ss-bar"><div class="ss-fill" id="fill_s10" style="width:0%"></div></div><span class="ss-val" id="score_s10">0/2</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-calc">Cálculo</span> Costo de oportunidad del dueño de BurgerLab.</h4>
+      <div class="calc-scenario">
+        El dueño dedica <strong>8 horas diarias</strong> al local. Podría trabajar como consultor cobrando <strong>$4.500 por hora</strong>. Su empresa genera una ganancia mensual de <strong>$280.000</strong> (mes de 22 días hábiles).
+      </div>
+      <div class="calc-questions">
+        <div class="calc-q">
+          <label>a) ¿Cuánto podría ganar por día como consultor? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s10_1" type="number" placeholder="$ por día">
+            <button class="check-btn" onclick="checkCalc('ci_s10_1', 36000, 0, 's10_c1')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s10_c1">$4.500/hs × 8 hs = <strong>$36.000/día</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>b) ¿Cuál es el costo de oportunidad mensual de su tiempo? ($ al mes, 22 días)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s10_2" type="number" placeholder="$ mensual">
+            <button class="check-btn" onclick="checkCalc('ci_s10_2', 792000, 0, 's10_c2')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s10_c2">CO = $36.000/día × 22 días = <strong>$792.000/mes</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>c) Considerando el costo de oportunidad de su tiempo, ¿cuál es el resultado económico real del mes? (puede ser negativo)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s10_3" type="number" placeholder="resultado $">
+            <button class="check-btn" onclick="checkCalc('ci_s10_3', -512000, 5000, 's10_c3')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s10_c3">Resultado económico = $280.000 − $792.000 = <strong>−$512.000</strong>. El balance muestra ganancia contable, pero económicamente el dueño pierde si compara con lo que ganaría como consultor.</div>
+        </div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 10 (Cálculo)</span><div class="ss-bar"><div class="ss-fill" id="fill_s10b" style="width:0%"></div></div><span class="ss-val" id="score_s10b">0/3</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S11 ====== -->
+  <section class="section" id="s11">
+    <div class="section-header">
+      <div class="section-num">11 — Costos</div>
+      <h2 class="section-title">Costo Marginal y Margen de Contribución</h2>
+      <p class="section-sub">Herramientas para decisiones de corto plazo.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-calc">Cálculo</span> Costo marginal y decisión de pedido especial.</h4>
+      <div class="calc-scenario">
+        BurgerLab: costo total de producir <strong>300 hamburguesas</strong> = $330.000. Costo total de producir <strong>301</strong> = $330.600. Precio de venta normal = $1.500. Un cliente ofrece $750 por 40 hamburguesas extra (pedido fuera del horario pico).
+      </div>
+      <div class="calc-questions">
+        <div class="calc-q">
+          <label>a) ¿Cuál es el costo marginal de la hamburguesa número 301? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s11_1" type="number" placeholder="CM $">
+            <button class="check-btn" onclick="checkCalc('ci_s11_1', 600, 0, 's11_c1')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s11_c1">CM = CT(301) − CT(300) = $330.600 − $330.000 = <strong>$600</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>b) ¿Cuánto gana BurgerLab por cada hamburguesa del pedido especial a $750? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s11_2" type="number" placeholder="ganancia por u. $">
+            <button class="check-btn" onclick="checkCalc('ci_s11_2', 150, 0, 's11_c2')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s11_c2">Ganancia por u. = $750 − $600 (CM) = <strong>$150</strong>. Los costos fijos ya están cubiertos, así que solo importa el costo variable de cada unidad extra.</div>
+        </div>
+        <div class="calc-q">
+          <label>c) ¿Conviene aceptar el pedido? Ingresá 1 para SÍ, 0 para NO.</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s11_3" type="number" placeholder="1 o 0">
+            <button class="check-btn" onclick="checkCalc('ci_s11_3', 1, 0, 's11_c3')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s11_c3">SÍ conviene. El precio de $750 supera el costo marginal de $600. Cada unidad extra genera $150 de contribución. Ganancia total del pedido: $150 × 40 = $6.000.</div>
+        </div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 11 (CM)</span><div class="ss-bar"><div class="ss-fill" id="fill_s11" style="width:0%"></div></div><span class="ss-val" id="score_s11">0/3</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-calc">Cálculo</span> Margen de Contribución y cobertura de costos fijos.</h4>
+      <div class="calc-scenario">
+        Nuevo producto de BurgerLab: "Combo Clásico". Precio de venta = <strong>$2.200</strong>. Costos variables unitarios: carne $400, pan $100, queso $150, salsas $80, packaging $90. Costos fijos mensuales = <strong>$200.000</strong>.
+      </div>
+      <div class="calc-questions">
+        <div class="calc-q">
+          <label>a) ¿Cuál es el costo variable unitario del Combo Clásico? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s11_4" type="number" placeholder="CVu $">
+            <button class="check-btn" onclick="checkCalc('ci_s11_4', 820, 0, 's11_c4')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s11_c4">CVu = $400+$100+$150+$80+$90 = <strong>$820</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>b) ¿Cuál es el Margen de Contribución por unidad? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s11_5" type="number" placeholder="MC $">
+            <button class="check-btn" onclick="checkCalc('ci_s11_5', 1380, 0, 's11_c5')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s11_c5">MC = $2.200 − $820 = <strong>$1.380 por unidad</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>c) ¿Cuántas unidades hay que vender para cubrir los costos fijos? (redondeá hacia arriba)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s11_6" type="number" placeholder="unidades">
+            <button class="check-btn" onclick="checkCalc('ci_s11_6', 145, 1, 's11_c6')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s11_c6">Unidades = $200.000 / $1.380 = 144,9 → <strong>145 unidades</strong>. A partir de la 145ª, cada venta genera $1.380 de ganancia pura.</div>
+        </div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 11 (MC)</span><div class="ss-bar"><div class="ss-fill" id="fill_s11b" style="width:0%"></div></div><span class="ss-val" id="score_s11b">0/3</span></div>
+    </div>
+  </section>
+
+  <!-- ====== S12 ====== -->
+  <section class="section" id="s12">
+    <div class="section-header">
+      <div class="section-num">12 — Costos</div>
+      <h2 class="section-title">Punto de Equilibrio</h2>
+      <p class="section-sub">PE = CF / (P − CVu). El umbral mínimo de supervivencia.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">Verdadero / Falso</span></h4>
+      <div class="tf-item" id="tf_s12_1">
+        <div class="tf-statement"><span class="q-num">1.</span> En el punto de equilibrio, la empresa tiene una ganancia exactamente igual a cero.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s12_1','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s12_1','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s12_1_fb">Verdadero. En el PE los ingresos totales igualan exactamente a los costos totales: ni pérdida ni ganancia.</div>
+      </div>
+      <div class="tf-item" id="tf_s12_2">
+        <div class="tf-statement"><span class="q-num">2.</span> Si los costos fijos suben, el punto de equilibrio baja.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s12_2','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s12_2','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s12_2_fb">Falso. Si los CF suben, el PE sube: hay que vender más unidades para cubrir esa mayor carga fija.</div>
+      </div>
+      <div class="tf-item" id="tf_s12_3">
+        <div class="tf-statement"><span class="q-num">3.</span> Si sube el precio de venta, el PE baja (se necesitan menos ventas para equilibrarse).</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s12_3','V','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s12_3','V','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s12_3_fb">Verdadero. Mayor precio → mayor margen de contribución → se cubren los costos fijos con menos unidades.</div>
+      </div>
+      <div class="tf-item" id="tf_s12_4">
+        <div class="tf-statement"><span class="q-num">4.</span> El punto de equilibrio es un valor fijo que no cambia con el tiempo.</div>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s12_4','F','V')">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s12_4','F','F')">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s12_4_fb">Falso. El PE cambia constantemente: cuando cambian los costos (inflación, nuevos proveedores), el precio o la eficiencia del proceso, el PE cambia. Hay que recalcularlo periódicamente.</div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 12</span><div class="ss-bar"><div class="ss-fill" id="fill_s12" style="width:0%"></div></div><span class="ss-val" id="score_s12">0/4</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-calc">Cálculo</span> Punto de Equilibrio — Caso BurgerLab completo.</h4>
+      <div class="calc-scenario">
+        <strong>Hamburguesa Clásica de BurgerLab:</strong><br>
+        Precio de venta = <strong>$1.500</strong> · Costo variable unitario = <strong>$600</strong><br>
+        Costos fijos mensuales = <strong>$150.000</strong> · Ventas del mes = <strong>400 unidades</strong>
+      </div>
+      <div class="calc-questions">
+        <div class="calc-q">
+          <label>a) ¿Cuál es el Margen de Contribución unitario? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s12_1" type="number" placeholder="MC $">
+            <button class="check-btn" onclick="checkCalc('ci_s12_1', 900, 0, 's12_c1')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s12_c1">MC = $1.500 − $600 = <strong>$900 por unidad</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>b) ¿Cuál es el Punto de Equilibrio en unidades?</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s12_2" type="number" placeholder="unidades">
+            <button class="check-btn" onclick="checkCalc('ci_s12_2', 167, 1, 's12_c2')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s12_c2">PE = CF / MC = $150.000 / $900 = 166,7 → <strong>167 unidades</strong> (redondeado hacia arriba).</div>
+        </div>
+        <div class="calc-q">
+          <label>c) ¿Cuál es el Punto de Equilibrio en ingresos ($)? (PE en unidades × precio)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s12_3" type="number" placeholder="ingresos $">
+            <button class="check-btn" onclick="checkCalc('ci_s12_3', 250500, 1000, 's12_c3')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s12_c3">PE ($) = 167 × $1.500 = <strong>$250.500</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>d) Vendiendo 400 unidades en el mes, ¿cuál es el resultado (ganancia o pérdida)? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s12_4" type="number" placeholder="resultado $">
+            <button class="check-btn" onclick="checkCalc('ci_s12_4', 210000, 0, 's12_c4')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s12_c4">Resultado = (P × Q) − CF − (CVu × Q) = ($1.500 × 400) − $150.000 − ($600 × 400) = $600.000 − $150.000 − $240.000 = <strong>$210.000 de ganancia</strong>.</div>
+        </div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 12 (Cálculo)</span><div class="ss-bar"><div class="ss-fill" id="fill_s12b" style="width:0%"></div></div><span class="ss-val" id="score_s12b">0/4</span></div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-calc">Cálculo avanzado</span> Nuevo escenario: sube el alquiler.</h4>
+      <div class="calc-scenario">
+        El dueño negoció y logró bajar el costo variable a <strong>$500/unidad</strong>, pero el alquiler subió y ahora los costos fijos son <strong>$180.000/mes</strong>. El precio sigue en $1.500.
+      </div>
+      <div class="calc-questions">
+        <div class="calc-q">
+          <label>a) ¿Cuál es el nuevo MC unitario? ($)</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s12_5" type="number" placeholder="nuevo MC $">
+            <button class="check-btn" onclick="checkCalc('ci_s12_5', 1000, 0, 's12_c5')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s12_c5">MC = $1.500 − $500 = <strong>$1.000</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>b) ¿Cuál es el nuevo PE en unidades?</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s12_6" type="number" placeholder="PE unidades">
+            <button class="check-btn" onclick="checkCalc('ci_s12_6', 180, 0, 's12_c6')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s12_c6">PE = $180.000 / $1.000 = <strong>180 unidades</strong>.</div>
+        </div>
+        <div class="calc-q">
+          <label>c) Comparado con el PE original (167 u.), ¿sube o baja? Ingresá 1 si SUBE, 0 si BAJA.</label>
+          <div class="calc-input-row">
+            <input class="calc-input" id="ci_s12_7" type="number" placeholder="1 sube / 0 baja">
+            <button class="check-btn" onclick="checkCalc('ci_s12_7', 1, 0, 's12_c7')">Verificar</button>
+          </div>
+          <div class="calc-fb" id="fb_s12_c7">SUBE: de 167 a 180 unidades. Aunque mejoró el MC (de $900 a $1.000), el aumento en los costos fijos fue mayor y subió el PE.</div>
+        </div>
+      </div>
+      <div class="section-score"><span class="ss-label">Puntos sección 12 (Avanzado)</span><div class="ss-bar"><div class="ss-fill" id="fill_s12c" style="width:0%"></div></div><span class="ss-val" id="score_s12c">0/3</span></div>
+    </div>
+  </section>
+
+  <div style="padding: 2rem 2.5rem; text-align: center; color: var(--text-muted); font-size: 13px; border-top: 1px solid var(--border);">
+    Ejercitario GPP — Gestión de los Procesos Productivos · 6to año · Prof. Barreiro Graciela Carolina
+  </div>
+</main>
+
+<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ============================================================
+// STATE
+// ============================================================
+const state = {
+  answered: 0,
+  correct: 0,
+  sections: {}
+};
+
+function getOrCreate(key, total) {
+  if (!state.sections[key]) state.sections[key] = { correct: 0, total: total };
+  return state.sections[key];
+}
+
+// ============================================================
+// GLOBAL SCORE
+// ============================================================
+function updateGlobal() {
+  let tot = 0, cor = 0;
+  Object.values(state.sections).forEach(s => { tot += s.total; cor += s.correct; });
+  document.getElementById('global-score').textContent = cor;
+  document.getElementById('global-sub').textContent = `de ${tot} ejercicios respondidos`;
+  const pct = tot > 0 ? Math.round((cor / tot) * 100) : 0;
+  document.getElementById('global-bar').style.width = pct + '%';
+}
+
+function updateSection(key, fillId, scoreId, total) {
+  const s = state.sections[key] || { correct: 0, total: total };
+  const pct = total > 0 ? Math.round((s.correct / total) * 100) : 0;
+  document.getElementById(fillId).style.width = pct + '%';
+  document.getElementById(scoreId).textContent = s.correct + '/' + total;
+}
+
+// ============================================================
+// TRUE / FALSE
+// ============================================================
+const tfAnswered = {};
+
+function checkTF(itemId, correct, chosen) {
+  if (tfAnswered[itemId]) return;
+  tfAnswered[itemId] = true;
+  const item = document.getElementById(itemId);
+  const btns = item.querySelectorAll('.tf-btn');
+  const fb = document.getElementById(itemId + '_fb');
+  const isCorrect = chosen === correct;
+
+  btns.forEach(b => {
+    const val = b.textContent.trim();
+    if (val === correct) b.classList.add('correct');
+    if (val === chosen && !isCorrect) b.classList.add('wrong');
+  });
+  fb.classList.add('show', isCorrect ? 'ok' : 'fail');
+
+  // detect section key from item id
+  const parts = itemId.split('_'); // tf_s1_1
+  const sectionKey = parts[1] + '_tf';
+  if (!state.sections[sectionKey]) state.sections[sectionKey] = { correct: 0, total: 0 };
+  state.sections[sectionKey].total++;
+  if (isCorrect) state.sections[sectionKey].correct++;
+  updateGlobal();
+}
+
+// ============================================================
+// MULTIPLE CHOICE
+// ============================================================
+const mcAnswered = {};
+
+function checkMC(itemId, chosen, correct) {
+  if (mcAnswered[itemId]) return;
+  mcAnswered[itemId] = true;
+  const item = document.getElementById(itemId);
+  const opts = item.querySelectorAll('.mc-opt');
+  const fb = document.getElementById(itemId + '_fb');
+  const isCorrect = chosen === correct;
+
+  opts.forEach(opt => {
+    const letter = opt.querySelector('.opt-letter').textContent.trim().toLowerCase();
+    if (letter === correct) opt.classList.add('correct');
+    if (letter === chosen && !isCorrect) opt.classList.add('wrong');
+    opt.style.pointerEvents = 'none';
+  });
+  fb.classList.add('show', isCorrect ? 'ok' : 'fail');
+
+  const parts = itemId.split('_'); // mc_s1_1
+  const sectionKey = parts[1] + '_mc';
+  if (!state.sections[sectionKey]) state.sections[sectionKey] = { correct: 0, total: 0 };
+  state.sections[sectionKey].total++;
+  if (isCorrect) state.sections[sectionKey].correct++;
+  updateGlobal();
+}
+
+// ============================================================
+// MATCHING
+// ============================================================
+const matchState = {};
+
+function selectLeft(group, id) {
+  const key = 'match_' + group;
+  if (!matchState[key]) matchState[key] = { selected: null, matched: {}, correct: 0, total: 0 };
+  const ms = matchState[key];
+  if (ms.matched['l' + id]) return;
+
+  // deselect previous
+  if (ms.selected) {
+    const prev = document.getElementById('ml_' + group + '_' + ms.selected);
+    if (prev) prev.classList.remove('selected');
+  }
+  ms.selected = id;
+  const el = document.getElementById('ml_' + group + '_' + id);
+  if (el) el.classList.add('selected');
+}
+
+function selectRight(group, rightId, correctLeftId) {
+  const key = 'match_' + group;
+  if (!matchState[key]) matchState[key] = { selected: null, matched: {}, correct: 0, total: 0 };
+  const ms = matchState[key];
+  if (!ms.selected) return;
+  const rightEl = document.getElementById('mr_' + group + '_' + rightId);
+  if (rightEl.classList.contains('matched')) return;
+
+  const isCorrect = ms.selected === correctLeftId;
+  const leftEl = document.getElementById('ml_' + group + '_' + ms.selected);
+
+  if (isCorrect) {
+    leftEl.classList.remove('selected');
+    leftEl.classList.add('matched');
+    rightEl.classList.add('matched');
+    ms.matched['l' + ms.selected] = true;
+    ms.matched['r' + rightId] = true;
+    ms.correct++;
+    // count total from number of left items
+    const allLeft = document.querySelectorAll('#match_' + group + ' .match-left-item');
+    ms.total = allLeft.length;
+
+    // section score
+    const sectionKey = group + '_match';
+    if (!state.sections[sectionKey]) state.sections[sectionKey] = { correct: 0, total: allLeft.length };
+    state.sections[sectionKey].correct++;
+    state.sections[sectionKey].total = allLeft.length;
+    updateGlobal();
+
+    const result = document.getElementById('match_' + group + '_result');
+    if (result) result.textContent = '✅ ' + ms.correct + ' de ' + ms.total + ' correctos';
+  } else {
+    rightEl.classList.add('wrong-flash');
+    setTimeout(() => rightEl.classList.remove('wrong-flash'), 600);
+    leftEl.classList.remove('selected');
+    const result = document.getElementById('match_' + group + '_result');
+    if (result) result.style.color = 'var(--coral)';
+    if (result) result.textContent = '❌ Incorrecto, intentá de nuevo';
+  }
+  ms.selected = null;
+}
+
+// ============================================================
+// CALCULATION
+// ============================================================
+const calcAnswered = {};
+
+function checkCalc(inputId, correct, tolerance, scoreKey) {
+  if (calcAnswered[inputId]) return;
+  const input = document.getElementById(inputId);
+  const val = parseFloat(input.value);
+  const fb = document.getElementById('fb_' + scoreKey);
+  if (isNaN(val)) return;
+
+  const isCorrect = Math.abs(val - correct) <= tolerance;
+  calcAnswered[inputId] = true;
+  input.disabled = true;
+  input.classList.add(isCorrect ? 'correct-input' : 'wrong-input');
+  fb.classList.add('show', isCorrect ? 'ok' : 'fail');
+
+  const sectionKey = scoreKey.replace(/_c\d+$/, '') + '_calc';
+  if (!state.sections[sectionKey]) state.sections[sectionKey] = { correct: 0, total: 0 };
+  state.sections[sectionKey].total++;
+  if (isCorrect) state.sections[sectionKey].correct++;
+  updateGlobal();
+}
+
+// ============================================================
+// NAV & SCROLL
+// ============================================================
+function goTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.getElementById('sidebar').classList.remove('open');
+}
+
+window.addEventListener('scroll', () => {
+  const btn = document.getElementById('scrollBtn');
+  btn.classList.toggle('visible', window.scrollY > 400);
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+  let current = 0;
+  sections.forEach((s, i) => { if (window.scrollY >= s.offsetTop - 120) current = i; });
+  navItems.forEach((n, i) => n.classList.toggle('active', i === current));
+});
+
+// ============================================================
+// RESET
+// ============================================================
+function resetAll() {
+  if (!confirm('¿Reiniciar todos los ejercicios? Se perderá tu progreso.')) return;
+  window.location.reload();
+}
+</script>
+</body>
+</html>
