@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciudadanía y Trabajo — Ejercicios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<button class="menu-btn" id="menuBtn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>Ciudadanía y Trabajo</h1>
+    <p>Ejercicios</p>
+  </div>
+
+  <div class="scoreboard">
+    <div class="sc-label">Puntaje global</div>
+    <div class="sc-val" id="global-score">0</div>
+    <div class="sc-sub" id="global-sub">de 0 ejercicios respondidos</div>
+    <div class="progress-bar"><div class="progress-fill" id="global-bar" style="width:0%"></div></div>
+  </div>
+
+  <nav>
+    <div class="nav-group">
+      <div class="nav-label">Temario</div>
+      <button class="nav-item" onclick="goTo('s1')"><span class="num">1</span> Conceptos básicos <span class="type-badge">Nivel 1</span></button>
+      <button class="nav-item" onclick="goTo('s2')"><span class="num">2</span> Mercado de trabajo <span class="type-badge">Nivel 1</span></button>
+      <button class="nav-item" onclick="goTo('s3')"><span class="num">3</span> Composición del empleo <span class="type-badge">Nivel 2</span></button>
+      <button class="nav-item" onclick="goTo('s4')"><span class="num">4</span> Actividades productivas <span class="type-badge">Nivel 2</span></button>
+      <button class="nav-item" onclick="goTo('s5')"><span class="num">5</span> Formalidad vs. informal <span class="type-badge">Nivel 2</span></button>
+      <button class="nav-item" onclick="goTo('s6')"><span class="num">6</span> Marco normativo <span class="type-badge">Nivel 3</span></button>
+      <button class="nav-item" onclick="goTo('s7')"><span class="num">7</span> Caso aplicado <span class="type-badge">Nivel 3</span></button>
+    </div>
+  </nav>
+  <div class="sidebar-footer">ET N°17 D.E. 13 · Ciudadanía y Trabajo</div>
+</aside>
+
+<div class="main">
+  <div class="top-bar">
+    <span class="pill">EJERCICIOS</span>
+    <span class="crumb">Ciudadanía y Trabajo</span>
+    <a href="apuntes.html" style="margin-left:auto; color:var(--teal); font-weight:600; font-size:12px; text-decoration:none;">← Volver a apuntes</a>
+    <button class="reset-btn" onclick="resetAll()">Reiniciar</button>
+  </div>
+
+  <!-- ============ SECCIÓN 1 ============ -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">Sección 1</div>
+      <div class="section-title">Conceptos básicos</div>
+      <div class="section-sub">Nivel 1 — comprensión: ciudadanía, P.E.A. y los actores del trabajo</div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">V/F</span> Verdadero o Falso</h4>
+      <p class="instruction">Marcá si cada afirmación es verdadera o falsa.</p>
+
+      <div class="tf-item" id="tf_s1_1">
+        <p class="tf-statement"><span class="q-num">1.</span> La P.E.A. incluye a las personas de entre 16 y 65 años.</p>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s1_1','V','V'); updateSection('s1_tf','s1_tf_fill','s1_tf_score',2)">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s1_1','V','F'); updateSection('s1_tf','s1_tf_fill','s1_tf_score',2)">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s1_1_fb">Verdadero. La P.E.A. (Población Económicamente Activa) es, justamente, esa franja etaria en condiciones de trabajar.</div>
+      </div>
+
+      <div class="tf-item" id="tf_s1_2">
+        <p class="tf-statement"><span class="q-num">2.</span> El Estado es uno de los actores que interactúan dentro de la estructura del trabajo.</p>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s1_2','V','V'); updateSection('s1_tf','s1_tf_fill','s1_tf_score',2)">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s1_2','V','F'); updateSection('s1_tf','s1_tf_fill','s1_tf_score',2)">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s1_2_fb">Verdadero. El Estado regula y controla el cumplimiento de las leyes laborales entre empleadores y trabajadores.</div>
+      </div>
+
+      <div class="section-score">
+        <span class="ss-label">Verdadero/Falso</span>
+        <div class="ss-bar"><div class="ss-fill" id="s1_tf_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s1_tf_score">0/2</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">MC</span> Opción múltiple</h4>
+      <p class="instruction">Elegí la opción correcta.</p>
+
+      <div class="mc-item" id="mc_s1_1">
+        <p class="mc-question"><span class="q-num">3.</span> ¿Cuál de estos NO es uno de los actores de la estructura del trabajo?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s1_1','a','c'); updateSection('s1_mc','s1_mc_fill','s1_mc_score',1)"><span class="opt-letter">a)</span> Empleador</div>
+          <div class="mc-opt" onclick="checkMC('mc_s1_1','b','c'); updateSection('s1_mc','s1_mc_fill','s1_mc_score',1)"><span class="opt-letter">b)</span> Sindicatos</div>
+          <div class="mc-opt" onclick="checkMC('mc_s1_1','c','c'); updateSection('s1_mc','s1_mc_fill','s1_mc_score',1)"><span class="opt-letter">c)</span> Turistas</div>
+          <div class="mc-opt" onclick="checkMC('mc_s1_1','d','c'); updateSection('s1_mc','s1_mc_fill','s1_mc_score',1)"><span class="opt-letter">d)</span> Cámaras empresariales</div>
+        </div>
+        <div class="mc-feedback" id="mc_s1_1_fb">Los turistas no forman parte de la estructura del trabajo. Los 5 actores son: Empleador, Trabajadores, Sindicatos, Cámaras Empresariales y Estado.</div>
+      </div>
+
+      <div class="section-score">
+        <span class="ss-label">Opción múltiple</span>
+        <div class="ss-bar"><div class="ss-fill" id="s1_mc_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s1_mc_score">0/1</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 2 ============ -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">Sección 2</div>
+      <div class="section-title">Mercado de trabajo</div>
+      <div class="section-sub">Nivel 1 — comprensión: oferta, demanda, precio y negociación colectiva</div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">V/F</span> Verdadero o Falso</h4>
+      <div class="tf-item" id="tf_s2_1">
+        <p class="tf-statement"><span class="q-num">1.</span> El mercado de trabajo es un espacio físico, como un supermercado.</p>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s2_1','F','V'); updateSection('s2_tf','s2_tf_fill','s2_tf_score',1)">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s2_1','F','F'); updateSection('s2_tf','s2_tf_fill','s2_tf_score',1)">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s2_1_fb">Falso. Es un espacio económico, no físico: lo que interactúa son las fuerzas de oferta y demanda de fuerza de trabajo, no un lugar concreto.</div>
+      </div>
+      <div class="section-score">
+        <span class="ss-label">Verdadero/Falso</span>
+        <div class="ss-bar"><div class="ss-fill" id="s2_tf_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s2_tf_score">0/1</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-fill">Completar</span> Completar la definición</h4>
+      <div class="fill-sentence">
+        <span class="q-num">2.</span> El
+        <input class="fill-input" id="fill_s2_1" onblur="checkFill('fill_s2_1', ['salario','precio','salario o precio','precio o salario'], '✅ Correcto.', '❌ Es el salario (o precio), lo que recibe el trabajador por su tarea.'); updateSection('s2_fill','s2_fill_fill','s2_fill_score',1)" />
+        es lo que recibe un trabajador por realizar una función o tarea.
+      </div>
+      <div class="fill-feedback" id="fill_s2_1_fb"></div>
+      <div class="section-score">
+        <span class="ss-label">Completar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s2_fill_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s2_fill_score">0/1</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-match">Relacionar</span> Unir componente con su definición</h4>
+      <p class="instruction">Hacé clic en un componente de la izquierda y después en su definición correspondiente a la derecha.</p>
+
+      <div class="match-grid" id="match_s2a">
+        <div>
+          <div class="match-col-label">Componente</div>
+          <div class="match-left-item" id="ml_s2a_1" onclick="selectLeft('s2a','1')"><span class="ml">A</span> Oferta</div>
+          <div class="match-left-item" id="ml_s2a_2" onclick="selectLeft('s2a','2')"><span class="ml">B</span> Demanda</div>
+          <div class="match-left-item" id="ml_s2a_3" onclick="selectLeft('s2a','3')"><span class="ml">C</span> Precio / Salario</div>
+        </div>
+        <div>
+          <div class="match-col-label">Definición</div>
+          <div class="match-right-item" id="mr_s2a_1" onclick="selectRight('s2a','1','2'); updateSection('s2a_match','s2a_match_fill','s2a_match_score',3)">Necesidad de trabajadores por parte de las empresas</div>
+          <div class="match-right-item" id="mr_s2a_2" onclick="selectRight('s2a','2','3'); updateSection('s2a_match','s2a_match_fill','s2a_match_score',3)">Lo que recibe el trabajador por su tarea</div>
+          <div class="match-right-item" id="mr_s2a_3" onclick="selectRight('s2a','3','1'); updateSection('s2a_match','s2a_match_fill','s2a_match_score',3)">Disponibilidad de trabajadores dispuestos a trabajar</div>
+        </div>
+      </div>
+      <div class="match-result" id="match_s2a_result"></div>
+
+      <div class="section-score">
+        <span class="ss-label">Relacionar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s2a_match_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s2a_match_score">0/3</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 3 ============ -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">Sección 3</div>
+      <div class="section-title">Composición del empleo</div>
+      <div class="section-sub">Nivel 2 — aplicación: clasificar casos según el sector del empleo</div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-connect">Clasificar</span> ¿A qué sector pertenece?</h4>
+      <p class="instruction">Leé cada situación y elegí el sector del empleo al que corresponde.</p>
+
+      <div class="scenario-block">
+        <div class="s-title">Escenario 1</div>
+        <p>Rocío trabaja como maestra en una escuela de gestión estatal de la Provincia de Buenos Aires.</p>
+      </div>
+      <div class="mc-item" id="cl_s3_1">
+        <p class="mc-question"><span class="q-num">1.</span> ¿A qué sector del empleo pertenece el trabajo de Rocío?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkClassify('cl_s3_1','a','b'); updateSection('s3_classify','s3_classify_fill','s3_classify_score',3)"><span class="opt-letter">a)</span> Sector registrado</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s3_1','b','b'); updateSection('s3_classify','s3_classify_fill','s3_classify_score',3)"><span class="opt-letter">b)</span> Sector público</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s3_1','c','b'); updateSection('s3_classify','s3_classify_fill','s3_classify_score',3)"><span class="opt-letter">c)</span> Sector informal</div>
+        </div>
+        <div class="mc-feedback" id="cl_s3_1_fb">Trabaja en una escuela estatal — eso la ubica en el sector público (salud y educación son dos de sus áreas típicas).</div>
+      </div>
+
+      <div class="scenario-block">
+        <div class="s-title">Escenario 2</div>
+        <p>Martín vende empanadas caseras en la calle, sin ningún tipo de registro ni factura.</p>
+      </div>
+      <div class="mc-item" id="cl_s3_2">
+        <p class="mc-question"><span class="q-num">2.</span> ¿A qué sector del empleo pertenece el trabajo de Martín?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkClassify('cl_s3_2','a','c'); updateSection('s3_classify','s3_classify_fill','s3_classify_score',3)"><span class="opt-letter">a)</span> Sector registrado</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s3_2','b','c'); updateSection('s3_classify','s3_classify_fill','s3_classify_score',3)"><span class="opt-letter">b)</span> Sector público</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s3_2','c','c'); updateSection('s3_classify','s3_classify_fill','s3_classify_score',3)"><span class="opt-letter">c)</span> Sector informal</div>
+        </div>
+        <div class="mc-feedback" id="cl_s3_2_fb">Sin registro y sin factura, Martín forma parte de la economía popular dentro del sector informal — como los cartoneros o vendedores ambulantes.</div>
+      </div>
+
+      <div class="scenario-block">
+        <div class="s-title">Escenario 3</div>
+        <p>Valeria factura como monotributista haciendo diseño gráfico para distintos clientes.</p>
+      </div>
+      <div class="mc-item" id="cl_s3_3">
+        <p class="mc-question"><span class="q-num">3.</span> ¿A qué sector del empleo pertenece el trabajo de Valeria?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkClassify('cl_s3_3','a','a'); updateSection('s3_classify','s3_classify_fill','s3_classify_score',3)"><span class="opt-letter">a)</span> Sector registrado</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s3_3','b','a'); updateSection('s3_classify','s3_classify_fill','s3_classify_score',3)"><span class="opt-letter">b)</span> Sector público</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s3_3','c','a'); updateSection('s3_classify','s3_classify_fill','s3_classify_score',3)"><span class="opt-letter">c)</span> Sector informal</div>
+        </div>
+        <div class="mc-feedback" id="cl_s3_3_fb">El monotributo es una forma de registro: Valeria factura formalmente, así que está en el sector registrado.</div>
+      </div>
+
+      <div class="section-score">
+        <span class="ss-label">Clasificar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s3_classify_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s3_classify_score">0/3</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-fill">Completar</span> Completar el dato</h4>
+      <div class="fill-sentence">
+        <span class="q-num">4.</span> El sector informal representa aproximadamente el
+        <input class="fill-input" id="fill_s3_1" style="min-width:50px;" onblur="checkFill('fill_s3_1', ['40','40%'], '✅ Correcto — 40%.', '❌ Es el 40% del total de los trabajadores.'); updateSection('s3_fill','s3_fill_fill','s3_fill_score',1)" />
+        % del total de los trabajadores.
+      </div>
+      <div class="fill-feedback" id="fill_s3_1_fb"></div>
+      <div class="section-score">
+        <span class="ss-label">Completar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s3_fill_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s3_fill_score">0/1</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 4 ============ -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">Sección 4</div>
+      <div class="section-title">Actividades productivas</div>
+      <div class="section-sub">Nivel 2 — aplicación: ubicar actividades dentro de los 3 sectores productivos</div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-match">Relacionar</span> Unir actividad con sector productivo</h4>
+      <p class="instruction">Hacé clic en una actividad de la izquierda y después en su sector correspondiente a la derecha.</p>
+
+      <div class="match-grid" id="match_s4a">
+        <div>
+          <div class="match-col-label">Actividad</div>
+          <div class="match-left-item" id="ml_s4a_1" onclick="selectLeft('s4a','1')"><span class="ml">A</span> Agricultura</div>
+          <div class="match-left-item" id="ml_s4a_2" onclick="selectLeft('s4a','2')"><span class="ml">B</span> Industria manufacturera</div>
+          <div class="match-left-item" id="ml_s4a_3" onclick="selectLeft('s4a','3')"><span class="ml">C</span> Comercio</div>
+        </div>
+        <div>
+          <div class="match-col-label">Sector</div>
+          <div class="match-right-item" id="mr_s4a_1" onclick="selectRight('s4a','1','2'); updateSection('s4a_match','s4a_match_fill','s4a_match_score',3)">Secundario</div>
+          <div class="match-right-item" id="mr_s4a_2" onclick="selectRight('s4a','2','3'); updateSection('s4a_match','s4a_match_fill','s4a_match_score',3)">Terciario</div>
+          <div class="match-right-item" id="mr_s4a_3" onclick="selectRight('s4a','3','1'); updateSection('s4a_match','s4a_match_fill','s4a_match_score',3)">Primario</div>
+        </div>
+      </div>
+      <div class="match-result" id="match_s4a_result"></div>
+
+      <div class="section-score">
+        <span class="ss-label">Relacionar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s4a_match_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s4a_match_score">0/3</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-connect">Clasificar</span> ¿Primario, secundario o terciario?</h4>
+
+      <div class="scenario-block">
+        <div class="s-title">Escenario 1</div>
+        <p>Un ingeniero trabaja armando la línea de producción de una fábrica de autos.</p>
+      </div>
+      <div class="mc-item" id="cl_s4_1">
+        <p class="mc-question"><span class="q-num">1.</span> ¿A qué sector productivo pertenece esta actividad?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkClassify('cl_s4_1','a','b'); updateSection('s4_classify','s4_classify_fill','s4_classify_score',2)"><span class="opt-letter">a)</span> Primario</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s4_1','b','b'); updateSection('s4_classify','s4_classify_fill','s4_classify_score',2)"><span class="opt-letter">b)</span> Secundario</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s4_1','c','b'); updateSection('s4_classify','s4_classify_fill','s4_classify_score',2)"><span class="opt-letter">c)</span> Terciario</div>
+        </div>
+        <div class="mc-feedback" id="cl_s4_1_fb">Armar una línea de producción es industria manufacturera — sector secundario.</div>
+      </div>
+
+      <div class="scenario-block">
+        <div class="s-title">Escenario 2</div>
+        <p>Una empleada bancaria atiende clientes en una sucursal de CABA.</p>
+      </div>
+      <div class="mc-item" id="cl_s4_2">
+        <p class="mc-question"><span class="q-num">2.</span> ¿A qué sector productivo pertenece esta actividad?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkClassify('cl_s4_2','a','c'); updateSection('s4_classify','s4_classify_fill','s4_classify_score',2)"><span class="opt-letter">a)</span> Primario</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s4_2','b','c'); updateSection('s4_classify','s4_classify_fill','s4_classify_score',2)"><span class="opt-letter">b)</span> Secundario</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s4_2','c','c'); updateSection('s4_classify','s4_classify_fill','s4_classify_score',2)"><span class="opt-letter">c)</span> Terciario</div>
+        </div>
+        <div class="mc-feedback" id="cl_s4_2_fb">Los bancos son parte de los servicios financieros — sector terciario.</div>
+      </div>
+
+      <div class="section-score">
+        <span class="ss-label">Clasificar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s4_classify_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s4_classify_score">0/2</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">V/F</span> Verdadero o Falso</h4>
+      <div class="tf-item" id="tf_s4_1">
+        <p class="tf-statement"><span class="q-num">3.</span> El sector primario es el que más mano de obra ocupa, porque no está automatizado.</p>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s4_1','F','V'); updateSection('s4_tf','s4_tf_fill','s4_tf_score',1)">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s4_1','F','F'); updateSection('s4_tf','s4_tf_fill','s4_tf_score',1)">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s4_1_fb">Falso — es al revés: el sector primario ocupa POCA mano de obra justamente porque está muy automatizado.</div>
+      </div>
+      <div class="section-score">
+        <span class="ss-label">Verdadero/Falso</span>
+        <div class="ss-bar"><div class="ss-fill" id="s4_tf_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s4_tf_score">0/1</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 5 ============ -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">Sección 5</div>
+      <div class="section-title">Formalidad vs. informalidad</div>
+      <div class="section-sub">Nivel 2 — aplicación: tipos de contrato y qué garantiza (o no) cada uno</div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-connect">Clasificar</span> ¿Qué tipo de contrato es?</h4>
+
+      <div class="scenario-block">
+        <div class="s-title">Escenario 1</div>
+        <p>Un contrato con fecha de finalización, pensado para cubrir una necesidad puntual del empleador. No genera indemnización.</p>
+      </div>
+      <div class="mc-item" id="cl_s5_1">
+        <p class="mc-question"><span class="q-num">1.</span> ¿Qué tipo de contrato es?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkClassify('cl_s5_1','a','b'); updateSection('s5_classify','s5_classify_fill','s5_classify_score',2)"><span class="opt-letter">a)</span> Tiempo indeterminado</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s5_1','b','b'); updateSection('s5_classify','s5_classify_fill','s5_classify_score',2)"><span class="opt-letter">b)</span> Eventual</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s5_1','c','b'); updateSection('s5_classify','s5_classify_fill','s5_classify_score',2)"><span class="opt-letter">c)</span> Parcial</div>
+        </div>
+        <div class="mc-feedback" id="cl_s5_1_fb">Fecha de finalización + sin indemnización = contrato eventual.</div>
+      </div>
+
+      <div class="scenario-block">
+        <div class="s-title">Escenario 2</div>
+        <p>Un contrato en blanco donde se trabaja una fracción de la jornada y se cobra proporcional a las horas trabajadas.</p>
+      </div>
+      <div class="mc-item" id="cl_s5_2">
+        <p class="mc-question"><span class="q-num">2.</span> ¿Qué tipo de contrato es?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkClassify('cl_s5_2','a','c'); updateSection('s5_classify','s5_classify_fill','s5_classify_score',2)"><span class="opt-letter">a)</span> Tiempo indeterminado</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s5_2','b','c'); updateSection('s5_classify','s5_classify_fill','s5_classify_score',2)"><span class="opt-letter">b)</span> Eventual</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s5_2','c','c'); updateSection('s5_classify','s5_classify_fill','s5_classify_score',2)"><span class="opt-letter">c)</span> Parcial</div>
+        </div>
+        <div class="mc-feedback" id="cl_s5_2_fb">Menos horas, pago proporcional, pero en blanco = contrato parcial.</div>
+      </div>
+
+      <div class="section-score">
+        <span class="ss-label">Clasificar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s5_classify_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s5_classify_score">0/2</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-tf">V/F</span> Verdadero o Falso</h4>
+      <div class="tf-item" id="tf_s5_1">
+        <p class="tf-statement"><span class="q-num">3.</span> En el trabajo en negro, el trabajador tiene cobertura de ART.</p>
+        <div class="tf-options">
+          <button class="tf-btn" onclick="checkTF('tf_s5_1','F','V'); updateSection('s5_tf','s5_tf_fill','s5_tf_score',1)">V</button>
+          <button class="tf-btn" onclick="checkTF('tf_s5_1','F','F'); updateSection('s5_tf','s5_tf_fill','s5_tf_score',1)">F</button>
+        </div>
+        <div class="tf-feedback" id="tf_s5_1_fb">Falso. La ART es uno de los beneficios que solo tiene el trabajo registrado (blanco).</div>
+      </div>
+      <div class="section-score">
+        <span class="ss-label">Verdadero/Falso</span>
+        <div class="ss-bar"><div class="ss-fill" id="s5_tf_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s5_tf_score">0/1</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-fill">Completar</span> Completar la frase</h4>
+      <div class="fill-sentence">
+        <span class="q-num">4.</span> En caso de despido en un contrato a tiempo indeterminado, el empleado debe cobrar una
+        <input class="fill-input" id="fill_s5_1" onblur="checkFill('fill_s5_1', ['indemnizacion','indemnización'], '✅ Correcto.', '❌ Es una indemnización.'); updateSection('s5_fill','s5_fill_fill','s5_fill_score',1)" />.
+      </div>
+      <div class="fill-feedback" id="fill_s5_1_fb"></div>
+      <div class="section-score">
+        <span class="ss-label">Completar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s5_fill_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s5_fill_score">0/1</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 6 ============ -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">Sección 6</div>
+      <div class="section-title">Marco normativo</div>
+      <div class="section-sub">Nivel 3 — integración: jerarquía de normas y derechos del Art. 14 bis</div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-sort">Ordenar</span> Ordená la jerarquía normativa</h4>
+      <p class="instruction">Arrastrá los elementos para ordenarlos de mayor a menor rango normativo.</p>
+
+      <div class="sort-container" id="sort_s6_1">
+        <div class="sort-item" data-order="3">Leyes Nacionales (LCT, Ley de Asociaciones, Ley de Riesgos del Trabajo)</div>
+        <div class="sort-item" data-order="1">Constitución Nacional — Art. 14 bis</div>
+        <div class="sort-item" data-order="5">Estatutos Profesionales</div>
+        <div class="sort-item" data-order="2">Tratados Internacionales / Convenios OIT</div>
+        <div class="sort-item" data-order="4">Convenios Colectivos de Trabajo</div>
+      </div>
+      <button class="check-btn sort-check-btn" onclick="checkSort('sort_s6_1','s6'); updateSection('s6_sort','s6_sort_fill','s6_sort_score',5)">Verificar orden</button>
+      <div id="sort_s6_1_result"></div>
+
+      <div class="section-score">
+        <span class="ss-label">Ordenar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s6_sort_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s6_sort_score">0/5</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-match">Relacionar</span> Unir derecho con su justificación</h4>
+      <p class="instruction">Hacé clic en un derecho de la izquierda y después en la razón que lo justifica, a la derecha.</p>
+
+      <div class="match-grid" id="match_s6a">
+        <div>
+          <div class="match-col-label">Derecho</div>
+          <div class="match-left-item" id="ml_s6a_1" onclick="selectLeft('s6a','1')"><span class="ml">A</span> Obra social</div>
+          <div class="match-left-item" id="ml_s6a_2" onclick="selectLeft('s6a','2')"><span class="ml">B</span> Jubilación</div>
+          <div class="match-left-item" id="ml_s6a_3" onclick="selectLeft('s6a','3')"><span class="ml">C</span> Vacaciones pagas</div>
+        </div>
+        <div>
+          <div class="match-col-label">Por qué es importante</div>
+          <div class="match-right-item" id="mr_s6a_1" onclick="selectRight('s6a','1','2'); updateSection('s6a_match','s6a_match_fill','s6a_match_score',3)">Nadie puede trabajar indefinidamente; hace valer los años de aporte</div>
+          <div class="match-right-item" id="mr_s6a_2" onclick="selectRight('s6a','2','3'); updateSection('s6a_match','s6a_match_fill','s6a_match_score',3)">El trabajador necesita ese dinero para vivir mientras descansa</div>
+          <div class="match-right-item" id="mr_s6a_3" onclick="selectRight('s6a','3','1'); updateSection('s6a_match','s6a_match_fill','s6a_match_score',3)">Cubre los gastos médicos ante una enfermedad o accidente</div>
+        </div>
+      </div>
+      <div class="match-result" id="match_s6a_result"></div>
+
+      <div class="section-score">
+        <span class="ss-label">Relacionar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s6a_match_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s6a_match_score">0/3</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">MC</span> Opción múltiple</h4>
+      <div class="mc-item" id="mc_s6_1">
+        <p class="mc-question"><span class="q-num">1.</span> ¿Cuál es el rol del Estado respecto a los derechos del Art. 14 bis?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s6_1','a','b'); updateSection('s6_mc','s6_mc_fill','s6_mc_score',1)"><span class="opt-letter">a)</span> Financiar directamente todos los salarios</div>
+          <div class="mc-opt" onclick="checkMC('mc_s6_1','b','b'); updateSection('s6_mc','s6_mc_fill','s6_mc_score',1)"><span class="opt-letter">b)</span> Supervisar que estas leyes se cumplan y estén organizadas</div>
+          <div class="mc-opt" onclick="checkMC('mc_s6_1','c','b'); updateSection('s6_mc','s6_mc_fill','s6_mc_score',1)"><span class="opt-letter">c)</span> Reemplazar a los sindicatos en la negociación</div>
+        </div>
+        <div class="mc-feedback" id="mc_s6_1_fb">El Estado actúa como garante: supervisa el cumplimiento de estas leyes, no reemplaza a las partes de la relación laboral.</div>
+      </div>
+      <div class="section-score">
+        <span class="ss-label">Opción múltiple</span>
+        <div class="ss-bar"><div class="ss-fill" id="s6_mc_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s6_mc_score">0/1</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 7 ============ -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">Sección 7</div>
+      <div class="section-title">Caso aplicado</div>
+      <div class="section-sub">Nivel 3 — integración: un caso nuevo para aplicar todo lo visto</div>
+    </div>
+
+    <div class="scenario-block">
+      <div class="s-title">El caso</div>
+      <p>Valentina, de 22 años, maneja para una app de transporte usando su propio auto. La aplicación le asigna los viajes, fija el precio de cada uno y puede desconectarla de la plataforma si rechaza muchos viajes. Le pagan por viaje realizado, sin recibo de sueldo ni ningún tipo de registro laboral.</p>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-connect">Clasificar</span> Aplicá los conceptos de la materia</h4>
+
+      <div class="mc-item" id="cl_s7_1">
+        <p class="mc-question"><span class="q-num">1.</span> ¿Valentina trabaja en relación de dependencia o es una cuenta propista realmente independiente?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkClassify('cl_s7_1','a','a'); updateSection('s7_classify','s7_classify_fill','s7_classify_score',2)"><span class="opt-letter">a)</span> Relación de dependencia</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s7_1','b','a'); updateSection('s7_classify','s7_classify_fill','s7_classify_score',2)"><span class="opt-letter">b)</span> Cuenta propista independiente</div>
+        </div>
+        <div class="mc-feedback" id="cl_s7_1_fb">Es relación de dependencia: la app fija el precio, asigna los viajes y controla su desempeño — Valentina no decide libremente esas condiciones, más allá de usar su propio auto.</div>
+      </div>
+
+      <div class="mc-item" id="cl_s7_2">
+        <p class="mc-question"><span class="q-num">2.</span> Tal como está descripto, ¿a qué sector del empleo pertenece el trabajo de Valentina?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkClassify('cl_s7_2','a','c'); updateSection('s7_classify','s7_classify_fill','s7_classify_score',2)"><span class="opt-letter">a)</span> Sector registrado</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s7_2','b','c'); updateSection('s7_classify','s7_classify_fill','s7_classify_score',2)"><span class="opt-letter">b)</span> Sector público</div>
+          <div class="mc-opt" onclick="checkClassify('cl_s7_2','c','c'); updateSection('s7_classify','s7_classify_fill','s7_classify_score',2)"><span class="opt-letter">c)</span> Sector informal</div>
+        </div>
+        <div class="mc-feedback" id="cl_s7_2_fb">Sin recibo de sueldo ni registro laboral, el caso tal como está descripto corresponde al sector informal — más allá de cómo lo llame la empresa.</div>
+      </div>
+
+      <div class="section-score">
+        <span class="ss-label">Clasificar</span>
+        <div class="ss-bar"><div class="ss-fill" id="s7_classify_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s7_classify_score">0/2</span>
+      </div>
+    </div>
+
+    <div class="ex-block">
+      <h4><span class="ex-tag tag-mc">MC</span> Opción múltiple</h4>
+      <div class="mc-item" id="mc_s7_1">
+        <p class="mc-question"><span class="q-num">3.</span> ¿Cuál de estos derechos del Art. 14 bis está más claramente incumplido en el caso de Valentina?</p>
+        <div class="mc-options">
+          <div class="mc-opt" onclick="checkMC('mc_s7_1','a','a'); updateSection('s7_mc','s7_mc_fill','s7_mc_score',1)"><span class="opt-letter">a)</span> Salario mínimo, vital y móvil</div>
+          <div class="mc-opt" onclick="checkMC('mc_s7_1','b','a'); updateSection('s7_mc','s7_mc_fill','s7_mc_score',1)"><span class="opt-letter">b)</span> Libertad de expresión</div>
+          <div class="mc-opt" onclick="checkMC('mc_s7_1','c','a'); updateSection('s7_mc','s7_mc_fill','s7_mc_score',1)"><span class="opt-letter">c)</span> Derecho de propiedad</div>
+        </div>
+        <div class="mc-feedback" id="mc_s7_1_fb">Sin registro laboral no hay garantía de un salario mínimo, vital y móvil — Valentina cobra solo por viaje, sin piso salarial garantizado.</div>
+      </div>
+      <div class="section-score">
+        <span class="ss-label">Opción múltiple</span>
+        <div class="ss-bar"><div class="ss-fill" id="s7_mc_fill" style="width:0%"></div></div>
+        <span class="ss-val" id="s7_mc_score">0/1</span>
+      </div>
+    </div>
+
+    <hr class="divider">
+    <p style="font-size:13px; color:var(--text-muted); text-align:center;">Fin de los ejercicios. Podés revisar tu puntaje global en la barra lateral.</p>
+  </section>
+
+</div>
+
+<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script src="ejercicios.js"></script>
+</body>
+</html>

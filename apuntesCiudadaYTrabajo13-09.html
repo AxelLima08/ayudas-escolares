@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ciudadanía y Trabajo — Apuntes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<button class="menu-btn" id="menuBtn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <h1>Ciudadanía y Trabajo</h1>
+    <p>Apuntes de la materia</p>
+  </div>
+  <nav>
+    <div class="nav-group">
+      <div class="nav-label">Temario</div>
+      <button class="nav-item" onclick="scrollToSection('s1')"><span class="num">1</span> Conceptos básicos</button>
+      <button class="nav-item" onclick="scrollToSection('s2')"><span class="num">2</span> Mercado de trabajo</button>
+      <button class="nav-item" onclick="scrollToSection('s3')"><span class="num">3</span> Composición del empleo</button>
+      <button class="nav-item" onclick="scrollToSection('s4')"><span class="num">4</span> Actividades productivas</button>
+      <button class="nav-item" onclick="scrollToSection('s5')"><span class="num">5</span> Formalidad vs. informalidad</button>
+      <button class="nav-item" onclick="scrollToSection('s6')"><span class="num">6</span> Marco normativo (Art. 14 bis)</button>
+      <button class="nav-item" onclick="scrollToSection('s7')"><span class="num">7</span> Caso aplicado</button>
+    </div>
+  </nav>
+  <div class="sidebar-footer">ET N°17 D.E. 13 · Ciudadanía y Trabajo</div>
+</aside>
+
+<div class="main">
+  <div class="top-bar">
+    <span class="pill">APUNTES</span>
+    <span class="crumb">Ciudadanía y Trabajo</span>
+    <a href="ejercicios.html" style="margin-left:auto; color:var(--teal); font-weight:600; font-size:12px; text-decoration:none;">Ir a ejercicios →</a>
+  </div>
+
+  <!-- ============ SECCIÓN 1 ============ -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="section-num">Sección 1</div>
+      <div class="section-title">Conceptos básicos</div>
+      <div class="section-sub">10/08/26 — el punto de partida: qué es la ciudadanía y cómo se estructura el trabajo</div>
+    </div>
+
+    <div class="box important">
+      <div class="box-label">Definición clave</div>
+      <p><strong>Ciudadanía:</strong> sujeto reconocido legalmente como miembro de un estado.</p>
+    </div>
+
+    <p>Antes de entrar en los datos duros del mercado laboral, vale la pena preguntarse por qué estudiamos esto. El trabajo no es solamente una actividad para ganar dinero: es también un <strong>derecho que dignifica</strong> a la persona y la integra en la sociedad. En un trabajo se aprenden cosas nuevas, se construyen vínculos con otra gente, y se pone en juego lo que uno estudió — por eso las leyes lo protegen como algo más que una simple transacción económica.</p>
+
+    <h3>Estructura del trabajo</h3>
+    <p>El trabajo, como actividad económica, se organiza a partir de la <strong>P.E.A. (Población Económicamente Activa)</strong>: personas de entre 16 y 65 años en condiciones de trabajar. Dentro de esa población interactúan cinco actores:</p>
+
+    <div class="flow">
+      <div class="flow-box accent">TRABAJO</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box teal">P.E.A. (16–65 años)</div>
+    </div>
+
+    <div class="cards">
+      <div class="card"><div class="card-icon">🧑‍💼</div><div class="card-title">Empleador</div><div class="card-body">Quien contrata y organiza el trabajo.</div></div>
+      <div class="card"><div class="card-icon">👷</div><div class="card-title">Trabajadores</div><div class="card-body">Quienes ofrecen su fuerza de trabajo a cambio de un salario.</div></div>
+      <div class="card"><div class="card-icon">🤝</div><div class="card-title">Sindicatos</div><div class="card-body">Representan y organizan a los trabajadores.</div></div>
+      <div class="card"><div class="card-icon">🏛️</div><div class="card-title">Cámaras empresariales</div><div class="card-body">Representan y organizan a los empleadores de un mismo sector.</div></div>
+      <div class="card"><div class="card-icon">⚖️</div><div class="card-title">Estado</div><div class="card-body">Regula y controla el cumplimiento de las leyes laborales.</div></div>
+    </div>
+
+    <h3>Clasificación básica del trabajo</h3>
+    <p>Todo trabajo puede clasificarse, en primera instancia, según si está registrado ante el Estado o no:</p>
+    <div class="flow">
+      <div class="flow-box teal">BLANCO / REGISTRADO</div>
+      <div class="flow-box coral">NEGRO / INFORMAL</div>
+    </div>
+    <p style="font-size:13px; color:var(--text-muted); margin-top:0.5rem;">Esta distinción es la base de todo lo que viene después — la vamos a retomar en detalle en la Sección 5.</p>
+  </section>
+
+  <!-- ============ SECCIÓN 2 ============ -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="section-num">Sección 2</div>
+      <div class="section-title">Mercado de trabajo</div>
+      <div class="section-sub">24/08/26 — oferta, demanda y precio del trabajo</div>
+    </div>
+
+    <p>El mercado de trabajo se arma, como cualquier mercado, a partir de tres componentes:</p>
+
+    <div class="flow">
+      <div class="flow-box teal">Oferta</div>
+      <div class="flow-arrow">+</div>
+      <div class="flow-box teal">Demanda</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box accent">Precio / Salario</div>
+    </div>
+    <p style="font-size:13px; color:var(--text-muted);">A estos tres se les puede sumar un cuarto componente, más informal: <strong>el Estado</strong>, que interviene regulando esta dinámica.</p>
+
+    <div class="box why">
+      <div class="box-label">Por qué se lo llama "mercado"</div>
+      <p>El mercado de trabajo es un espacio <strong>económico</strong>, no físico. A diferencia de un supermercado, acá no hay un lugar concreto donde se encuentran comprador y vendedor: lo que interactúa son las fuerzas de oferta y demanda de fuerza de trabajo.</p>
+    </div>
+
+    <div class="box important">
+      <div class="box-label">Definición clave</div>
+      <p>El <strong>precio / salario</strong> es lo que recibe un trabajador por realizar una función o tarea.</p>
+    </div>
+
+    <h3>Negociación colectiva</h3>
+    <p>El salario no siempre se fija libremente entre cada trabajador y cada empleador: gran parte se define de forma colectiva.</p>
+    <div class="flow">
+      <div class="flow-box">Organización social</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box teal">Convenio Colectivo de Trabajo</div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box accent">Patrones · Sindicatos · Estado</div>
+    </div>
+    <p>El Estado, como ente regulador y a través de estos convenios colectivos, puede fijar un salario estándar único para toda una actividad.</p>
+  </section>
+
+  <!-- ============ SECCIÓN 3 ============ -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="section-num">Sección 3</div>
+      <div class="section-title">Composición general del empleo</div>
+      <div class="section-sub">07/09/26 — los tres sectores donde se reparte el empleo</div>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">📄</div>
+        <div class="card-title">Sector registrado</div>
+        <div class="card-body">Trabajadores en blanco, con relación laboral y derechos laborales plenos. Incluye monotributo, industria del conocimiento y el comercio — la actividad que más empleo genera.</div>
+        <span class="badge badge-teal">Con derechos</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏛️</div>
+        <div class="card-title">Sector público</div>
+        <div class="card-body">Emplea aprox. 3,3 millones de personas: salud, educación, fuerzas de seguridad y trabajo administrativo.</div>
+        <span class="badge badge-blue">3,3 M de empleados</span>
+      </div>
+      <div class="card">
+        <div class="card-icon">🚫</div>
+        <div class="card-title">Sector informal</div>
+        <div class="card-body">Trabajo en negro, sin derechos: servicio doméstico, construcción y economía popular (cartoneros, vendedores ambulantes). Salarios más bajos.</div>
+        <span class="badge badge-coral">40% del total</span>
+      </div>
+    </div>
+
+    <h3>Descentralización del sector público</h3>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Nivel</th><th>Porcentaje del empleo público</th></tr></thead>
+        <tbody>
+          <tr><td>Nación</td><td>19%</td></tr>
+          <tr><td>Provincias</td><td>56%</td></tr>
+          <tr><td>Municipios</td><td>25%</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="box warning">
+      <div class="box-label">Para no confundir</div>
+      <p>Sector <strong>informal</strong> ≠ sector <strong>público</strong>. Ambos pueden convivir con salarios bajos, pero solo el sector informal implica ausencia total de derechos laborales — el sector público, aunque a veces mal pago, está registrado y regulado.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 4 ============ -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="section-num">Sección 4</div>
+      <div class="section-title">Actividades productivas a nivel nacional</div>
+      <div class="section-sub">Qué se produce y dónde, según cada región del país</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Actividad</th><th>Dónde se concentra</th></tr></thead>
+        <tbody>
+          <tr><td>Comercio</td><td>Mayor empleador en al menos 12 provincias (turismo / servicios / comercio)</td></tr>
+          <tr><td>Industria manufacturera</td><td>~17% del empleo — Bs. As., Córdoba, Santa Fe</td></tr>
+          <tr><td>Construcción</td><td>Provincias de la cordillera</td></tr>
+          <tr><td>Actividad agropecuaria</td><td>Zona pampeana, litoral, Chaco</td></tr>
+          <tr><td>Servicios financieros e inmobiliarios</td><td>Centralizados en AMBA (Bs. As. y alrededores)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Los 3 sectores de actividad</h3>
+    <div class="cards">
+      <div class="card"><div class="card-icon">🌾</div><div class="card-title">Primario</div><div class="card-body">Agricultura, ganadería, minería, pesca. Ocupa poca mano de obra por su alta automatización.</div></div>
+      <div class="card"><div class="card-icon">🏭</div><div class="card-title">Secundario</div><div class="card-body">Industria manufacturera, industria transformadora, construcción. Empleo formalizado y de alta productividad.</div></div>
+      <div class="card"><div class="card-icon">🛍️</div><div class="card-title">Terciario</div><div class="card-body">Comercio, transporte, salud, educación, finanzas y bancos. El principal motor de generación de empleo.</div></div>
+    </div>
+
+    <h3>Categorías ocupacionales</h3>
+    <p>Dentro de cualquiera de estos sectores, un trabajador puede ubicarse en distintas categorías:</p>
+    <ul>
+      <li><strong>Asalariado:</strong> trabaja en relación de dependencia, para un empleador.</li>
+      <li><strong>Cuenta propista:</strong> trabaja de forma independiente, sin relación de dependencia.</li>
+      <li><strong>Informal:</strong> no está registrado, sea asalariado o cuenta propista.</li>
+    </ul>
+    <div class="box warning">
+      <div class="box-label">Para no confundir</div>
+      <p><strong>Formal ≠ informal</strong> no es lo mismo que la categoría ocupacional: un cuenta propista puede ser formal (monotributista) o informal, igual que un asalariado puede estar en blanco o en negro.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 5 ============ -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="section-num">Sección 5</div>
+      <div class="section-title">Formalidad vs. informalidad</div>
+      <div class="section-sub">Tipos de contrato y qué cambia según estés en blanco o en negro</div>
+    </div>
+
+    <h3>Tipos de contrato (trabajo formal)</h3>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Tiempo indeterminado</div>
+          <div class="step-body">Es el contrato estándar. No tiene período de prueba y, en caso de despido, el empleado debe cobrar una indemnización.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Eventual</div>
+          <div class="step-body">Tiene fecha de finalización — es por tiempo determinado, para cubrir una necesidad puntual del empleador. No genera indemnización.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Parcial</div>
+          <div class="step-body">Está en blanco, pero se trabaja una fracción de la jornada — el pago es proporcional a las horas trabajadas (o sea, menos horas, menos pago).</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Blanco vs. negro</h3>
+    <div class="vs-table">
+      <div class="vs-header a">Blanco / Registrado</div>
+      <div class="vs-header b">Trabajo en negro</div>
+      <div class="vs-cell">ART</div><div class="vs-cell b">No hay aportes</div>
+      <div class="vs-cell">Jubilación</div><div class="vs-cell b">No hay cobertura médica</div>
+      <div class="vs-cell">Registrado</div><div class="vs-cell b">No hay vacaciones pagas</div>
+      <div class="vs-cell">Obra social</div><div class="vs-cell b">No hay licencias</div>
+      <div class="vs-cell">Representación sindical</div><div class="vs-cell b">No hay indemnización</div>
+      <div class="vs-cell">Jornada / horas extras</div><div class="vs-cell b">No hay límite de jornada ni pago de horas extras *</div>
+      <div class="vs-cell">Vacaciones</div><div class="vs-cell b">No hay vacaciones pagas *</div>
+      <div class="vs-cell">Franco semanal</div><div class="vs-cell b">No hay descanso semanal garantizado *</div>
+    </div>
+
+    <div class="box warning">
+      <div class="box-label">⚠️ Nota sobre esta tabla</div>
+      <p><strong>Apunte original en blanco — completado con IA, revisar.</strong> Las últimas 3 filas del lado "Trabajo en negro" (marcadas con *) no estaban en el apunte original — se completaron siguiendo la misma lógica que las filas anteriores (ausencia del derecho correspondiente). Convendría confirmarlas con la profesora antes de darlas por definitivas.</p>
+    </div>
+  </section>
+
+  <!-- ============ SECCIÓN 6 ============ -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="section-num">Sección 6</div>
+      <div class="section-title">Marco normativo: el Artículo 14 bis</div>
+      <div class="section-sub">Dónde se ubica la protección del trabajo dentro de la jerarquía de normas</div>
+    </div>
+
+    <p>Todo lo visto hasta acá —derechos, convenios colectivos, sindicatos— tiene su origen en una norma concreta: el <strong>Artículo 14 bis de la Constitución Nacional</strong>. Es la norma de mayor jerarquía en materia laboral; por eso ocupa la cúspide de la pirámide normativa:</p>
+
+    <div class="pyramid-wrap"><div id="pyramidContainer"></div></div>
+
+    <h3>Derechos que garantiza a los trabajadores</h3>
+    <p>El artículo asegura, entre otras cosas: condiciones dignas de labor, jornada limitada, descanso y vacaciones pagos, retribución justa, salario mínimo vital móvil, protección contra el despido arbitrario y organización sindical libre. Tres de estos derechos son especialmente importantes para entender por qué el Estado los protege:</p>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">🏥</div>
+        <div class="card-title">Obra social</div>
+        <div class="card-body">Cubre los gastos médicos si el trabajador se enferma o se accidenta — pero solo si está en blanco.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">👴</div>
+        <div class="card-title">Jubilación</div>
+        <div class="card-body">Reconoce que nadie puede trabajar indefinidamente: los años de aporte se traducen en un ingreso al dejar de trabajar.</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🏖️</div>
+        <div class="card-title">Vacaciones pagas</div>
+        <div class="card-body">Permiten descansar el cuerpo y la cabeza, y deben ser pagas porque el trabajador necesita ese dinero para vivir mientras no trabaja.</div>
+      </div>
+    </div>
+
+    <div class="box important">
+      <div class="box-label">Rol del Estado</div>
+      <p>El Estado no participa de la relación laboral como parte, sino como <strong>garante</strong>: su rol es supervisar que estas leyes se cumplan y que estén organizadas de forma coherente.</p>
+    </div>
+
+    <p>El artículo también garantiza a los gremios el derecho a concertar convenios colectivos, recurrir a la conciliación y el arbitraje, y el derecho de huelga — con estabilidad para sus representantes gremiales.</p>
+  </section>
+
+  <!-- ============ SECCIÓN 7 ============ -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="section-num">Sección 7</div>
+      <div class="section-title">Caso aplicado: plataformas digitales</div>
+      <div class="section-sub">Cómo se ve todo esto en un caso real</div>
+    </div>
+
+    <div class="box example">
+      <div class="box-label">El caso</div>
+      <p>Lucas tiene 19 años y reparte comida para una app de delivery en CABA, usando su propia bicicleta y su celular. La empresa lo registra como "colaborador independiente" (monotributista). Si se enferma o se accidenta, no cobra los días caídos, y no tiene vacaciones pagas, aguinaldo ni aportes jubilatorios — la app sostiene que solo conecta clientes con repartidores.</p>
+    </div>
+
+    <h3>¿Dependencia o independencia?</h3>
+    <p>Para distinguir un trabajador en relación de dependencia de un emprendedor independiente, lo central no es qué herramientas usa (la bicicleta, el celular) sino <strong>quién da las órdenes</strong>. Lucas no decide libremente cuándo, cómo ni bajo qué condiciones trabaja: la aplicación asigna los pedidos, fija las tarifas y controla el desempeño. Por eso, más allá de la etiqueta de "monotributista" o "colaborador independiente" que le pone la empresa, Lucas está en una relación de dependencia real.</p>
+
+    <h3>Derechos del Art. 14 bis que no se cumplen</h3>
+    <ul>
+      <li><strong>Obra social:</strong> no tiene cobertura si se accidenta trabajando.</li>
+      <li><strong>Protección ante accidentes:</strong> no hay médico laboral ni ART.</li>
+      <li><strong>Aportes jubilatorios:</strong> la empresa no realiza aportes a su nombre.</li>
+      <li><strong>Vacaciones pagas y aguinaldo:</strong> no los recibe, pese a trabajar de forma habitual.</li>
+    </ul>
+
+    <div class="box warning">
+      <div class="box-label">Ventajas y desventajas de este tipo de trabajo</div>
+      <p><strong>Ventaja:</strong> permite generar ingresos propios desde joven, con horarios flexibles y sin necesidad de experiencia previa.<br>
+      <strong>Desventaja:</strong> se pierde el conjunto de derechos laborales que sí tiene un trabajador registrado — sin red de protección ante un accidente, una enfermedad o la vejez.</p>
+    </div>
+
+    <hr class="divider">
+    <p style="font-size:13px; color:var(--text-muted); font-style:italic;">Vas a encontrar un caso parecido —pero distinto— para resolver en los ejercicios de esta sección.</p>
+  </section>
+
+</div>
+
+<button class="scroll-top" id="scrollBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script src="ejercicios.js"></script>
+</body>
+</html>
